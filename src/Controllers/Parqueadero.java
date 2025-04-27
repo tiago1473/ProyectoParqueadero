@@ -3,41 +3,71 @@ package Controllers;
 import javax.swing.JOptionPane;
 
 public class Parqueadero {
+	private VehiculosController vehiculosController;
 	private String nombre;
 	private String direccion;
 	private String representante;
 	private String telefono;
 	private String email;
-	private int cuposMotos;
-	private int cuposCarros;
-	private int cuposCamiones;
+	private int cuposAutomovil;
+	private int cuposMoto;
+	private int cuposCamion;
 	
 	public Parqueadero(String nombre, String direccion, String representante, String telefono, String email,
-			int cuposMotos, int cuposCarros, int cuposCamiones) {
+			int cuposAutos, int cuposMotos, int cuposCamiones) {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.representante = representante;
 		this.telefono = telefono;
 		this.email = email;
-		this.cuposMotos = cuposMotos;
-		this.cuposCarros = cuposCarros;
-		this.cuposCamiones = cuposCamiones;
+		this.cuposAutomovil = cuposAutos;
+		this.cuposMoto = cuposMotos;
+		this.cuposCamion = cuposCamiones;
 	}
 	
 	public void modificarCupos(String tipoVehiculo, int numeroCupos){
 		switch (tipoVehiculo) {
 		case "1":
-			setCuposMotos(numeroCupos);
+			setCuposAutomovil(numeroCupos);
 			break;
 		case "2":
-			setCuposCarros(numeroCupos);
+			setCuposMoto(numeroCupos);
 			break;
 		case "3":
-			setCuposCamiones(numeroCupos);
+			setCuposCamion(numeroCupos);
 			break;
 		default:
 			JOptionPane.showMessageDialog(null, "Opción Inválida");
 			break;
+		}
+	}
+	
+	public Boolean registrarVehiculo(String tipoVehiculo, String placa) {
+		switch (tipoVehiculo) {
+		case "1":
+			if(getCuposAutomovil()>=1) {
+				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
+					this.cuposAutomovil -= 1;
+					return true;
+				}
+			}
+		case "2":
+			if(getCuposMoto()>=1) {
+				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
+					this.cuposMoto -= 1;
+					return true;
+				}
+			}
+		case "3":
+			if(getCuposCamion()>=1) {
+				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
+					this.cuposCamion -= 1;
+					return true;
+				}
+			}
+		default:
+			JOptionPane.showMessageDialog(null, "Opción Inválida");
+			return false;
 		}
 	}
 
@@ -81,32 +111,27 @@ public class Parqueadero {
 		this.email = email;
 	}
 
-	public int getCuposMotos() {
-		return cuposMotos;
+	public int getCuposAutomovil() {
+		return cuposAutomovil;
 	}
 
-	public void setCuposMotos(int cuposMotos) {
-		this.cuposMotos = cuposMotos;
+	public void setCuposAutomovil(int cuposAutos) {
+		this.cuposAutomovil = cuposAutos;
 	}
 
-	public int getCuposCarros() {
-		return cuposCarros;
+	public int getCuposMoto() {
+		return cuposMoto;
 	}
 
-	public void setCuposCarros(int cuposCarros) {
-		this.cuposCarros = cuposCarros;
+	public void setCuposMoto(int cuposMotos) {
+		this.cuposMoto = cuposMotos;
 	}
 
-	public int getCuposCamiones() {
-		return cuposCamiones;
+	public int getCuposCamion() {
+		return cuposCamion;
 	}
 
-	public void setCuposCamiones(int cuposCamiones) {
-		this.cuposCamiones = cuposCamiones;
+	public void setCuposCamion(int cuposCamiones) {
+		this.cuposCamion = cuposCamiones;
 	}
-	
-	
-	
-
-
 }

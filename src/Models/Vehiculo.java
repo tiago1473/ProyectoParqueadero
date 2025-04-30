@@ -6,28 +6,28 @@ public abstract class Vehiculo {
 	private String placa;
 	private String color;
 	private String modelo;
+	private Cliente cliente;
 	private LocalDateTime horaEntrada;
 	private LocalDateTime horaSalida;
 	private TarifaService tarifa;
 	
-	//SOBRECARGA DE MÉTODOS Vehiculo asociado a un cliente (membresia)
-	public Vehiculo(String placa, String color, String modelo) {
+	//SOBRECARGA DE MÉTODOS Constructor vehiculo asociado a un cliente (membresia)
+	public Vehiculo(String placa, String color, String modelo, Cliente cliente) {
 		this.placa = placa;
 		this.color = color;
 		this.modelo = modelo;
 		this.horaEntrada = LocalDateTime.now(); //Almacena la hora de entrada en el instante que se crea
 		this.horaSalida = null;
+		this.cliente= cliente;
 	}
 	
-	//SOBRECARGA DE MÉTODOS Vehiculo de pago por horas
+	//SOBRECARGA DE MÉTODOS Constructor vehiculo pago por horas
 	public Vehiculo(String placa) {
 		this.placa = placa;
 		this.horaEntrada = LocalDateTime.now();
 		this.horaSalida = null;
 	}
 	
-	public abstract int calcularPagoVehiculo();
-
 	public String getPlaca() {
 		return placa;
 	}
@@ -67,9 +67,10 @@ public abstract class Vehiculo {
 	public void setHoraSalida(LocalDateTime salida) {
 		this.horaSalida = salida;
 	}
-
+	
 	public TarifaService getTarifa() {
 		return tarifa;
 	}
-
+	
+	public abstract int calcularPagoVehiculo();
 }

@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 
 public class Parqueadero {
 	private VehiculosController vehiculosController;
+	private PagosController pagosController;//NO ESTA CREADA AUN
+	private ClientesController clientesController; //NO ESTA CREADA AUN
 	private String nombre;
 	private String direccion;
 	private String representante;
@@ -23,6 +25,9 @@ public class Parqueadero {
 		this.cuposAutomovil = cuposAutos;
 		this.cuposMoto = cuposMotos;
 		this.cuposCamion = cuposCamiones;
+		this.vehiculosController= new VehiculosController(this);
+		this.pagosController= new PagosController(this);
+		this.clientesController= new ClientesController(this);
 	}
 	
 	public void modificarCupos(String tipoVehiculo, int numeroCupos){
@@ -42,35 +47,6 @@ public class Parqueadero {
 		}
 	}
 	
-	public Boolean registrarVehiculo(String tipoVehiculo, String placa) {
-		switch (tipoVehiculo) {
-		case "1":
-			if(getCuposAutomovil()>=1) {
-				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
-					this.cuposAutomovil -= 1;
-					return true;
-				}
-			}
-		case "2":
-			if(getCuposMoto()>=1) {
-				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
-					this.cuposMoto -= 1;
-					return true;
-				}
-			}
-		case "3":
-			if(getCuposCamion()>=1) {
-				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
-					this.cuposCamion -= 1;
-					return true;
-				}
-			}
-		default:
-			JOptionPane.showMessageDialog(null, "Opción Inválida");
-			return false;
-		}
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -134,4 +110,58 @@ public class Parqueadero {
 	public void setCuposCamion(int cuposCamiones) {
 		this.cuposCamion = cuposCamiones;
 	}
+	
+	public VehiculosController getVehiculosController() {
+		return vehiculosController;
+	}
+
+	public void setVehiculosController(VehiculosController vehiculosController) {
+		this.vehiculosController = vehiculosController;
+	}
+
+	public PagosController getPagosController() {
+		return pagosController;
+	}
+
+	public void setPagosController(PagosController pagosController) {
+		this.pagosController = pagosController;
+	}
+
+	public ClientesController getClientesController() {
+		return clientesController;
+	}
+
+	public void setClientesController(ClientesController clientesController) {
+		this.clientesController = clientesController;
+	}
+
+	public Boolean registrarVehiculo(String tipoVehiculo, String placa) {
+		switch (tipoVehiculo) {
+		case "1":
+			if(getCuposAutomovil()>=1) {
+				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
+					this.cuposAutomovil -= 1;
+					return true;
+				}
+			}
+		case "2":
+			if(getCuposMoto()>=1) {
+				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
+					this.cuposMoto -= 1;
+					return true;
+				}
+			}
+		case "3":
+			if(getCuposCamion()>=1) {
+				if (vehiculosController.registrarVehiculo(tipoVehiculo, placa)) {
+					this.cuposCamion -= 1;
+					return true;
+				}
+			}
+		default:
+			JOptionPane.showMessageDialog(null, "Opción Inválida");
+			return false;
+		}
+	}
+
 }

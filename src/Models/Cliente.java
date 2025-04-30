@@ -53,11 +53,12 @@ public class Cliente {
 		return vehiculosCliente;
 	}
 
-	//Creo que cuando es set de una lista es mejor hacer un método para modificarla más bien
 	public void setVehiculosCliente(ArrayList<Vehiculo> vehiculosCliente) {
 		this.vehiculosCliente = vehiculosCliente;
 	}
 	
-	
+	public void agregarVehiculoCliente(Vehiculo vehiculo) {
+		this.vehiculosCliente.add(vehiculo);
+	}
 
 }

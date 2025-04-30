@@ -3,14 +3,17 @@ package Controllers;
 import java.util.ArrayList;
 import Models.Automovil;
 import Models.Camion;
+import Models.Cliente;
 import Models.Moto;
 import Models.Vehiculo;
 
 public class VehiculosController {
 	public ArrayList<Vehiculo> vehiculosHora;
+	public ArrayList<Vehiculo> vehiculosMembresia;
 	
-	public VehiculosController() {
+	public VehiculosController(Parqueadero parqueadero) {
 		this.vehiculosHora = new ArrayList<>();
+		this.vehiculosMembresia = new ArrayList<>();		
 	}
 	
 	public Vehiculo buscarVehiculo(String placa) {
@@ -23,10 +26,10 @@ public class VehiculosController {
 	}
 
 	//Puedo hacer que desde el Main me mande el tipo de vehiculo a Registrar por Hora
-	public Boolean registrarVehiculo(String tipoVehiculo, String placa) {
+	public boolean registrarVehiculo(String opcion, String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
-			switch (tipoVehiculo) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
+			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case "1":
 				Automovil automovilNuevo = new Automovil(placa);
 				this.vehiculosHora.add(automovilNuevo);
@@ -44,6 +47,24 @@ public class VehiculosController {
 		return false;
 	}
 	
-	
-
+	public boolean registrarVehiculo(String opcion, String placa, String color, String modelo, Cliente cliente) {
+		Vehiculo vehiculoHallado = buscarVehiculo(placa);
+		if (vehiculoHallado == null) {
+			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
+			case "1":
+				Automovil automovilNuevo = new Automovil(placa,color,modelo,cliente);
+				this.vehiculosMembresia.add(automovilNuevo);
+				return true;
+			case "2":
+				Moto motoNueva = new Moto(placa,color,modelo,cliente);
+				this.vehiculosMembresia.add(motoNueva);
+				return true;	
+			case "3":
+				Camion camionNuevo = new Camion(placa,color,modelo,cliente);
+				this.vehiculosMembresia.add(camionNuevo);
+				return true;	
+			}
+		}
+		return false;
+	}
 }

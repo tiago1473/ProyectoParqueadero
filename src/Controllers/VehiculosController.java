@@ -26,19 +26,19 @@ public class VehiculosController {
 	}
 
 	//Puedo hacer que desde el Main me mande el tipo de vehiculo a Registrar por Hora
-	public boolean registrarVehiculo(String opcion, String placa) {
+	public boolean registrarVehiculo(int opcion, String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
-			case "1":
+			case 1:
 				Automovil automovilNuevo = new Automovil(placa);
 				this.vehiculosHora.add(automovilNuevo);
 				return true;
-			case "2":
+			case 2:
 				Moto motoNueva = new Moto(placa);
 				this.vehiculosHora.add(motoNueva);
 				return true;	
-			case "3":
+			case 3:
 				Camion camionNuevo = new Camion(placa);
 				this.vehiculosHora.add(camionNuevo);
 				return true;	
@@ -47,20 +47,20 @@ public class VehiculosController {
 		return false;
 	}
 	
-	public boolean registrarVehiculo(String opcion, String placa, String color, String modelo, Cliente cliente) {
+	public boolean registrarVehiculo(int opcion, String placa, String color, String modelo) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
-			case "1":
-				Automovil automovilNuevo = new Automovil(placa,color,modelo,cliente);
+			case 4:
+				Automovil automovilNuevo = new Automovil(placa,color,modelo);
 				this.vehiculosMembresia.add(automovilNuevo);
 				return true;
-			case "2":
-				Moto motoNueva = new Moto(placa,color,modelo,cliente);
+			case 5:
+				Moto motoNueva = new Moto(placa,color,modelo);
 				this.vehiculosMembresia.add(motoNueva);
 				return true;	
-			case "3":
-				Camion camionNuevo = new Camion(placa,color,modelo,cliente);
+			case 6:
+				Camion camionNuevo = new Camion(placa,color,modelo);
 				this.vehiculosMembresia.add(camionNuevo);
 				return true;	
 			}

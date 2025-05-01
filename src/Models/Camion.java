@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 public class Camion extends Vehiculo {
 
-	public Camion(String placa, String color, String modelo, Cliente cliente) {
-		super(placa, color, modelo, cliente);
+	public Camion(String placa, String color, String modelo) {
+		super(placa, color, modelo);
 	}
 	
 	public Camion(String placa) {

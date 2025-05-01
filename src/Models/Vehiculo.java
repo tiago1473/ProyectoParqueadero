@@ -6,19 +6,17 @@ public abstract class Vehiculo {
 	private String placa;
 	private String color;
 	private String modelo;
-	private Cliente cliente;
 	private LocalDateTime horaEntrada;
 	private LocalDateTime horaSalida;
-	private TarifaService tarifa;
+	private TarifaService tarifa; //muy probablemente no es así
 	
 	//SOBRECARGA DE MÉTODOS Constructor vehiculo asociado a un cliente (membresia)
-	public Vehiculo(String placa, String color, String modelo, Cliente cliente) {
+	public Vehiculo(String placa, String color, String modelo) {
 		this.placa = placa;
 		this.color = color;
 		this.modelo = modelo;
 		this.horaEntrada = LocalDateTime.now(); //Almacena la hora de entrada en el instante que se crea
 		this.horaSalida = null;
-		this.cliente= cliente;
 	}
 	
 	//SOBRECARGA DE MÉTODOS Constructor vehiculo pago por horas

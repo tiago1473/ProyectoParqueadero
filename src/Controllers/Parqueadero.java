@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class Parqueadero {
 	private VehiculosController vehiculosController;
 	private PagosController pagosController;//NO ESTA CREADA AUN
-	private ClientesController clientesController; //NO ESTA CREADA AUN
+	private ClientesController clientesController; 
 	private String nombre;
 	private String direccion;
 	private String representante;
@@ -163,5 +163,4 @@ public class Parqueadero {
 			return false;
 		}
 	}
-
 }

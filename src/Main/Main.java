@@ -36,7 +36,7 @@ public class Main {
 				+"(7) Volver al menú principal:\n";
 		int opcion;
 		do {
-			opcion=Integer.parseInt(JOptionPane.showInputDialog(menu));
+			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
 			validarMenuIngresarVehiculo(opcion);
 		}while (opcion !=0);
 	}
@@ -44,32 +44,35 @@ public class Main {
 	public static void validarMenuIngresarVehiculo(int opcion) {
 		String placaTemp= JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
 		if (opcion==1||opcion==2||opcion==3) {
-			crearVehiculoTemporal(opcion,placaTemp);
+			crearVehiculoTemporal(opcion, placaTemp);
 			}else if(opcion==4||opcion==5||opcion==6) {
 				String nombre=JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
-				//SE DEBE CREAR EL METODO Y PEDIR TODOS LOS DATOS DEL CLIENTE INCLUYENDO EL ENUM MEMBRESIA
-				Cliente cliente=añadirCliente()//OJO ESTE METODO FALTA CREARLO
 				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
 				String color= JOptionPane.showInputDialog("Ingrese el color del vehículo: ");
 				String modelo= JOptionPane.showInputDialog("Ingrese el modelo del vehículo: ");
-				crearMembresia(opcion,placa,color,modelo,cliente);
+				
+				crearMembresia(opcion, placa, color, modelo, cliente);
 			}else {
-				JOptionPane.showMessageDialog(null, "No ingreso ninguna opción válida");
+				JOptionPane.showMessageDialog(null, "No ingresó ninguna opción válida");
 			}
 	}
 	
-	public static void crearVehiculoTemporal(String opcion,String placaTemp) {
-		boolean canCrear=parqueadero.getVehiculosController().registrarVehiculo(opcion, placaTemp);
+	public static void crearVehiculoTemporal(int opcion, String placaTemp) {
+		boolean canCrear = parqueadero.getVehiculosController().registrarVehiculo(opcion, placaTemp);
 		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
 	}
 	
-	public static void crearMembresia(String opcion,String placa, String color, String modelo, Cliente cliente) {
+	public static void crearMembresia(int opcion, String placa, String color, String modelo, Cliente cliente) {
 		boolean canCrear=parqueadero.getVehiculosController().registrarVehiculo(opcion,placa,color,modelo,cliente);
 		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
 	}
 	
+	public static void crearCliente()
+	
 	public static void mostrarMensaje(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
+	
+	
 	
 }

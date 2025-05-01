@@ -1,19 +1,22 @@
 package Models;
 
 import java.util.ArrayList;
+import Assets.Membresia;
 
 public class Cliente {
 	private String nombre;
 	private String id;
 	private String telefono;
 	private String correo;
+	private Membresia membresia;
 	public ArrayList<Vehiculo> vehiculosCliente;
 	
-	public Cliente(String nombre, String id, String telefono, String correo) {
+	public Cliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
 		this.nombre = nombre;
 		this.id = id;
 		this.telefono = telefono;
 		this.correo = correo;
+		this.membresia = membresia;
 		this.vehiculosCliente = new ArrayList<>();
 	}
 
@@ -49,6 +52,14 @@ public class Cliente {
 		this.correo = correo;
 	}
 
+	public Membresia getMembresia() {
+		return membresia;
+	}
+
+	public void setMembresia(Membresia membresia) {
+		this.membresia = membresia;
+	}
+
 	public ArrayList<Vehiculo> getVehiculosCliente() {
 		return vehiculosCliente;
 	}
@@ -61,4 +72,5 @@ public class Cliente {
 		this.vehiculosCliente.add(vehiculo);
 	}
 
+	
 }

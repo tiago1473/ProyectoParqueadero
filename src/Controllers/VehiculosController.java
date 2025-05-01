@@ -1,6 +1,9 @@
 package Controllers;
 
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import Models.Automovil;
 import Models.Camion;
 import Models.Cliente;
@@ -32,7 +35,6 @@ public class VehiculosController {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case 1:
 				Automovil automovilNuevo = new Automovil(placa);
-				boolean clienteNuevo = parqueadero.getClientesController().crearCliente()
 				this.vehiculosHora.add(automovilNuevo);
 				return true;
 			case 2:
@@ -64,8 +66,13 @@ public class VehiculosController {
 				Camion camionNuevo = new Camion(placa,color,modelo);
 				this.vehiculosMembresia.add(camionNuevo);
 				return camionNuevo;	
+			default:
+				JOptionPane.showInternalMessageDialog(null, "Tipo de vehículo inválido");
+				return null;
 			}
 		}
-		JoptionPane.
+		 JOptionPane.showInternalMessageDialog(null, "No fue posible registrar el vehículo: ya existe");
+		    return null;
 	}
+	
 }

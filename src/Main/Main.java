@@ -5,8 +5,13 @@ import Models.Camion;
 import Models.Cliente;
 import Models.Moto;
 import Models.Vehiculo;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import javax.swing.JOptionPane;
 
+import Assets.Membresia;
 import Controllers.Parqueadero;
 
 public class Main {
@@ -47,11 +52,11 @@ public class Main {
 			if (opcion==1||opcion==2||opcion==3) {
 				crearVehiculoTemporal(opcion, placaTemp);
 			}else if(opcion==4||opcion==5||opcion==6) {
-				String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
 				String placa = JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
 				String color = JOptionPane.showInputDialog("Ingrese el color del vehículo: ");
 				String modelo = JOptionPane.showInputDialog("Ingrese el modelo del vehículo: ");
-				crearVehiculoMembresia(opcion, placa, color, modelo);
+				Vehiculo vehiculoNuevo = crearVehiculoMembresia(opcion, placa, color, modelo);
+				
 				
 			}else {
 				JOptionPane.showMessageDialog(null, "No ingresó ninguna opción válida");
@@ -63,15 +68,48 @@ public class Main {
 		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
 	}
 	
-	public static void crearVehiculoMembresia(int opcion, String placa, String color, String modelo) {
-		boolean canCrear = parqueadero.getVehiculosController().registrarVehiculo(opcion,placa,color,modelo);
-		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
+	public static Vehiculo crearVehiculoMembresia(int opcion, String placa, String color, String modelo) {
+		Vehiculo vehiculoNuevo = parqueadero.getVehiculosController().registrarVehiculo(opcion,placa,color,modelo);
+		return vehiculoNuevo;
 	}
+	
+	public static Cliente crearCliente() {
+		String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
+		String id = JOptionPane.showInputDialog("Ingrese el id: ");
+		String telefono = JOptionPane.showInputDialog("Ingrese el telefono: ");
+		String correo = JOptionPane.showInputDialog("Ingrese el correo: ");
+		LocalDateTime inicioMembresia = LocalDateTime.now();
+		Boolean isActiva = true;
 		
+		
+		
+		String nombre, String id, String telefono, String correo, Membresia membresia
+	}
+	
+	public static int menuTipoMembresia() {
+		String menu="(1) ANUAL\n"
+				+"(2) TRIMESTRAL\n"
+				+"(3) MENSUAL";
+		int opcion;
+		opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+		return opcion;
+		
+	}
+	
+	
+
 	public static void mostrarMensaje(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 	
+	public int calcularPagoVehiculo() {
+		setHoraSalida(LocalDateTime.now());
+        Duration duracion = Duration.between(getHoraEntrada(), getHoraSalida()); //Diferencia entre la hora de entrada y salida
+        int minutosEstacionado = (int) duracion.toMinutes(); //Llevo esa diferencia a minutos
+        int horasEstacionado = (int) Math.ceil(minutosEstacionado / 60.0); //Paso a horas y redondeo hacia arriba
+        int valorPago = horasEstacionado * getTarifa().getTarifaAutomovil();                                                                     //Math.ceil trabaja con float, por lo que debo castear el dato
+        return valorPago;
+	}
 	
 	
 }

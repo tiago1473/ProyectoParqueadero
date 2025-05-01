@@ -27,7 +27,7 @@ public abstract class Vehiculo {
 	}
 	
 	public String getPlaca() {
-		return placa;
+		return this.placa;
 	}
 
 	public void setPlaca(String placa) {
@@ -35,7 +35,7 @@ public abstract class Vehiculo {
 	}
 
 	public String getColor() {
-		return color;
+		return this.color;
 	}
 
 	public void setColor(String color) {
@@ -43,7 +43,7 @@ public abstract class Vehiculo {
 	}
 
 	public String getModelo() {
-		return modelo;
+		return this.modelo;
 	}
 
 	public void setModelo(String modelo) {
@@ -51,7 +51,7 @@ public abstract class Vehiculo {
 	}
 
 	public LocalDateTime getHoraEntrada() {
-		return horaEntrada;
+		return this.horaEntrada;
 	}
 
 	public void setHoraEntrada(LocalDateTime ingreso) {
@@ -59,7 +59,7 @@ public abstract class Vehiculo {
 	}
 
 	public LocalDateTime getHoraSalida() {
-		return horaSalida;
+		return this.horaSalida;
 	}
 
 	public void setHoraSalida(LocalDateTime salida) {
@@ -67,8 +67,14 @@ public abstract class Vehiculo {
 	}
 	
 	public TarifaService getTarifa() {
-		return tarifa;
+		return this.tarifa;
 	}
 	
+	@Override
+	public String toString() {
+		return "Vehiculo [placa=" + placa + ", color=" + color + ", modelo=" + modelo + ", horaEntrada=" + horaEntrada
+				+ ", horaSalida=" + horaSalida;
+	}
+
 	public abstract int calcularPagoVehiculo();
 }

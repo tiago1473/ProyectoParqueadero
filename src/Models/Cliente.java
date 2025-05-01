@@ -1,17 +1,17 @@
 package Models;
 
 import java.util.ArrayList;
-import Assets.Membresia;
+import Assets.Categoria;
 
 public class Cliente {
 	private String nombre;
 	private String id;
 	private String telefono;
 	private String correo;
-	private Membresia membresia;
+	private Categoria membresia;
 	public ArrayList<Vehiculo> vehiculosCliente;
 	
-	public Cliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
+	public Cliente(String nombre, String id, String telefono, String correo, Categoria membresia) {
 		this.nombre = nombre;
 		this.id = id;
 		this.telefono = telefono;
@@ -52,11 +52,11 @@ public class Cliente {
 		this.correo = correo;
 	}
 
-	public Membresia getMembresia() {
+	public Categoria getMembresia() {
 		return membresia;
 	}
 
-	public void setMembresia(Membresia membresia) {
+	public void setMembresia(Categoria membresia) {
 		this.membresia = membresia;
 	}
 

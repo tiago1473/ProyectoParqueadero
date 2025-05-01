@@ -1,6 +1,6 @@
 package Assets;
 
-public enum Membresia {
+public enum Categoria {
 	ANUAL,
 	TRIMESTRAL,
 	MENSUAL

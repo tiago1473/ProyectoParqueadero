@@ -2,7 +2,7 @@ package Controllers;
 
 import java.util.ArrayList;
 
-import Assets.Membresia;
+import Assets.Categoria;
 import Models.Cliente;
 
 public class ClientesController {
@@ -21,7 +21,7 @@ public class ClientesController {
 		return null;
 	}
 	
-	public Boolean crearCliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
+	public Boolean crearCliente(String nombre, String id, String telefono, String correo, Categoria membresia) {
 		Cliente clienteHallado = buscarCliente(id);
 		if (clienteHallado == null) {
 			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo, membresia);
@@ -31,7 +31,7 @@ public class ClientesController {
 		return false;
 	}
 	
-	public Boolean actualizarCliente(String id, String telefono, String correo, Membresia membresia) {
+	public Boolean actualizarCliente(String id, String telefono, String correo, Categoria membresia) {
 		Cliente clienteHallado = buscarCliente(id);
 		if(clienteHallado != null) {
 			clienteHallado.setTelefono(telefono);

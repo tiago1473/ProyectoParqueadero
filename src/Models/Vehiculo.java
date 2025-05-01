@@ -72,8 +72,8 @@ public abstract class Vehiculo {
 	
 	@Override
 	public String toString() {
-		return "Vehiculo [placa=" + placa + ", color=" + color + ", modelo=" + modelo + ", horaEntrada=" + horaEntrada
-				+ ", horaSalida=" + horaSalida;
+		return "Vehiculo [placa=" + this.placa + ", color=" + this.color + ", modelo=" + this.modelo + ", horaEntrada=" + this.horaEntrada
+				+ ", horaSalida=" + this.horaSalida;
 	}
 
 	public abstract int calcularPagoVehiculo();

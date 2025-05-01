@@ -42,16 +42,17 @@ public class Main {
 	}
 	
 	public static void validarMenuIngresarVehiculo(int opcion) {
-		String placaTemp= JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
-		if (opcion==1||opcion==2||opcion==3) {
-			crearVehiculoTemporal(opcion, placaTemp);
+		if(parqueadero.VerificarCupos(opcion)) { //Aquí ya le resté el cupo
+			String placaTemp= JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
+			if (opcion==1||opcion==2||opcion==3) {
+				crearVehiculoTemporal(opcion, placaTemp);
 			}else if(opcion==4||opcion==5||opcion==6) {
-				String nombre=JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
-				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
-				String color= JOptionPane.showInputDialog("Ingrese el color del vehículo: ");
-				String modelo= JOptionPane.showInputDialog("Ingrese el modelo del vehículo: ");
+				String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
+				String placa = JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
+				String color = JOptionPane.showInputDialog("Ingrese el color del vehículo: ");
+				String modelo = JOptionPane.showInputDialog("Ingrese el modelo del vehículo: ");
+				crearVehiculoMembresia(opcion, placa, color, modelo);
 				
-				crearMembresia(opcion, placa, color, modelo, cliente);
 			}else {
 				JOptionPane.showMessageDialog(null, "No ingresó ninguna opción válida");
 			}
@@ -62,13 +63,11 @@ public class Main {
 		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
 	}
 	
-	public static void crearMembresia(int opcion, String placa, String color, String modelo, Cliente cliente) {
-		boolean canCrear=parqueadero.getVehiculosController().registrarVehiculo(opcion,placa,color,modelo,cliente);
+	public static void crearVehiculoMembresia(int opcion, String placa, String color, String modelo) {
+		boolean canCrear = parqueadero.getVehiculosController().registrarVehiculo(opcion,placa,color,modelo);
 		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
 	}
-	
-	public static void crearCliente()
-	
+		
 	public static void mostrarMensaje(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}

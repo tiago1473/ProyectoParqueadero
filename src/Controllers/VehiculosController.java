@@ -32,6 +32,7 @@ public class VehiculosController {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case 1:
 				Automovil automovilNuevo = new Automovil(placa);
+				boolean clienteNuevo = parqueadero.getClientesController().crearCliente()
 				this.vehiculosHora.add(automovilNuevo);
 				return true;
 			case 2:
@@ -47,24 +48,24 @@ public class VehiculosController {
 		return false;
 	}
 	
-	public boolean registrarVehiculo(int opcion, String placa, String color, String modelo) {
+	public Vehiculo registrarVehiculo(int opcion, String placa, String color, String modelo) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case 4:
 				Automovil automovilNuevo = new Automovil(placa,color,modelo);
 				this.vehiculosMembresia.add(automovilNuevo);
-				return true;
+				return automovilNuevo;
 			case 5:
 				Moto motoNueva = new Moto(placa,color,modelo);
 				this.vehiculosMembresia.add(motoNueva);
-				return true;	
+				return motoNueva;	
 			case 6:
 				Camion camionNuevo = new Camion(placa,color,modelo);
 				this.vehiculosMembresia.add(camionNuevo);
-				return true;	
+				return camionNuevo;	
 			}
 		}
-		return false;
+		JoptionPane.
 	}
 }

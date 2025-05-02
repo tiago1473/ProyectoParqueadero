@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class Parqueadero {
 	private VehiculosController vehiculosController;
-	private PagosController pagosController;//NO ESTA CREADA AUN
+	private PagosController pagosController;
 	private ClientesController clientesController; 
 	private String nombre;
 	private String direccion;
@@ -28,6 +28,9 @@ public class Parqueadero {
 		this.vehiculosController= new VehiculosController(this);
 		this.pagosController= new PagosController(this);
 		this.clientesController= new ClientesController(this);
+		/**Preguntar si esta es la manera de hacerlo, o como funcionarian
+		 * estos controladores en el programa* 
+		 */
 	}
 	
 	public void modificarCupos(String tipoVehiculo, int numeroCupos){
@@ -133,9 +136,9 @@ public class Parqueadero {
 
 	public void setClientesController(ClientesController clientesController) {
 		this.clientesController = clientesController;
-	}
+	
 
-	public Boolean VerificarCupos(int tipoVehiculo) {
+	public boolean VerificarCupos(int tipoVehiculo) {
 		switch (tipoVehiculo) {
 		case 1,4:
 			if(getCuposAutomovil()>=1) {		

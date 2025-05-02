@@ -8,10 +8,10 @@ public class Cliente {
 	private String id;
 	private String telefono;
 	private String correo;
-	private Categoria membresia;
+	private Membresia membresia;
 	public ArrayList<Vehiculo> vehiculosCliente;
 	
-	public Cliente(String nombre, String id, String telefono, String correo, Categoria membresia) {
+	public Cliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
 		this.nombre = nombre;
 		this.id = id;
 		this.telefono = telefono;
@@ -21,7 +21,7 @@ public class Cliente {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -29,7 +29,7 @@ public class Cliente {
 	}
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {
@@ -37,7 +37,7 @@ public class Cliente {
 	}
 
 	public String getTelefono() {
-		return telefono;
+		return this.telefono;
 	}
 
 	public void setTelefono(String telefono) {
@@ -45,23 +45,23 @@ public class Cliente {
 	}
 
 	public String getCorreo() {
-		return correo;
+		return this.correo;
 	}
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
 
-	public Categoria getMembresia() {
-		return membresia;
+	public Membresia getMembresia() {
+		return this.membresia;
 	}
 
-	public void setMembresia(Categoria membresia) {
+	public void setMembresia(Membresia membresia) {
 		this.membresia = membresia;
 	}
 
 	public ArrayList<Vehiculo> getVehiculosCliente() {
-		return vehiculosCliente;
+		return this.vehiculosCliente;
 	}
 
 	public void setVehiculosCliente(ArrayList<Vehiculo> vehiculosCliente) {
@@ -72,5 +72,10 @@ public class Cliente {
 		this.vehiculosCliente.add(vehiculo);
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Cliente [nombre=" + this.nombre + ", id=" + this.id + ", telefono=" + this.telefono + ", correo=" + this.correo
+				+ ", membresia=" + getMembresia().getCategoria() +", fecha de inicio=" +getMembresia().getFechaInicio()
+				+ ", fecha de fin=" +getMembresia().getFechaFin()+", Activa=" +getMembresia().isActiva();
+	}
 }

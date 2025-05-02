@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Assets.Categoria;
 import Models.Cliente;
+import Models.Membresia;
 
 public class ClientesController {
 	public ArrayList<Cliente> clientes;
@@ -21,7 +22,7 @@ public class ClientesController {
 		return null;
 	}
 	
-	public Boolean crearCliente(String nombre, String id, String telefono, String correo, Categoria membresia) {
+	public boolean crearCliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
 		Cliente clienteHallado = buscarCliente(id);
 		if (clienteHallado == null) {
 			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo, membresia);
@@ -31,7 +32,7 @@ public class ClientesController {
 		return false;
 	}
 	
-	public Boolean actualizarCliente(String id, String telefono, String correo, Categoria membresia) {
+	public boolean actualizarCliente(String id, String telefono, String correo, Membresia membresia) {
 		Cliente clienteHallado = buscarCliente(id);
 		if(clienteHallado != null) {
 			clienteHallado.setTelefono(telefono);
@@ -42,12 +43,30 @@ public class ClientesController {
 		return false;		
 	}
 	
-	public Boolean eliminarCliente(String id) {
+	public boolean eliminarCliente(String id) {
 		Cliente clienteHallado = buscarCliente(id);
 		if(clienteHallado != null) {
 			this.clientes.remove(clienteHallado);
 			return true;
 		}
 		return false;		
+	}
+	
+	public String verVehiculosCliente(String id) {
+		Cliente clienteHallado = buscarCliente(id);
+		if(clienteHallado != null) {
+			return clienteHallado.getVehiculosCliente().toString();
+		}
+		return "El cliente no existe";
+	}
+	
+	public String verClienteMembresiaActiva() {
+		String mensaje= null;
+		for (Cliente cliente:this.clientes) {
+			if (cliente.getMembresia().isActiva()) {
+				mensaje+=cliente.toString()+"\n";
+			}
+		}
+		return mensaje;
 	}
 }

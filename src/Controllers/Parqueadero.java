@@ -28,27 +28,11 @@ public class Parqueadero {
 		this.vehiculosController= new VehiculosController(this);
 		this.pagosController= new PagosController(this);
 		this.clientesController= new ClientesController(this);
-		/**Preguntar si esta es la manera de hacerlo, o como funcionarian
-		 * estos controladores en el programa* 
-		 */
+		//**Preguntar si esta es la manera de hacerlo, o como funcionarian
+		// * estos controladores en el programa* 
+		// 
 	}
 	
-	public void modificarCupos(String tipoVehiculo, int numeroCupos){
-		switch (tipoVehiculo) {
-		case "1":
-			setCuposAutomovil(numeroCupos);
-			break;
-		case "2":
-			setCuposMoto(numeroCupos);
-			break;
-		case "3":
-			setCuposCamion(numeroCupos);
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Opción Inválida");
-			break;
-		}
-	}
 	
 	public String getNombre() {
 		return nombre;
@@ -114,6 +98,48 @@ public class Parqueadero {
 		this.cuposCamion = cuposCamiones;
 	}
 	
+	public void modificarCupos(String tipoVehiculo, int numeroCupos){
+		switch (tipoVehiculo) {
+		case "1":
+			setCuposAutomovil(numeroCupos);
+			break;
+		case "2":
+			setCuposMoto(numeroCupos);
+			break;
+		case "3":
+			setCuposCamion(numeroCupos);
+			break;
+		default:
+			JOptionPane.showMessageDialog(null, "Opción Inválida");
+			break;
+		}
+	}
+	
+	public boolean verificarCupos(int tipoVehiculo) {
+		switch (tipoVehiculo){
+			case 1:
+			case 4:
+				if(getCuposAutomovil()>=1) {		
+					this.cuposAutomovil -= 1;
+					return true;
+				}
+			case 2:
+			case 5:
+				if(getCuposMoto()>=1) {				
+					this.cuposMoto -= 1;
+					return true;
+				}
+			case 3:
+			case 6:
+				if(getCuposCamion()>=1) {
+					this.cuposCamion -= 1;
+					return true;
+				}
+			default:
+				return false;
+			}
+		}
+
 	public VehiculosController getVehiculosController() {
 		return vehiculosController;
 	}
@@ -136,30 +162,5 @@ public class Parqueadero {
 
 	public void setClientesController(ClientesController clientesController) {
 		this.clientesController = clientesController;
-	
-
-	public boolean verificarCupos(int tipoVehiculo) {
-	switch (tipoVehiculo){
-		case 1:
-		case 4:
-			if(getCuposAutomovil()>=1) {		
-				this.cuposAutomovil -= 1;
-				return true;
-			}
-		case 2:
-		case 5:
-			if(getCuposMoto()>=1) {				
-				this.cuposMoto -= 1;
-				return true;
-			}
-		case 3:
-		case 6:
-			if(getCuposCamion()>=1) {
-				this.cuposCamion -= 1;
-				return true;
-			}
-		default:
-			return false;
-		}
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import Models.Automovil;
 import Models.Camion;
 import Models.Cliente;
+import Models.Membresia;
 import Models.Moto;
 import Models.Vehiculo;
 
@@ -19,15 +20,6 @@ public class VehiculosController {
 		this.vehiculosMembresia = new ArrayList<>();		
 	}
 	
-	public Vehiculo buscarVehiculo(String placa) {
-		for(Vehiculo vehiculo : this.vehiculosHora) {
-			if(vehiculo.getPlaca().equals(placa)) {
-				return vehiculo;
-			}
-		}
-		return null;
-	}
-
 	//Puedo hacer que desde el Main me mande el tipo de vehiculo a Registrar por Hora
 	public boolean registrarVehiculo(int opcion, String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
@@ -50,20 +42,20 @@ public class VehiculosController {
 		return false;
 	}
 	
-	public Vehiculo registrarVehiculo(int opcion, String placa, String color, String modelo) {
+	public Vehiculo registrarVehiculo(int opcion, String placa, String color, String modelo, Membresia membresia) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case 4:
-				Automovil automovilNuevo = new Automovil(placa,color,modelo);
+				Automovil automovilNuevo = new Automovil(placa, color, modelo, membresia);
 				this.vehiculosMembresia.add(automovilNuevo);
 				return automovilNuevo;
 			case 5:
-				Moto motoNueva = new Moto(placa,color,modelo);
+				Moto motoNueva = new Moto(placa, color, modelo, membresia);
 				this.vehiculosMembresia.add(motoNueva);
 				return motoNueva;	
 			case 6:
-				Camion camionNuevo = new Camion(placa,color,modelo);
+				Camion camionNuevo = new Camion(placa, color, modelo, membresia);
 				this.vehiculosMembresia.add(camionNuevo);
 				return camionNuevo;	
 			default:
@@ -73,6 +65,40 @@ public class VehiculosController {
 		}
 		 JOptionPane.showInternalMessageDialog(null, "No fue posible registrar el vehículo: ya existe");
 		    return null;
+	}
+	
+	public Vehiculo buscarVehiculo(String placa) {
+		for(Vehiculo vehiculo : this.vehiculosHora) {
+			if(vehiculo.getPlaca().equals(placa)) {
+				return vehiculo;
+			}
+		}
+		return null;
+	}
+	
+	public Vehiculo buscarVehiculoMembresia(String placa) {
+		for(Vehiculo vehiculo : this.vehiculosMembresia) {
+			if(vehiculo.getPlaca().equals(placa)) {
+				return vehiculo;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Vehiculo> getVehiculosHora() {
+		return this.vehiculosHora;
+	}
+
+	public void setVehiculosHora(ArrayList<Vehiculo> vehiculosHora) {
+		this.vehiculosHora = vehiculosHora;
+	}
+
+	public ArrayList<Vehiculo> getVehiculosMembresia() {
+		return this.vehiculosMembresia;
+	}
+
+	public void setVehiculosMembresia(ArrayList<Vehiculo> vehiculosMembresia) {
+		this.vehiculosMembresia = vehiculosMembresia;
 	}
 	
 }

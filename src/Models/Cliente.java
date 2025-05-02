@@ -1,7 +1,6 @@
 package Models;
 
 import java.util.ArrayList;
-import Assets.Categoria;
 
 public class Cliente {
 	private String nombre;
@@ -50,30 +49,17 @@ public class Cliente {
 		this.correo = correo;
 	}
 
-	public Membresia getMembresia() {
-		return this.membresia;
-	}
-
-	public void setMembresia(Membresia membresia) {
-		this.membresia = membresia;
-	}
-
 	public ArrayList<Vehiculo> getVehiculosCliente() {
 		return this.vehiculosCliente;
 	}
 
-	public void setVehiculosCliente(ArrayList<Vehiculo> vehiculosCliente) {
-		this.vehiculosCliente = vehiculosCliente;
-	}
-	
 	public void agregarVehiculoCliente(Vehiculo vehiculo) {
 		this.vehiculosCliente.add(vehiculo);
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + this.nombre + ", id=" + this.id + ", telefono=" + this.telefono + ", correo=" + this.correo
-				+ ", membresia=" + getMembresia().getCategoria() +", fecha de inicio=" +getMembresia().getFechaInicio()
-				+ ", fecha de fin=" +getMembresia().getFechaFin()+", Activa=" +getMembresia().isActiva();
+		return "Nombre: " + this.nombre + "\n" + "Id: " + this.id + "\n" + "Telefono: " + this.telefono + "\n" 
+				+ "Correo: " + this.correo; 
 	}
 }

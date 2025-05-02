@@ -1,10 +1,7 @@
 package Controllers;
 
 import java.util.ArrayList;
-
-import Assets.Categoria;
 import Models.Cliente;
-import Models.Membresia;
 
 public class ClientesController {
 	public ArrayList<Cliente> clientes;
@@ -13,6 +10,25 @@ public class ClientesController {
 		this.clientes = new ArrayList<>();
 	}
 
+	public Cliente crearCliente(String nombre, String id, String telefono, String correo) {
+		Cliente clienteHallado = buscarCliente(id);
+		if (clienteHallado == null) {
+			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo);
+			this.clientes.add(nuevoCliente);
+			return nuevoCliente;
+		}
+		return null;
+	}
+	
+	public boolean eliminarCliente(String id) {
+		Cliente clienteHallado = buscarCliente(id);
+		if(clienteHallado != null) {
+			this.clientes.remove(clienteHallado);
+			return true;
+		}
+		return false;		
+	}
+	
 	public Cliente buscarCliente(String id) {
 		for(Cliente cliente : this.clientes) {
 			if(cliente.getId().equals(id)) {
@@ -22,31 +38,11 @@ public class ClientesController {
 		return null;
 	}
 	
-	public boolean crearCliente(String nombre, String id, String telefono, String correo) {
-		Cliente clienteHallado = buscarCliente(id);
-		if (clienteHallado == null) {
-			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo);
-			this.clientes.add(nuevoCliente);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean actualizarCliente(String id, String telefono, String correo, Membresia membresia) {
+	public boolean actualizarCliente(String id, String telefono, String correo) {
 		Cliente clienteHallado = buscarCliente(id);
 		if(clienteHallado != null) {
 			clienteHallado.setTelefono(telefono);
 			clienteHallado.setCorreo(correo);
-			clienteHallado.setMembresia(membresia);
-			return true;
-		}
-		return false;		
-	}
-	
-	public boolean eliminarCliente(String id) {
-		Cliente clienteHallado = buscarCliente(id);
-		if(clienteHallado != null) {
-			this.clientes.remove(clienteHallado);
 			return true;
 		}
 		return false;		
@@ -59,14 +55,9 @@ public class ClientesController {
 		}
 		return "El cliente no existe";
 	}
-	
-	public String verClienteMembresiaActiva() {
-		String mensaje= null;
-		for (Cliente cliente:this.clientes) {
-			if (cliente.getMembresia().isActiva()) {
-				mensaje+=cliente.toString()+"\n";
-			}
-		}
-		return mensaje;
+
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
 	}
+	
 }

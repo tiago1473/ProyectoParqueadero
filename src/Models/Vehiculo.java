@@ -16,9 +16,9 @@ public abstract class Vehiculo {
 		this.placa = placa;
 		this.color = color;
 		this.modelo = modelo;
+		this.membresia = membresia;
 		this.horaEntrada = LocalDateTime.now(); //Almacena la hora de entrada en el instante que se crea
 		this.horaSalida = null;
-		this.membresia=membresia;
 	}
 	
 	//SOBRECARGA DE MÉTODOS Constructor vehiculo pago por horas
@@ -76,16 +76,19 @@ public abstract class Vehiculo {
 		this.membresia = membresia;
 	}
 	
+	public void eliminarMembresia() {
+		this.membresia = null;
+	}
+	
 	public TarifaService getTarifa() {
 		return this.tarifa;
 	}
 	
 	@Override
 	public String toString() {
-		return "Vehiculo [placa=" + this.placa + ", color=" + this.color + ", modelo=" + this.modelo + ", horaEntrada=" + this.horaEntrada
-				+ ", horaSalida=" + this.horaSalida;
+		return "Placa: " + this.placa + "\n" + "Color: " + this.color + "\n" + "Modelo: " + this.modelo
+				+ "\n" + "Hora Entrada: " + this.horaEntrada + "\n" +  "Hora Salida: " + this.horaSalida;
 	}
-
+	
 	public abstract int calcularPagoVehiculo();
-
 }

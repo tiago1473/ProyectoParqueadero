@@ -1,38 +1,75 @@
 package Models;
 
+import java.time.LocalDateTime;
+
 public class Pago {
 	private String idPago;
-	private int pago;
-	private Vehiculo vehiculo;
+	private String tipoVehiculo;
+	private String placa;
+	private LocalDateTime fechaInicio;
+	private LocalDateTime fechaFin;
+	private int ingreso;
 	
-	public Pago(String idPago, int pago, Vehiculo vehiculo) {
+	public Pago(String idPago, String tipoVehiculo, String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin, int ingreso) {
 		this.idPago=idPago;
-		this.pago=pago;
-		this.vehiculo=vehiculo;
+		this.tipoVehiculo=tipoVehiculo;
+		this.placa=placa;
+		this.fechaInicio=fechaInicio;
+		this.fechaFin=fechaFin;
+		this.ingreso=ingreso;
 	}
 
 	public String getIdPago() {
-		return idPago;
+		return this.idPago;
 	}
 
 	public void setIdPago(String idPago) {
 		this.idPago = idPago;
 	}
 
-	public int getPago() {
-		return pago;
+	public String getTipoVehiculo() {
+		return this.tipoVehiculo;
 	}
 
-	public void setPago(int pago) {
-		this.pago = pago;
+	public void setTipoVehiculo(String tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
 	}
 
-	public Vehiculo getVehiculo() {
-		return vehiculo;
+	public String getPlaca() {
+		return this.placa;
 	}
 
-	public void setVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
+	public void setPlaca(String placa) {
+		this.placa = placa;
 	}
 
+	public LocalDateTime getFechaInicio() {
+		return this.fechaInicio;
+	}
+
+	public void setFechaInicio(LocalDateTime fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public LocalDateTime getFechaFin() {
+		return this.fechaFin;
+	}
+
+	public void setFechaFin(LocalDateTime fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public int getIngreso() {
+		return this.ingreso;
+	}
+
+	public void setIngreso(int ingreso) {
+		this.ingreso = ingreso;
+	}
+
+	@Override
+	public String toString() {
+		return "Pago [idPago=" + this.idPago + this.tipoVehiculo.toUpperCase() + ", placa=" + this.placa + ", fechaInicio="
+				+ this.fechaInicio + ", fechaFin=" + this.fechaFin + ", pago=" + this.ingreso + "]";
+	}
 }

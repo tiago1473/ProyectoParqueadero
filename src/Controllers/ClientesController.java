@@ -22,10 +22,10 @@ public class ClientesController {
 		return null;
 	}
 	
-	public boolean crearCliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
+	public boolean crearCliente(String nombre, String id, String telefono, String correo) {
 		Cliente clienteHallado = buscarCliente(id);
 		if (clienteHallado == null) {
-			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo, membresia);
+			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo);
 			this.clientes.add(nuevoCliente);
 			return true;
 		}

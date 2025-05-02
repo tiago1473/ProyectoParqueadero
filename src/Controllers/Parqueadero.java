@@ -138,25 +138,28 @@ public class Parqueadero {
 		this.clientesController = clientesController;
 	
 
-	public boolean VerificarCupos(int tipoVehiculo) {
-		switch (tipoVehiculo) {
-		case 1,4:
+	public boolean verificarCupos(int tipoVehiculo) {
+	switch (tipoVehiculo){
+		case 1:
+		case 4:
 			if(getCuposAutomovil()>=1) {		
 				this.cuposAutomovil -= 1;
 				return true;
 			}
-		case 2,5:
+		case 2:
+		case 5:
 			if(getCuposMoto()>=1) {				
 				this.cuposMoto -= 1;
 				return true;
 			}
-		case 3,6:
+		case 3:
+		case 6:
 			if(getCuposCamion()>=1) {
 				this.cuposCamion -= 1;
 				return true;
 			}
 		default:
-			JOptionPane.showMessageDialog(null, "No hay cupo disponible");
+			return false;
 		}
 	}
 }

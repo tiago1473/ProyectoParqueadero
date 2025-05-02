@@ -69,7 +69,7 @@ public class Pago {
 
 	@Override
 	public String toString() {
-		return "Pago [idPago=" + this.idPago + this.tipoVehiculo.toUpperCase() + ", placa=" + this.placa + ", fechaInicio="
-				+ this.fechaInicio + ", fechaFin=" + this.fechaFin + ", pago=" + this.ingreso + "]";
+		return "Pago "+ this.tipoVehiculo.toUpperCase() + "[idPago=" + this.idPago +  ", placa=" + this.placa 
+				+ ", fechaInicio=" + this.fechaInicio + ", fechaFin=" + this.fechaFin + ", pago=" + this.ingreso + "]";
 	}
 }

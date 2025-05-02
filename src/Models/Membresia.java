@@ -9,12 +9,14 @@ public class Membresia {
 	private Date fechaFin;
 	private boolean isActiva;
 	private Categoria categoria;
+	private Cliente cliente;
 	
-	public Membresia(Date fechaInicio, Date fechaFin, boolean isActiva, Categoria categoria) {
+	public Membresia(Date fechaInicio, Date fechaFin, boolean isActiva, Categoria categoria, Cliente cliente) {
 		this.fechaInicio=fechaInicio;
 		this.fechaFin=fechaFin;
 		this.isActiva=isActiva;
-		this.categoria=categoria;		
+		this.categoria=categoria;
+		this.cliente=cliente;
 	}
 
 	public Date getFechaInicio() {
@@ -47,5 +49,13 @@ public class Membresia {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }

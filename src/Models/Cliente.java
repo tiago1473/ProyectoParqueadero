@@ -8,15 +8,13 @@ public class Cliente {
 	private String id;
 	private String telefono;
 	private String correo;
-	private Membresia membresia;
 	public ArrayList<Vehiculo> vehiculosCliente;
 	
-	public Cliente(String nombre, String id, String telefono, String correo, Membresia membresia) {
+	public Cliente(String nombre, String id, String telefono, String correo) {
 		this.nombre = nombre;
 		this.id = id;
 		this.telefono = telefono;
 		this.correo = correo;
-		this.membresia = membresia;
 		this.vehiculosCliente = new ArrayList<>();
 	}
 

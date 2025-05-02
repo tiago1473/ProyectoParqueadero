@@ -1,5 +1,6 @@
 package Controllers;
 import Models.Pago;
+import Models.TarifaService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,10 +12,11 @@ public class PagosController {
 	 a vehiculos controller* 
 	 */
 	private ArrayList<Pago> pagos;
-	
+	private TarifaService tarifas;
 	
 	public PagosController (Parqueadero parqueadero) {
 		this.pagos= new ArrayList<>();
+		this.tarifas=null;//todavia no se como va instanciado el tarifa service
 	}
 	
 	public Pago buscarPago(String idPago) {
@@ -45,4 +47,76 @@ public class PagosController {
 		return "No hay factura generada para ese vehiculo";
 	}
 	
+	public String obtenerHistorialPagoVehiculo(String placa) {
+		String mensaje=null;
+		for(Pago pago:this.pagos) {
+			if (pago.getPlaca().equals(placa)) {
+				mensaje+=pago.toString();
+			}
+		}
+		return mensaje;
+	}
+	
+	public int calcularIngresosTotales() {
+		int ingresoTotal=0;
+		for (Pago pago:this.pagos) {
+			ingresoTotal+=pago.getIngreso();
+		}
+		return ingresoTotal;
+	}
+	
+	public boolean actualizarTarifas(int tipoVehiculo, int tipoTarifa, int nuevaTarifa) {
+		switch (tipoVehiculo) {
+		case 1:
+			if (tipoTarifa==1) {
+				tarifas.setTarifaAutomovil(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==2) {
+				tarifas.setAnualAutomovil(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==3) {
+				tarifas.setTrimestralAutomovil(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==4) {
+				tarifas.setMensualAutomovil(nuevaTarifa);
+				return true;
+			}else {
+				return false;
+			}
+		case 2:
+			if (tipoTarifa==1) {
+				tarifas.setTarifaMoto(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==2) {
+				tarifas.setAnualMoto(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==3) {
+				tarifas.setTrimestralMoto(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==4) {
+				tarifas.setMensualMoto(nuevaTarifa);
+				return true;
+			}else {
+				return false;
+			}
+		case 3:
+			if (tipoTarifa==1) {
+				tarifas.setTarifaCamion(tipoTarifa);
+				return true;
+			}else if (tipoTarifa==2) {
+				tarifas.setAnualCamion(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==3) {
+				tarifas.setTrimestralCamion(nuevaTarifa);
+				return true;
+			}else if (tipoTarifa==4) {
+				tarifas.setMensualCamion(nuevaTarifa);
+				return true;
+			}else {
+				return false;
+			}
+		default:
+			return false;
+		}
+	}
 }

@@ -8,15 +8,17 @@ public abstract class Vehiculo {
 	private String modelo;
 	private LocalDateTime horaEntrada;
 	private LocalDateTime horaSalida;
+	private Membresia membresia;
 	private TarifaService tarifa; //muy probablemente no es así
 	
 	//SOBRECARGA DE MÉTODOS Constructor vehiculo asociado a un cliente (membresia)
-	public Vehiculo(String placa, String color, String modelo) {
+	public Vehiculo(String placa, String color, String modelo, Membresia membresia) {
 		this.placa = placa;
 		this.color = color;
 		this.modelo = modelo;
 		this.horaEntrada = LocalDateTime.now(); //Almacena la hora de entrada en el instante que se crea
 		this.horaSalida = null;
+		this.membresia=membresia;
 	}
 	
 	//SOBRECARGA DE MÉTODOS Constructor vehiculo pago por horas
@@ -66,6 +68,14 @@ public abstract class Vehiculo {
 		this.horaSalida = salida;
 	}
 	
+	public Membresia getMembresia() {
+		return this.membresia;
+	}
+
+	public void setMembresia(Membresia membresia) {
+		this.membresia = membresia;
+	}
+	
 	public TarifaService getTarifa() {
 		return this.tarifa;
 	}
@@ -77,4 +87,5 @@ public abstract class Vehiculo {
 	}
 
 	public abstract int calcularPagoVehiculo();
+
 }

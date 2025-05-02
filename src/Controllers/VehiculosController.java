@@ -44,7 +44,7 @@ public class VehiculosController {
 			case 3:
 				Camion camionNuevo = new Camion(placa);
 				this.vehiculosHora.add(camionNuevo);
-				return true;	
+				return true;
 			}
 		}
 		return false;

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+import Assets.Categoria;
 import Assets.Membresia;
 import Controllers.Parqueadero;
 
@@ -95,8 +96,25 @@ public class Main {
 		return opcion;
 		
 	}
-	
-	
+	public static Categoria crearMembresia() {
+        int opcion = menuTipoMembresia();  
+        Categoria membresia = null;
+        switch (opcion) {
+            case 1:
+                membresia = Categoria.ANUAL; 
+                break;
+            case 2:
+                membresia = Categoria.TRIMESTRAL;
+                break;
+            case 3:
+                membresia = Categoria.MENSUAL;  
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Opción inválida.");
+                break;
+        }
+        return membresia;
+	}
 
 	public static void mostrarMensaje(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
@@ -110,6 +128,101 @@ public class Main {
         int valorPago = horasEstacionado * getTarifa().getTarifaAutomovil();                                                                     //Math.ceil trabaja con float, por lo que debo castear el dato
         return valorPago;
 	}
+	// menu que permite navegar en gestionar clients
 	
-	
+	public static void menuGestionCliente() {
+        String menu = "(1) Crear Cliente\n"
+                     + "(2) Eliminar Cliente\n"
+                     + "(3) Actualizar Cliente\n"
+                     + "(4) Ver Vehículos de Cliente\n"
+                     + "(5) Ver Clientes con Membresía Activa\n"
+                     + "(6) Volver al Menú Principal";
+
+        int opcion;
+        do {
+            opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+            switch (opcion) {
+                case 1:
+                	String nombre = JOptionPane.showInputDialog("Nombre:");
+                    String id = JOptionPane.showInputDialog("ID:");
+                    String telefono = JOptionPane.showInputDialog("Teléfono:");
+                    String correo = JOptionPane.showInputDialog("Correo:");
+                    Categoria membresia = seleccionarMembresia();
+                    boolean creado = parqueadero.getClientesController().crearCliente(nombre, id, telefono, correo, membresia);
+                    mostrarMensaje(creado ? "Cliente creado exitosamente" : "Ya existe un cliente con ese ID");
+                    break;
+                case 2:
+                	id = JOptionPane.showInputDialog("ID del cliente a eliminar:");
+                    boolean eliminado = parqueadero.getClientesController().eliminarCliente(id);
+                    mostrarMensaje(eliminado ? "Cliente eliminado" : "Cliente no encontrado");  
+                    break;
+                case 3:
+                	id = JOptionPane.showInputDialog("ID del cliente a actualizar:");
+                    telefono = JOptionPane.showInputDialog("Nuevo teléfono:");
+                    correo = JOptionPane.showInputDialog("Nuevo correo:");
+                    membresia = seleccionarMembresia();
+                    boolean actualizado = parqueadero.getClientesController().actualizarCliente(id, telefono, correo, membresia);
+                    mostrarMensaje(actualizado ? "Cliente actualizado" : "Cliente no encontrado");
+                    break;
+                case 4:
+                    verVehiculosDeCliente();  
+                    break;
+                case 5:
+                    verClientesConMembresiaActiva();  
+                    break;
+                case 6:
+                    JOptionPane.showMessageDialog(null, "Menu principal");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida.");
+                    break;
+            }
+        } while (opcion != 6);
+    
+	        
+	}
+
+
+
 }
+	// mostrar clientes con la una membresia activa
+	
+	public static void mostrarClientesConMembresiaActiva() {
+	    String mensaje = "Clientes con membresía activa:\n";
+
+	    for (Cliente cliente : parqueadero.getClientesController().clientes) {
+	        if (cliente.getMembresia() != null && cliente.getMembresia().isActiva()) {
+	            mensaje += "Nombre: " + cliente.getNombre() + "ID: " + cliente.getId() + "\n";
+	        }
+	    }
+
+	    JOptionPane.showMessageDialog(null, mensaje);
+	}
+	 // Buscar el cliente por id para ver vehiculos
+	
+	public static void mostrarVehiculosDeCliente() {
+	    String idCliente = JOptionPane.showInputDialog("Ingrese el ID del cliente para ver sus vehículos:");
+
+	    Cliente cliente = parqueadero.getClientesController().buscarCliente(idCliente);
+	    
+	    if (cliente != null) {
+	        String mensaje = "Vehículos del cliente " + cliente.getNombre() + " (ID: " + cliente.getId() + "):\n";
+	        
+	        // Verificamoss si el cliente tiene vehículos:
+	        if (cliente.getVehiculosCliente().isEmpty()) { //nos valida si la lista esta cvacia 
+	            mensaje += "Este cliente no tiene vehículos registrados.";
+	        } else {
+	            // si la lista no esta vacia concatenamos los vehiculos por palaca
+	            for (Vehiculo vehiculo : cliente.getVehiculosCliente()) {
+	                mensaje += "Placa: " + vehiculo.getPlaca() + " | Tipo: " + vehiculo.getClass().getSimpleName() + "\n";
+	            }
+	        }
+	        
+	        // y ahora que estan concatenados los mostramos o decimos que no se encontro el cliente en caso tal
+	        JOptionPane.showMessageDialog(null, mensaje);
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
+	    }
+	}
+  
+	}

@@ -6,6 +6,7 @@ import Models.Cliente;
 import Models.Membresia;
 import Models.Moto;
 import Models.Pago;
+import Models.TarifaService;
 import Models.Vehiculo;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -24,13 +25,47 @@ public class Main {
 			JOptionPane.showInputDialog("Ingrese el email del Parqueadero: "),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de autos del parqueadero: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de motos del parqueadero: ")),
-			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de camiones del parqueadero: ")));
-		
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de camiones del parqueadero: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los automoviles en el siguiente orden: Hora: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de las motos en el siguiente orden: Hora: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los camiones en el siguiente orden: Hora: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")));		
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		JOptionPane.showMessageDialog(null, parqueadero.toString());
+		TarifaService.mostrarTarifas();
+		menuPrincipal();
 	}
 	
+	//MENU PRINCIPAL DEL USUARIO
+	
+	public static void menuPrincipal() {
+		String menu="(1)Ingresar Vehiculo:\n"
+				+"(2) Dar Salida a Vehiculo:\n"
+				+"(3) Gestionar Clientes:\n"
+				+"(4) Gestionar Vehiculos:\n"
+				+"(5) Gestionar Parqueadero:\n"
+				+"(6) Salir:\n";
+		int opcion;
+		do {
+			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+			validarMenuIngresarVehiculo(opcion);
+		}while (opcion !=6);
+	}
+	
+	public static void validarMenuPrincipal(int opcion) {
+		//FALTA DESARROLLO MENU PRINCIPAL
+	}
+	
+	
+	
+	//MENU INGRESAR VEHICULO
 	public static void menuIngresarVehiculo() {
 		String menu="(1)Ingreso automovil temporal:\n"
 				+"(2)Ingreso moto temporal:\n"
@@ -50,14 +85,11 @@ public class Main {
 		String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo a registrar: ");
 		if (opcion == 1 || opcion == 2 || opcion == 3 && parqueadero.verificarCupos(opcion)) { //Valido que sea temporal y resto el cupo
 			IngresarVehiculoTemporal(opcion, placa);
-		}
-		if(opcion == 4|| opcion == 5|| opcion == 6) {
+		}else if(opcion == 4|| opcion == 5|| opcion == 6) {
 			Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa); 
 			if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva()){
 				JOptionPane.showMessageDialog(null, "Ingresa vehiculo con membresía activa");
-				break;
-			} 
-			else if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva() == false){
+			}else if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva() == false){
 				String idPago = JOptionPane.showInputDialog(null, "Ingrese el Id del Pago de la Membresia");
 				String tipoVehiculo = vehiculoHallado.getClass().getName(); //Obtiene la clase, especificamente su nombre y la vuelve a formato string
 				Membresia membresia = crearMembresia();
@@ -164,6 +196,9 @@ public class Main {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 	
+	
+	//MENU GESTIONAR AL CLIENTE
+	
 	public static void menuGestionCliente() {
         String menu = "(1) Crear Cliente\n"
                      + "(2) Eliminar Cliente\n"
@@ -205,7 +240,7 @@ public class Main {
                     verClientesConMembresiaActiva();  
                     break;
                 case 6:
-                    JOptionPane.showMessageDialog(null, "Menu principal");
+                	menuPrincipal();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.");
@@ -255,5 +290,78 @@ public class Main {
 	        JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
 	    }
 	}
-  
+	
+	
+	
+	//MENU PARA GESTION DE PARQUEADERO
+	
+	public static void menuGestionarParqueadero() {
+		String menu="(1) Actualizar Datos del Parqueadero:\n"
+				+"(2) Actualizar los cupos del Parqueadero: \n"
+				+"(3) Actualizar Tarifas del Parqueadero:\n"
+				+"(4) Generar Facturas con el ID del pago:\n"
+				+"(5) Obtener el historial de pago de un vehículo:\n"
+				+"(6) Calcular los ingresos totales del parqueadero:\n"
+				+"(7) Volver al menú principal:\n";
+		int opcion;
+		do {
+			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+			validarMenuGestionarParqueadero(opcion);
+		}while (opcion !=7);
+	}
+	
+	public static void validarMenuGestionarParqueadero(int opcion) {
+		switch (opcion) {
+		case 1:
+			//(1) Actualizar Datos del Parqueadero
+			parqueadero.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del Parqueadero: "));
+			parqueadero.setDireccion(JOptionPane.showInputDialog("Ingrese la dirección del Parqueadero: "));
+			parqueadero.setRepresentante(JOptionPane.showInputDialog("Ingrese el representante del Parqueadero: "));
+			parqueadero.setTelefono(JOptionPane.showInputDialog("Ingrese el teléfono del Parqueadero: "));
+			parqueadero.setEmail(JOptionPane.showInputDialog("Ingrese el email del Parqueadero: "));
+			JOptionPane.showMessageDialog(null,"Se han actualizado exitosamente los datos del Parqueadero");
+			parqueadero.toString();
+			break;
+		case 2:
+			//(2) Actualizar los cupos del Parqueadero
+			parqueadero.modificarCupos(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el tipo de vehiculo al que desea modificarle "
+					+ "los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n")), Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo "
+					+ "cupo: ")));
+			JOptionPane.showMessageDialog(null, "Se han actualizado exitosamente los cupos del Parqueadero");
+			parqueadero.toString();
+			break;
+		case 3:
+			//(3) Actualizar Tarifas del Parqueadero
+			parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la el vehiculo al que"
+					+ " desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n")),Integer.parseInt(JOptionPane.showInputDialog( 
+					"Ingrese la tarifa que desea cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n")),Integer.parseInt(
+					JOptionPane.showInputDialog("Ingrese el nuevo valor de la tarifa")));
+			JOptionPane.showMessageDialog(null, "Se ha actualizado exitosamente la tarifa del Parqueadero");
+			TarifaService.mostrarTarifas();
+			break;
+		case 4:
+			//(4) Generar Facturas con el ID del pago
+			String mensaje=parqueadero.getPagosController().generarFactura(JOptionPane.showInputDialog("Ingrese el ID del Pago: "));
+			JOptionPane.showMessageDialog(null, parqueadero.toString()+"\n"+mensaje);
+			break;
+		case 5:
+			//(5) Obtener el historial de pago de un vehículo
+			String mensaje2=parqueadero.getPagosController().obtenerHistorialPagoVehiculo(JOptionPane.showInputDialog("Ingrese la placa de la que desea obtener"
+					+ "el historial de pagos"));
+			JOptionPane.showMessageDialog(null, mensaje2);
+			break;
+		case 6:
+			//(6) Calcular los ingresos totales del parqueadero
+			JOptionPane.showMessageDialog(null, "A la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+
+			parqueadero.getPagosController().calcularIngresosTotales());
+			break;
+		case 7:
+			//(7) Volver al menú principal
+			menuPrincipal();
+			break;
+		default:
+			JOptionPane.showMessageDialog(null,"No ingreso ninguna opción válida");
+			break;
+		}
+	}
 	}

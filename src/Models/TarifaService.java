@@ -1,130 +1,90 @@
 package Models;
 
 public class TarifaService {
-	private int tarifaAutomovil;
-	private int tarifaMoto;
-	private int tarifaCamion;
-	private int anualAutomovil;
-	private int anualMoto;
-	private int anualCamion;
-	private int trimestralAutomovil;
-	private int trimestralMoto;
-	private int trimestralCamion;
-	private int mensualAutomovil;
-	private int mensualMoto;
-	private int mensualCamion;
+	private static final int[] tarifaAutomovil=new int[4];
+	private static final int[] tarifaMoto=new int[4];
+	private static final int[] tarifaCamion=new int[4];
 	
-	public TarifaService(int tarifaAutomovil, int tarifaMoto, int tarifaCamion, int anualAutomovil
-			, int anualMoto, int anualCamion, int trimestralAutomovil, int trimestralMoto
-			, int trimestralCamion, int mensualAutomovil, int mensualMoto, int mensualCamion) {
-		this.tarifaAutomovil = tarifaAutomovil;
-		this.tarifaMoto = tarifaMoto;
-		this.tarifaCamion = tarifaCamion;
-		this.anualAutomovil= anualAutomovil;
-		this.anualMoto= anualMoto;
-		this.anualCamion= anualCamion;
-		this.trimestralAutomovil=trimestralAutomovil;
-		this.trimestralMoto=trimestralMoto;
-		this.trimestralCamion=trimestralCamion;
-		this.mensualAutomovil=mensualAutomovil;
-		this.mensualMoto=mensualAutomovil;
-		this.mensualCamion=mensualCamion;
+	/**Para las tarifas se hacen arreglos de 4 numeros, la primera posicion (0) es la tarifa por hora
+	 * la segunda posición (1) es la tarifa de la membresia anual, la tercera posición (2) es la membresia
+	 * trimestral y la cuarta posición (3) es la membresia mensual*/
+	
+	private TarifaService() {
 	}
 
-	public int getTarifaAutomovil() {
-		return this.tarifaAutomovil;
+	public static int[] getTarifaAutomovil() {
+		return tarifaAutomovil;
 	}
 
-	public void setTarifaAutomovil(int tarifaAutomovil) {
-		this.tarifaAutomovil = tarifaAutomovil;
+	public static void setTarifaAutomovil(int posicion,int tarifaA) {
+		switch (posicion) {
+		case 1:
+			tarifaAutomovil[0]=tarifaA;
+			break;
+		case 2:
+			tarifaAutomovil[1]=tarifaA;
+			break;
+		case 3:
+			tarifaAutomovil[2]=tarifaA;
+			break;
+		case 4:
+			tarifaAutomovil[3]=tarifaA;
+			break;
+		default:
+			break;
+		}
 	}
 
-	public int getTarifaMoto() {
-		return this.tarifaMoto;
-	}
-
-	public void setTarifaMoto(int tarifaMoto) {
-		this.tarifaMoto = tarifaMoto;
-	}
-
-	public int getTarifaCamion() {
-		return this.tarifaCamion;
-	}
-
-	public void setTarifaCamion(int tarifaCamion) {
-		this.tarifaCamion = tarifaCamion;
-	}
-
-	public int getAnualAutomovil() {
-		return this.anualAutomovil;
-	}
-
-	public void setAnualAutomovil(int anualAutomovil) {
-		this.anualAutomovil = anualAutomovil;
-	}
-
-	public int getAnualMoto() {
-		return this.anualMoto;
-	}
-
-	public void setAnualMoto(int anualMoto) {
-		this.anualMoto = anualMoto;
-	}
-
-	public int getAnualCamion() {
-		return this.anualCamion;
-	}
-
-	public void setAnualCamion(int anualCamion) {
-		this.anualCamion = anualCamion;
-	}
-
-	public int getTrimestralAutomovil() {
-		return this.trimestralAutomovil;
-	}
-
-	public void setTrimestralAutomovil(int trimestralAutomovil) {
-		this.trimestralAutomovil = trimestralAutomovil;
-	}
-
-	public int getTrimestralMoto() {
-		return this.trimestralMoto;
-	}
-
-	public void setTrimestralMoto(int trimestralMoto) {
-		this.trimestralMoto = trimestralMoto;
-	}
-
-	public int getTrimestralCamion() {
-		return this.trimestralCamion;
-	}
-
-	public void setTrimestralCamion(int trimestralCamion) {
-		this.trimestralCamion = trimestralCamion;
-	}
-
-	public int getMensualAutomovil() {
-		return this.mensualAutomovil;
-	}
-
-	public void setMensualAutomovil(int mensualAutomovil) {
-		this.mensualAutomovil = mensualAutomovil;
-	}
-
-	public int getMensualMoto() {
-		return this.mensualMoto;
-	}
-
-	public void setMensualMoto(int mensualMoto) {
-		this.mensualMoto = mensualMoto;
-	}
-
-	public int getMensualCamion() {
-		return this.mensualCamion;
-	}
-
-	public void setMensualCamion(int mensualCamion) {
-		this.mensualCamion = mensualCamion;
+	public static int[] getTarifaMoto() {
+		return tarifaMoto;
 	}
 	
+	public static void setTarifaMoto(int posicion,int tarifaM) {
+		switch (posicion) {
+		case 1:
+			tarifaMoto[0]=tarifaM;
+			break;
+		case 2:
+			tarifaMoto[1]=tarifaM;
+			break;
+		case 3:
+			tarifaMoto[2]=tarifaM;
+			break;
+		case 4:
+			tarifaMoto[3]=tarifaM;
+			break;
+		default:
+			break;
+		}
+	}
+
+	public static int[] getTarifaCamion() {
+		return tarifaCamion;
+	}
+	
+	public static void setTarifaCamion(int posicion,int tarifaC) {
+		switch (posicion) {
+		case 1:
+			tarifaCamion[0]=tarifaC;
+			break;
+		case 2:
+			tarifaCamion[1]=tarifaC;
+			break;
+		case 3:
+			tarifaCamion[2]=tarifaC;
+			break;
+		case 4:
+			tarifaCamion[3]=tarifaC;
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public static String mostrarTarifas() {
+		return "Las tarifas actuales son las siguientes:\n"
+				+"AUTOMOVIL: Hora:"+tarifaAutomovil[0]+" Anual:"+tarifaAutomovil[1]+" Trimestral:"+tarifaAutomovil[2]+" Mensual:"+tarifaAutomovil[3]+"\n"
+				+"MOTO: Hora:"+tarifaMoto[0]+" Anual:"+tarifaMoto[1]+" Trimestral:"+tarifaMoto[2]+" Mensual:"+tarifaMoto[3]+"\n"
+				+"CAMION: Hora:"+tarifaCamion[0]+" Anual:"+tarifaCamion[1]+" Trimestral:"+tarifaCamion[2]+" Mensual:"+tarifaCamion[3];
+	}
 }

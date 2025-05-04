@@ -18,7 +18,7 @@ public class Moto extends Vehiculo {
         Duration duracion = Duration.between(getHoraEntrada(), getHoraSalida()); 
         int minutosEstacionado = (int) duracion.toMinutes(); 
         int horasEstacionado = (int) Math.ceil(minutosEstacionado / 60.0); 
-        int valorPago = horasEstacionado * getTarifa().getTarifaMoto();                                                                     //Math.ceil trabaja con float, por lo que debo castear el dato
+        int valorPago = horasEstacionado * TarifaService.getTarifaMoto()[0];                                                                     //Math.ceil trabaja con float, por lo que debo castear el dato
         return valorPago;
 	}
 

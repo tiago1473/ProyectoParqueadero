@@ -2,6 +2,8 @@ package Controllers;
 
 import javax.swing.JOptionPane;
 
+import Models.TarifaService;
+
 public class Parqueadero {
 	private VehiculosController vehiculosController;
 	private PagosController pagosController;
@@ -16,7 +18,8 @@ public class Parqueadero {
 	private int cuposCamion;
 	
 	public Parqueadero(String nombre, String direccion, String representante, String telefono, String email,
-			int cuposAutos, int cuposMotos, int cuposCamiones) {
+			int cuposAutos, int cuposMotos, int cuposCamiones, int tarifaA1, int tarifaA2, int tarifaA3, int tarifaA4,
+			int tarifaM1, int tarifaM2, int tarifaM3, int tarifaM4, int tarifaC1, int tarifaC2, int tarifaC3, int tarifaC4) {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.representante = representante;
@@ -28,14 +31,22 @@ public class Parqueadero {
 		this.vehiculosController= new VehiculosController(this);
 		this.pagosController= new PagosController(this);
 		this.clientesController= new ClientesController(this);
-		//**Preguntar si esta es la manera de hacerlo, o como funcionarian
-		// * estos controladores en el programa* 
-		// 
+		TarifaService.setTarifaAutomovil(0, tarifaA1);
+		TarifaService.setTarifaAutomovil(1, tarifaA2);
+		TarifaService.setTarifaAutomovil(2, tarifaA3);
+		TarifaService.setTarifaAutomovil(3, tarifaA4);
+		TarifaService.setTarifaMoto(0, tarifaM1);
+		TarifaService.setTarifaMoto(1, tarifaM2);
+		TarifaService.setTarifaMoto(2, tarifaM3);
+		TarifaService.setTarifaMoto(3, tarifaM4);
+		TarifaService.setTarifaCamion(0, tarifaC1);
+		TarifaService.setTarifaCamion(1, tarifaC2);
+		TarifaService.setTarifaCamion(2, tarifaC3);
+		TarifaService.setTarifaCamion(3, tarifaC4);
 	}
-	
-	
+		
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -43,7 +54,7 @@ public class Parqueadero {
 	}
 
 	public String getDireccion() {
-		return direccion;
+		return this.direccion;
 	}
 
 	public void setDireccion(String direccion) {
@@ -51,7 +62,7 @@ public class Parqueadero {
 	}
 
 	public String getRepresentante() {
-		return representante;
+		return this.representante;
 	}
 
 	public void setRepresentante(String representante) {
@@ -59,7 +70,7 @@ public class Parqueadero {
 	}
 
 	public String getTelefono() {
-		return telefono;
+		return this.telefono;
 	}
 
 	public void setTelefono(String telefono) {
@@ -67,7 +78,7 @@ public class Parqueadero {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -75,7 +86,7 @@ public class Parqueadero {
 	}
 
 	public int getCuposAutomovil() {
-		return cuposAutomovil;
+		return this.cuposAutomovil;
 	}
 
 	public void setCuposAutomovil(int cuposAutos) {
@@ -83,7 +94,7 @@ public class Parqueadero {
 	}
 
 	public int getCuposMoto() {
-		return cuposMoto;
+		return this.cuposMoto;
 	}
 
 	public void setCuposMoto(int cuposMotos) {
@@ -91,22 +102,52 @@ public class Parqueadero {
 	}
 
 	public int getCuposCamion() {
-		return cuposCamion;
+		return this.cuposCamion;
 	}
 
 	public void setCuposCamion(int cuposCamiones) {
 		this.cuposCamion = cuposCamiones;
 	}
 	
-	public void modificarCupos(String tipoVehiculo, int numeroCupos){
+	public VehiculosController getVehiculosController() {
+		return this.vehiculosController;
+	}
+
+	public void setVehiculosController(VehiculosController vehiculosController) {
+		this.vehiculosController = vehiculosController;
+	}
+
+	public PagosController getPagosController() {
+		return this.pagosController;
+	}
+
+	public void setPagosController(PagosController pagosController) {
+		this.pagosController = pagosController;
+	}
+
+	public ClientesController getClientesController() {
+		return this.clientesController;
+	}
+
+	public void setClientesController(ClientesController clientesController) {
+		this.clientesController = clientesController;
+	}
+	
+	/**Método para modificar cupos del parqueadero, solicita a cual vehiculo se le quieren modificar los cupos, 
+	 * se debe hacer esta modificación teniendo en cuenta los cupos que se encuentran ocupados en el parqueadero y restarlos en la modificacion
+	 * @param tipoVehiculo - El tipo de vehiculo del que se desea modificar los cupos (Automovil, Moto, 
+	 * @param numeroCupos
+	 */
+
+	public void modificarCupos(int tipoVehiculo, int numeroCupos){
 		switch (tipoVehiculo) {
-		case "1":
+		case 1:
 			setCuposAutomovil(numeroCupos);
 			break;
-		case "2":
+		case 2:
 			setCuposMoto(numeroCupos);
 			break;
-		case "3":
+		case 3:
 			setCuposCamion(numeroCupos);
 			break;
 		default:
@@ -138,29 +179,12 @@ public class Parqueadero {
 			default:
 				return false;
 			}
-		}
-
-	public VehiculosController getVehiculosController() {
-		return vehiculosController;
 	}
-
-	public void setVehiculosController(VehiculosController vehiculosController) {
-		this.vehiculosController = vehiculosController;
-	}
-
-	public PagosController getPagosController() {
-		return pagosController;
-	}
-
-	public void setPagosController(PagosController pagosController) {
-		this.pagosController = pagosController;
-	}
-
-	public ClientesController getClientesController() {
-		return clientesController;
-	}
-
-	public void setClientesController(ClientesController clientesController) {
-		this.clientesController = clientesController;
+	
+	@Override
+	public String toString() {
+		return "Parqueadero [nombre=" + this.nombre + ", direccion=" + this.direccion + ", representante=" + this.representante
+				+ ", telefono=" + this.telefono + ", email=" + this.email + ", Total Cupos Automovil=" + this.cuposAutomovil + ", Total CuposMoto="
+				+ this.cuposMoto + ", Total Cupos Camion=" + this.cuposCamion + "]";
 	}
 }

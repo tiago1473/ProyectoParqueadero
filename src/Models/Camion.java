@@ -18,7 +18,7 @@ public class Camion extends Vehiculo {
         Duration duracion = Duration.between(getHoraEntrada(), getHoraSalida()); 
         int minutosEstacionado = (int) duracion.toMinutes(); 
         int horasEstacionado = (int) Math.ceil(minutosEstacionado / 60.0); 
-        int valorPago = horasEstacionado * getTarifa().getTarifaCamion();                                                      //Math.ceil trabaja con float, por lo que debo castear el dato
+        int valorPago = horasEstacionado * TarifaService.getTarifaCamion()[0];                                                      //Math.ceil trabaja con float, por lo que debo castear el dato
         return valorPago;
 	}
 }

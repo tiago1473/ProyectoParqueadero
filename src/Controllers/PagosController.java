@@ -11,75 +11,66 @@ import java.util.ArrayList;
 
 import Assets.Categoria;
 
-public class PagosController {
-	private VehiculosController vehiculosController;
-	/**algo parecido como tarifa service preguntar
-	 como hago para que mi pagos controller pueda acceder 
-	 a vehiculos controller* 
-	 */
+public class PagosController {	
 	private ArrayList<Pago> pagos;
-	private TarifaService tarifas;
 	
 	public PagosController (Parqueadero parqueadero) {
 		this.pagos= new ArrayList<>();
-		this.tarifas=null;//todavia no se como va instanciado el tarifa service
 	}
+	
+	public ArrayList<Pago> getPagos() {
+		return this.pagos;
+	}
+
+	public void setPagos(ArrayList<Pago> pagos) {
+		this.pagos = pagos;
+	}
+	
+	public void registrarPago(Pago pago) {
+		this.pagos.add(pago);
+	}
+	
+	public Pago buscarPago(String idPago) {
+		for(Pago pago : this.pagos) {
+			if(pago.getIdPago().equals(idPago)) {
+				return pago;
+			}
+		}
+		return null;
+	}
+	
+	/**Metodo para actualizar las tarifas
+	 * @param tipoVehiculo - tarifa que se quiere actualizar (Automovil, Moto, Camion)
+	 * @param tipoTarifa - tipo de tarifa que se quiere actualizar (hora, anual, trimestral, mensual)
+	 * @param nuevaTarifa - tarifa nueva
+	 * @return true/false
+	 */
 	
 	public boolean actualizarTarifas(int tipoVehiculo, int tipoTarifa, int nuevaTarifa) {
 		switch (tipoVehiculo) {
 		case 1:
-			if (tipoTarifa==1) {
-				tarifas.setTarifaAutomovil(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==2) {
-				tarifas.setAnualAutomovil(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==3) {
-				tarifas.setTrimestralAutomovil(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==4) {
-				tarifas.setMensualAutomovil(nuevaTarifa);
-				return true;
-			}else {
-				return false;
-			}
+			TarifaService.setTarifaAutomovil(tipoTarifa, nuevaTarifa);
+			return true;
 		case 2:
-			if (tipoTarifa==1) {
-				tarifas.setTarifaMoto(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==2) {
-				tarifas.setAnualMoto(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==3) {
-				tarifas.setTrimestralMoto(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==4) {
-				tarifas.setMensualMoto(nuevaTarifa);
-				return true;
-			}else {
-				return false;
-			}
+			TarifaService.setTarifaMoto(tipoTarifa, nuevaTarifa);
+			return true;
 		case 3:
-			if (tipoTarifa==1) {
-				tarifas.setTarifaCamion(tipoTarifa);
-				return true;
-			}else if (tipoTarifa==2) {
-				tarifas.setAnualCamion(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==3) {
-				tarifas.setTrimestralCamion(nuevaTarifa);
-				return true;
-			}else if (tipoTarifa==4) {
-				tarifas.setMensualCamion(nuevaTarifa);
-				return true;
-			}else {
-				return false;
-			}
+			TarifaService.setTarifaCamion(tipoTarifa, nuevaTarifa);
+			return true;
 		default:
 			return false;
 		}
 	}
 	
+	/**Método para registrar el pago de un vehiculo y añadir a la lista de pagos
+	 * @param idPago - Consecutivo a discreción del usuario
+	 * @param tipoVehiculo - Si el vehiculo es automovil, moto o camion
+	 * @param placa
+	 * @param fechaInicio - fecha de entrada o fecha de inicio de membresia
+	 * @param fechaFin - fecha de salida o fecha de fin de membresia
+	 * @param ingreso - Valor del pago por estadia temporal o membresia
+	 * @return true/false
+	 */
 	public boolean registrarPago(String idPago, String tipoVehiculo, String placa, LocalDateTime fechaInicio, 
 			LocalDateTime fechaFin, int ingreso) {
 		Pago pagoEncontrado = buscarPago(idPago);
@@ -91,13 +82,23 @@ public class PagosController {
 		return false;
 	}
 	
-	public String generarFactura(String idPago) { //Primero genero el pago y lo almaceno, de ahí mando el id e imprimo
+	/**Método para generar la factura nuevamente conociendo el id del pago
+	 * @param idPago - Consecutivo a discreción del usuario definido cuando crea la factura por primera vez
+	 * @return String - datos específicos de la factura
+	 */
+	
+	public String generarFactura(String idPago) { 
 		Pago pagoEncontrado = buscarPago(idPago);
 		if (pagoEncontrado != null) {
 			return pagoEncontrado.toString();
 		}
 		return "No hay factura generada para ese vehiculo";
 	}
+	
+	/**Método para obtener el historial de pagos de un vehiculo específico
+	 * @param placa - del vehiculo al que se le quiere conocer el historial de pagos
+	 * @return String - pagos asociados a una placa 
+	 */
 	
 	public String obtenerHistorialPagoVehiculo(String placa) {
 		String mensaje = null;
@@ -109,6 +110,10 @@ public class PagosController {
 		return mensaje;
 	}
 	
+	/**Método para obtener los ingresos totales obtenidos por el parqueadero recorriendo la lista de pagos 
+	 * @return int - Sumatoria del valor de los ingresos generados en el momento en que se corra el método
+	 */
+	
 	public int calcularIngresosTotales() {
 		int ingresoTotal=0;
 		for (Pago pago:this.pagos) {
@@ -117,6 +122,7 @@ public class PagosController {
 		return ingresoTotal;
 	}
 	
+		//OJO REVISAR LA CLASE TARIFA SERVICE QUE CAMBIO ENTONCES ESTE MÉTODO CAMBIA
 	public  int verificarValorPagoMembresia(Vehiculo vehiculo, Categoria categoria) {
 		int valorPagoMembresia = 0;
 		if(vehiculo instanceof Automovil) {
@@ -154,37 +160,6 @@ public class PagosController {
 		}
 		return valorPagoMembresia;
 	}
-
-	public Pago buscarPago(String idPago) {
-		for(Pago pago : this.pagos) {
-			if(pago.getIdPago().equals(idPago)) {
-				return pago;
-			}
-		}
-		return null;
-	}
-
-	public VehiculosController getVehiculosController() {
-		return this.vehiculosController;
-	}
-
-	public void setVehiculosController(VehiculosController vehiculosController) {
-		this.vehiculosController = vehiculosController;
-	}
-
-	public ArrayList<Pago> getPagos() {
-		return this.pagos;
-	}
-
-	public void setPagos(ArrayList<Pago> pagos) {
-		this.pagos = pagos;
-	}
-
-	public TarifaService getTarifas() {
-		return this.tarifas;
-	}
-
-	public void setTarifas(TarifaService tarifas) {
-		this.tarifas = tarifas;
-	}
+	
+	public int verificarValorPagoMembresia(Vehiculo vehiculo, Categoria categoria) 
 }

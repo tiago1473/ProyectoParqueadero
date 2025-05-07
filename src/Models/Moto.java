@@ -21,5 +21,14 @@ public class Moto extends Vehiculo {
         int valorPago = horasEstacionado * TarifaService.getTarifaMoto()[0];                                                                     //Math.ceil trabaja con float, por lo que debo castear el dato
         return valorPago;
 	}
+	
+	public String toString() {
+		return "[MOTO] Placa: " + getPlaca() + "\n" + "Color: " + getColor() + "\n" + "Modelo: " + getModelo()
+				+ "\n" + "Hora Entrada: " + getHoraEntrada() + "\n" +  "Hora Salida: " + getHoraSalida();
+	}
+	
+	public String toStringTemporal() {
+		return "[MOTO] Placa: " + getPlaca() + "\n" + "Hora Entrada: " + getHoraEntrada() + "\n" +  "Hora Salida: " + getHoraSalida();
+	}
 
 }

@@ -5,7 +5,7 @@ public class TarifaService {
 	private static final int[] tarifaMoto=new int[4];
 	private static final int[] tarifaCamion=new int[4];
 	
-	/**Para las tarifas se hacen arreglos de 4 numeros, la primera posicion (0) es la tarifa por hora
+	/**Para las tarifas se hacen arreglos de 4 numeros enteros, la primera posicion (0) es la tarifa por hora
 	 * la segunda posición (1) es la tarifa de la membresia anual, la tercera posición (2) es la membresia
 	 * trimestral y la cuarta posición (3) es la membresia mensual*/
 	

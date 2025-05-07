@@ -60,11 +60,30 @@ public class Main {
 	}
 	
 	public static void validarMenuPrincipal(int opcion) {
-		//FALTA DESARROLLO MENU PRINCIPAL
+		switch (opcion) {
+		case 1:
+			menuIngresarVehiculo();
+			break;
+		case 2:
+			///FALTA EL MENU DE RETIRAR VEHICULO
+			break;
+		case 3:
+			menuGestionarClientes();
+			break;
+		case 4:
+			menuGestionarVehiculos();
+			break;
+		case 5:
+			menuGestionarParqueadero();
+			break;
+		case 6:
+			break;
+		default:
+			mostrarMensaje("No ingreso ninguna opción válida");
+			break;
+		}
 	}
-	
-	
-	
+		
 	//MENU INGRESAR VEHICULO
 	public static void menuIngresarVehiculo() {
 		String menu="(1)Ingreso automovil temporal:\n"
@@ -192,10 +211,6 @@ public class Main {
 		return vehiculoNuevo;
 	}
 	
-	public static void mostrarMensaje(String mensaje) {
-		JOptionPane.showMessageDialog(null, mensaje);
-	}
-	
 	
 	//MENU GESTIONAR AL CLIENTE
 	
@@ -293,6 +308,114 @@ public class Main {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	//MENU PARA GESTION DE CLIENTES
+		
+	public static void menuGestionarClientes() {
+        String menu = "(1) Eliminar Cliente\n"
+                     + "(2) Actualizar Cliente\n"
+                     + "(3) Ver Vehículos de Cliente\n"
+                     + "(4) Ver Clientes con Membresía Activa\n"
+                     + "(5) Volver al Menú Principal";
+
+        int opcion;
+        do {
+            opcion = Integer.parseInt(capturarDato(menu));
+            validarMenuGestionarClientes(opcion);
+        }while (opcion!=5);
+	}
+	
+	public static void validarMenuGestionarClientes(int opcion) {
+		switch (opcion) {
+		case 1:
+			//(1) Eliminar Cliente
+			boolean canEliminar=parqueadero.getClientesController().eliminarCliente(capturarDato("Ingrese la identificación del cliente que desea eliminar: "));
+			mostrarMensaje(canEliminar?"Se eliminó el cliente":"No se pudo eliminar el cliente");
+			break;
+		case 2:
+			//(2) Actualizar Cliente
+			boolean canActualizar=parqueadero.getClientesController().actualizarCliente(capturarDato("Ingrese la identificación del cliente que desea actualizar: "),
+					capturarDato("Ingrese el teléfono actualizado: "), capturarDato("Ingrese el correo actualizado: "));
+			mostrarMensaje(canActualizar?"Se actualizaron los datos del cliente exitosamente":"No se pudo realizar la actualización");
+			break;
+		case 3:
+			//(3) Ver Vehículos de Cliente
+			mostrarMensaje(parqueadero.getClientesController().verVehiculosCliente("Ingrese la identificación del cliente del que desea ver los vehiculos: "));
+			break;
+		case 4:
+			//(4) Ver Clientes con Membresía Activa
+			////NO SE SI ESTE METODO TENGA SENTIDO TENIENDO EN CUENTA
+			
+			break;
+		case 5:
+			//(5) Volver al menú principal
+			menuPrincipal();
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	//MENU PARA GESTION DE VEHICULOS
+	
+	public static void menuGestionarVehiculos() {
+		String menu="(1) Actualizar Datos de Vehiculo con Membresia: \n"
+				+"(2) Actualizar Membresía de un Vehiculo"
+				+"(3) Eliminar Vehiculo Temporal: \n"
+				+"(4) Eliminar Vehiculo con Membresia: \n"
+				+"(5) Ver Vehiculos del Parqueadero: \n"
+				+"(6) Volver al menu principal: \n";
+		int opcion;
+		do {
+			opcion = Integer.parseInt(capturarDato(menu));
+			validarMenuGestionarParqueadero(opcion);
+		}while (opcion !=6);
+	}
+	
+	public static void validarMenuGestionarVehiculos(int opcion) {
+		switch (opcion) {
+		case 1:
+			//(1) Actualizar Datos de Vehiculo con Membresia
+			boolean canActualizar=parqueadero.getVehiculosController().actualizarVehiculo(capturarDato("Ingrese la placa del vehículo que quiere "
+					+ "actualizar: "),capturarDato("Ingrese la placa actualizada: "), capturarDato("Ingrese el color actualizado: "),
+					capturarDato("Ingrese el modelo actualizado: "));
+			mostrarMensaje(canActualizar?"Se actualizaron los datos exitosamente":"No se pudo realizar la actualización");
+			break;
+		case 2:
+			//(2) Actualizar Membresía de un Vehiculo
+			///METODO PENDIENTE HASTA QUE ENTIENDA BIEN EL MANEJO DE LAS FECHAS
+			break;
+		case 3:
+			//(3) Eliminar Vehiculo Temporal
+			boolean canEliminar=parqueadero.getVehiculosController().eliminarVehiculoTemporal(capturarDato("Ingrese la placa del vehículo temporal"
+					+ "que desea eliminar");
+			mostrarMensaje(canEliminar?"Se eliminó el vehículo":"No se pudo eliminar el vehiculo");
+			break;
+		case 4:
+			//(4) Eliminar Vehiculo con Membresia
+			boolean canEliminar2=parqueadero.getVehiculosController().eliminarVehiculoMembresia(capturarDato("Ingrese la placa del vehículo con "
+					+ "membresia que desea eliminar");
+			mostrarMensaje(canEliminar2?"Se eliminó el vehículo":"No se pudo eliminar el vehiculo");
+			break;
+		case 5:
+			//(5) Ver Vehiculos del Parqueadero
+			mostrarMensaje(parqueadero.getVehiculosController().verVehiculos());
+		case 6:
+			//(6) Volver al menú principal
+			menuPrincipal();
+			break;
+		default:
+			mostrarMensaje("No ingreso ninguna opción válida");
+			break;
+		}
+	}
+	
 	//MENU PARA GESTION DE PARQUEADERO
 	
 	public static void menuGestionarParqueadero() {
@@ -305,7 +428,7 @@ public class Main {
 				+"(7) Volver al menú principal:\n";
 		int opcion;
 		do {
-			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+			opcion = Integer.parseInt(capturarDato(menu));
 			validarMenuGestionarParqueadero(opcion);
 		}while (opcion !=7);
 	}
@@ -314,54 +437,57 @@ public class Main {
 		switch (opcion) {
 		case 1:
 			//(1) Actualizar Datos del Parqueadero
-			parqueadero.setNombre(JOptionPane.showInputDialog("Ingrese el nombre del Parqueadero: "));
-			parqueadero.setDireccion(JOptionPane.showInputDialog("Ingrese la dirección del Parqueadero: "));
-			parqueadero.setRepresentante(JOptionPane.showInputDialog("Ingrese el representante del Parqueadero: "));
-			parqueadero.setTelefono(JOptionPane.showInputDialog("Ingrese el teléfono del Parqueadero: "));
-			parqueadero.setEmail(JOptionPane.showInputDialog("Ingrese el email del Parqueadero: "));
-			JOptionPane.showMessageDialog(null,"Se han actualizado exitosamente los datos del Parqueadero");
-			parqueadero.toString();
+			boolean canModificarP=parqueadero.modificarDatosParqueadero(capturarDato("Ingrese el nombre del Parqueadero: "),capturarDato("Ingrese la dirección"
+					+ " del Parqueadero: "),capturarDato("Ingrese el representante del Parqueadero: "),capturarDato("Ingrese el teléfono del Parqueadero: "),
+					capturarDato("Ingrese el email del Parqueadero: "));
+			mostrarMensaje(canModificarP?"Se Actualizaron los datos del Parqueadero":"No se pudieron actualizar los datos");
 			break;
 		case 2:
 			//(2) Actualizar los cupos del Parqueadero
-			parqueadero.modificarCupos(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el tipo de vehiculo al que desea modificarle "
-					+ "los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n")), Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo "
-					+ "cupo: ")));
-			JOptionPane.showMessageDialog(null, "Se han actualizado exitosamente los cupos del Parqueadero");
+			boolean canModificar=parqueadero.modificarCupos(Integer.parseInt(capturarDato("Ingrese el tipo de vehiculo al que desea modificarle "
+					+ "los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n")), Integer.parseInt(capturarDato("Ingrese el nuevo cupo: ")));
+			mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualizar");
 			parqueadero.toString();
 			break;
 		case 3:
 			//(3) Actualizar Tarifas del Parqueadero
-			parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la el vehiculo al que"
-					+ " desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n")),Integer.parseInt(JOptionPane.showInputDialog( 
-					"Ingrese la tarifa que desea cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n")),Integer.parseInt(
-					JOptionPane.showInputDialog("Ingrese el nuevo valor de la tarifa")));
-			JOptionPane.showMessageDialog(null, "Se ha actualizado exitosamente la tarifa del Parqueadero");
+			boolean canActualizar=parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(capturarDato("Ingrese la el vehiculo al que "
+					+ "desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n")),Integer.parseInt(capturarDato( "Ingrese la tarifa que desea "
+					+ "cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n")),Integer.parseInt(capturarDato("Ingrese el nuevo valor de la tarifa")));
+			mostrarMensaje(canActualizar? "Actualización existosa":"No se pudo hacer la actualización");
 			TarifaService.mostrarTarifas();
 			break;
 		case 4:
 			//(4) Generar Facturas con el ID del pago
-			String mensaje=parqueadero.getPagosController().generarFactura(JOptionPane.showInputDialog("Ingrese el ID del Pago: "));
-			JOptionPane.showMessageDialog(null, parqueadero.toString()+"\n"+mensaje);
+			String mensaje=parqueadero.getPagosController().generarFactura(capturarDato("Ingrese el ID del Pago: "));
+			mostrarMensaje(parqueadero.toString()+"\n"+mensaje);
 			break;
 		case 5:
 			//(5) Obtener el historial de pago de un vehículo
-			String mensaje2=parqueadero.getPagosController().obtenerHistorialPagoVehiculo(JOptionPane.showInputDialog("Ingrese la placa de la que desea obtener"
+			String mensaje2=parqueadero.getPagosController().obtenerHistorialPagoVehiculo(capturarDato("Ingrese la placa de la que desea obtener"
 					+ "el historial de pagos"));
-			JOptionPane.showMessageDialog(null, mensaje2);
+			mostrarMensaje(mensaje2);
 			break;
 		case 6:
 			//(6) Calcular los ingresos totales del parqueadero
-			JOptionPane.showMessageDialog(null, "A la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+
-			parqueadero.getPagosController().calcularIngresosTotales());
+			mostrarMensaje("A la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+parqueadero.getPagosController().calcularIngresosTotales());
 			break;
 		case 7:
 			//(7) Volver al menú principal
 			menuPrincipal();
 			break;
 		default:
-			JOptionPane.showMessageDialog(null,"No ingreso ninguna opción válida");
+			mostrarMensaje("No ingreso ninguna opción válida");
 			break;
 		}
 	}
+	
+	public static void mostrarMensaje(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje);
 	}
+	
+	public static String capturarDato(String mensaje) {
+		return JOptionPane.showInputDialog(mensaje);
+	}
+	
+}

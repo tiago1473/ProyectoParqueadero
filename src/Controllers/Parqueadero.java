@@ -133,26 +133,35 @@ public class Parqueadero {
 		this.clientesController = clientesController;
 	}
 	
+	public boolean modificarDatosParqueadero(String nombre, String direccion, String representante, String telefono, String email) {
+		setNombre(nombre);
+		setDireccion(direccion);
+		setRepresentante(representante);
+		setTelefono(telefono);
+		setEmail(email);
+		return true;
+	}
+	
 	/**Método para modificar cupos del parqueadero, solicita a cual vehiculo se le quieren modificar los cupos, 
 	 * se debe hacer esta modificación teniendo en cuenta los cupos que se encuentran ocupados en el parqueadero y restarlos en la modificacion
 	 * @param tipoVehiculo - El tipo de vehiculo del que se desea modificar los cupos (Automovil, Moto, 
 	 * @param numeroCupos
 	 */
 
-	public void modificarCupos(int tipoVehiculo, int numeroCupos){
+	public boolean modificarCupos(int tipoVehiculo, int numeroCupos){
 		switch (tipoVehiculo) {
 		case 1:
 			setCuposAutomovil(numeroCupos);
-			break;
+			return true;
 		case 2:
 			setCuposMoto(numeroCupos);
-			break;
+			return true;
 		case 3:
 			setCuposCamion(numeroCupos);
-			break;
+			return true;
 		default:
 			JOptionPane.showMessageDialog(null, "Opción Inválida");
-			break;
+			return false;
 		}
 	}
 	

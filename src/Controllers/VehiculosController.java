@@ -20,7 +20,11 @@ public class VehiculosController {
 		this.vehiculosMembresia = new ArrayList<>();		
 	}
 	
-	//Puedo hacer que desde el Main me mande el tipo de vehiculo a Registrar por Hora
+	/**Método para registrar vehiculo temporal - sobrecarga de métodos
+	 * @param opcion - tipo de vehiculo (automovil, moto, camión)
+	 * @param placa del vehiculo
+	 * @return true/false
+	 */
 	public boolean registrarVehiculo(int opcion, String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
@@ -42,6 +46,14 @@ public class VehiculosController {
 		return false;
 	}
 	
+	/**Método para registrar vehiculo con membresía - sobrecarga de métodos
+	 * @param opcion - tipo de vehiculo (automovil, moto, camión)
+	 * @param placa del vehiculo
+	 * @param color del vehiculo
+	 * @param modelo del vehiculo
+	 * @param membresia del vehiculo
+	 * @return vehiculo
+	 */
 	public Vehiculo registrarVehiculo(int opcion, String placa, String color, String modelo, Membresia membresia) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
@@ -67,6 +79,22 @@ public class VehiculosController {
 		    return null;
 	}
 	
+	public ArrayList<Vehiculo> getVehiculosHora() {
+		return this.vehiculosHora;
+	}
+
+	public void setVehiculosHora(ArrayList<Vehiculo> vehiculosHora) {
+		this.vehiculosHora = vehiculosHora;
+	}
+
+	public ArrayList<Vehiculo> getVehiculosMembresia() {
+		return this.vehiculosMembresia;
+	}
+
+	public void setVehiculosMembresia(ArrayList<Vehiculo> vehiculosMembresia) {
+		this.vehiculosMembresia = vehiculosMembresia;
+	}
+	
 	public Vehiculo buscarVehiculo(String placa) {
 		for(Vehiculo vehiculo : this.vehiculosHora) {
 			if(vehiculo.getPlaca().equals(placa)) {
@@ -85,20 +113,49 @@ public class VehiculosController {
 		return null;
 	}
 	
-	public ArrayList<Vehiculo> getVehiculosHora() {
-		return this.vehiculosHora;
-	}
-
-	public void setVehiculosHora(ArrayList<Vehiculo> vehiculosHora) {
-		this.vehiculosHora = vehiculosHora;
-	}
-
-	public ArrayList<Vehiculo> getVehiculosMembresia() {
-		return this.vehiculosMembresia;
-	}
-
-	public void setVehiculosMembresia(ArrayList<Vehiculo> vehiculosMembresia) {
-		this.vehiculosMembresia = vehiculosMembresia;
+	public boolean actualizarVehiculo(String placa, String placaNueva, String color, String modelo) {
+		Vehiculo vehiculoHallado = buscarVehiculoMembresia(placa);
+		if(vehiculoHallado != null) {
+			vehiculoHallado.setPlaca(placaNueva);
+			vehiculoHallado.setColor(color);
+			vehiculoHallado.setModelo(modelo);
+			return true;
+		}
+		return false;
 	}
 	
+	///PENDIENTE ESTE METODO PORQUE NO SE BIEN COMO SACAR LAS FECHAS ACTUALIZADAS
+	public boolean actualizarMembresia() {
+		return true;
+	}
+	
+	public boolean eliminarVehiculoTemporal(String placa) {
+		Vehiculo vehiculoHallado = buscarVehiculo(placa);
+		if(vehiculoHallado != null) {
+			this.vehiculosHora.remove(vehiculoHallado);
+			return true;
+		}
+		return false;		
+	}
+	
+	public boolean eliminarVehiculoMembresia(String placa) {
+		Vehiculo vehiculoHallado = buscarVehiculoMembresia(placa);
+		if(vehiculoHallado != null) {
+			this.vehiculosMembresia.remove(vehiculoHallado);
+			return true;
+		}
+		return false;		
+	}
+	
+	public String verVehiculos() {
+		String mensaje="Los vehiculos registrados con membresía son los siguientes: \n";
+		for (Vehiculo v:this.vehiculosMembresia) {
+			mensaje+=v.toString()+"\n";
+		}
+		mensaje+="\nLos vehiculos registrados por hora son los siguientes: \n";
+		for (Vehiculo v:this.vehiculosHora) {
+			mensaje+=v.toStringTemporal();
+		}
+		return mensaje;
+	}
 }

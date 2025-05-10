@@ -5,10 +5,8 @@ import Models.Moto;
 import Models.Pago;
 import Models.TarifaService;
 import Models.Vehiculo;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import Assets.Categoria;
 
 public class PagosController {	
@@ -104,7 +102,7 @@ public class PagosController {
 		String mensaje = null;
 		for(Pago pago: this.pagos) {
 			if (pago.getPlaca().equals(placa)) {
-				mensaje+=pago.toString();
+				mensaje += pago.toString();
 			}
 		}
 		return mensaje;
@@ -115,51 +113,51 @@ public class PagosController {
 	 */
 	
 	public int calcularIngresosTotales() {
-		int ingresoTotal=0;
+		int ingresoTotal = 0;
 		for (Pago pago:this.pagos) {
 			ingresoTotal+=pago.getIngreso();
 		}
 		return ingresoTotal;
 	}
 	
+	
+	
 		//OJO REVISAR LA CLASE TARIFA SERVICE QUE CAMBIO ENTONCES ESTE MÉTODO CAMBIA
-	public  int verificarValorPagoMembresia(Vehiculo vehiculo, Categoria categoria) {
+	public int verificarValorPagoMembresia(Vehiculo vehiculo, Categoria categoria) {
 		int valorPagoMembresia = 0;
 		if(vehiculo instanceof Automovil) {
 			if(categoria.equals(Categoria.ANUAL)) {
-				valorPagoMembresia = tarifas.getAnualAutomovil();
+				valorPagoMembresia = TarifaService.getTarifaAutomovil()[1];
 			}
 			if(categoria.equals(Categoria.TRIMESTRAL)) {
-				valorPagoMembresia = tarifas.getTrimestralAutomovil();
+				valorPagoMembresia = TarifaService.getTarifaAutomovil()[2];
 			}
 			if(categoria.equals(Categoria.MENSUAL)) {
-				valorPagoMembresia = tarifas.getMensualAutomovil();
+				valorPagoMembresia = TarifaService.getTarifaAutomovil()[3];
 			}
 		}
 		if(vehiculo instanceof Moto) {
 			if(categoria.equals(Categoria.ANUAL)) {
-				valorPagoMembresia = tarifas.getAnualMoto();
+				valorPagoMembresia = TarifaService.getTarifaMoto()[1];
 			}
 			if(categoria.equals(Categoria.TRIMESTRAL)) {
-				valorPagoMembresia = tarifas.getTrimestralMoto();
+				valorPagoMembresia = TarifaService.getTarifaMoto()[2];
 			}
 			if(categoria.equals(Categoria.MENSUAL)) {
-				valorPagoMembresia = tarifas.getMensualMoto();
+				valorPagoMembresia = TarifaService.getTarifaMoto()[3];
 			}
 		}
 		if(vehiculo instanceof Camion) {
 			if(categoria.equals(Categoria.ANUAL)) {
-				valorPagoMembresia = tarifas.getAnualCamion();
+				valorPagoMembresia = TarifaService.getTarifaCamion()[1];
 			}
 			if(categoria.equals(Categoria.TRIMESTRAL)) {
-				valorPagoMembresia = tarifas.getTrimestralCamion();
+				valorPagoMembresia = TarifaService.getTarifaCamion()[2];
 			}
 			if(categoria.equals(Categoria.MENSUAL)) {
-				valorPagoMembresia = tarifas.getMensualCamion();
+				valorPagoMembresia = TarifaService.getTarifaCamion()[3];
 			}
 		}
 		return valorPagoMembresia;
 	}
-	
-	public int verificarValorPagoMembresia(Vehiculo vehiculo, Categoria categoria) 
 }

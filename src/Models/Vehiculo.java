@@ -1,8 +1,8 @@
 package Models;
-
 import java.time.LocalDateTime;
 
 public abstract class Vehiculo {
+	
 	private String placa;
 	private String color;
 	private String modelo;

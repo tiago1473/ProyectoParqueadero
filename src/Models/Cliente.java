@@ -56,10 +56,28 @@ public class Cliente {
 	public void agregarVehiculoCliente(Vehiculo vehiculo) {
 		this.vehiculosCliente.add(vehiculo);
 	}
+	
+	public Boolean eliminarVehiculoCliente(String placa) {
+		Vehiculo vehiculoHallado = buscarVehiculoCliente(placa);
+		if(vehiculoHallado != null) {
+			this.vehiculosCliente.remove(vehiculoHallado);
+			return true;
+		}
+		return false;		
+	}
+	
+	public Vehiculo buscarVehiculoCliente(String placa) {
+		for(Vehiculo vehiculo : this.vehiculosCliente) {
+			if(vehiculo.getPlaca().equals(placa)) {
+				return vehiculo;
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public String toString() {
 		return "Nombre: " + this.nombre + "\n" + "Id: " + this.id + "\n" + "Telefono: " + this.telefono + "\n" 
-				+ "Correo: " + this.correo; 
+				+ "Correo: " + this.correo + "\n"; 
 	}
 }

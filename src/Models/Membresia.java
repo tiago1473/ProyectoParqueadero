@@ -10,10 +10,10 @@ public class Membresia {
 	private Categoria categoria;
 	
 	public Membresia(LocalDateTime fechaInicio, LocalDateTime fechaFin, boolean isActiva, Categoria categoria) {
-		this.fechaInicio =fechaInicio;
-		this.fechaFin=fechaFin;
-		this.isActiva=isActiva;
-		this.categoria=categoria;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.isActiva = isActiva;
+		this.categoria = categoria;
 	}
 
 	public LocalDateTime getFechaInicio() {
@@ -32,9 +32,12 @@ public class Membresia {
 		this.fechaFin = fechaFin;
 	}
 
-	public boolean getIsActiva() {
-		return this.isActiva;
-	}
+    public boolean getIsActiva() {  //Compara con la fecha en la que llamo la membresía y modifica
+        if (LocalDateTime.now().isAfter(this.fechaFin)) {  //Osea, que si la fecha actual está "DESÚES" de la fecha fin, es porque la membresía ya venció
+            this.isActiva = false;
+        }
+        return isActiva;
+    }
 
 	public void setActiva(boolean isActiva) {
 		this.isActiva = isActiva;
@@ -46,5 +49,11 @@ public class Membresia {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	@Override
+	public String toString() {
+		return "MEMBRESIA" +"\n" + "Fecha Inicio: " + this.fechaInicio + "\n" + "Fecha Fin: " + this.fechaFin + "IsActiva: " + this.isActiva + "\n" +
+				"Categoria: " + this.categoria;
 	}
 }

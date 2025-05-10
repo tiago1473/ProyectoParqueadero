@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 
 import Models.Automovil;
 import Models.Camion;
-import Models.Cliente;
 import Models.Membresia;
 import Models.Moto;
 import Models.Vehiculo;
@@ -25,6 +24,7 @@ public class VehiculosController {
 	 * @param placa del vehiculo
 	 * @return true/false
 	 */
+	
 	public boolean registrarVehiculo(int opcion, String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {

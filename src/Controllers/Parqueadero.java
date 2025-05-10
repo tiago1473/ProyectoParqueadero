@@ -2,7 +2,11 @@ package Controllers;
 
 import javax.swing.JOptionPane;
 
+import Models.Automovil;
+import Models.Camion;
+import Models.Moto;
 import Models.TarifaService;
+import Models.Vehiculo;
 
 public class Parqueadero {
 	private VehiculosController vehiculosController;
@@ -165,21 +169,34 @@ public class Parqueadero {
 		}
 	}
 	
+	public void liberarCupos(Vehiculo vehiculo) {
+		if (vehiculo instanceof Automovil) { //Auto	
+				this.cuposAutomovil += 1;
+		}
+		if (vehiculo instanceof Moto) { //Auto	
+			this.cuposMoto += 1;
+		}
+		if (vehiculo instanceof Camion) { //Camion	
+			this.cuposCamion+= 1;
+		}	
+	}
+	
+	
 	public boolean verificarCupos(int tipoVehiculo) {
 		switch (tipoVehiculo){
-			case 1:
+			case 1: //Auto
 			case 4:
 				if(getCuposAutomovil()>=1) {		
 					this.cuposAutomovil -= 1;
 					return true;
 				}
-			case 2:
+			case 2: //Moto
 			case 5:
 				if(getCuposMoto()>=1) {				
 					this.cuposMoto -= 1;
 					return true;
 				}
-			case 3:
+			case 3: //Camion
 			case 6:
 				if(getCuposCamion()>=1) {
 					this.cuposCamion -= 1;

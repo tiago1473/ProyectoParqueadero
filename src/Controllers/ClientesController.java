@@ -2,6 +2,7 @@ package Controllers;
 
 import java.util.ArrayList;
 import Models.Cliente;
+import Models.Vehiculo;
 
 public class ClientesController {
 	public ArrayList<Cliente> clientes;
@@ -51,7 +52,7 @@ public class ClientesController {
 	public String verVehiculosCliente(String id) {
 		Cliente clienteHallado = buscarCliente(id);
 		if(clienteHallado != null) {
-			return clienteHallado.getVehiculosCliente().toString();
+			return clienteHallado.getVehiculosCliente().toString(); //Aplicar el toString a una lista Java entiende que la recorre y aplica toString según la instancia de la clase
 		}
 		return "El cliente no existe";
 	}

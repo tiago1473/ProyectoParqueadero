@@ -11,20 +11,16 @@ public class Pago {
 	private int valorPago;
 	
 	public Pago(String idPago, String tipoVehiculo, String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin, int valorPago) {
-		this.idPago=idPago;
-		this.tipoVehiculo=tipoVehiculo;
-		this.placa=placa;
-		this.fechaInicio=fechaInicio;
-		this.fechaFin=fechaFin;
-		this.valorPago=valorPago;
+		this.idPago = idPago;
+		this.tipoVehiculo = tipoVehiculo;
+		this.placa = placa;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.valorPago = valorPago;
 	}
 
 	public String getIdPago() {
 		return this.idPago;
-	}
-
-	public void setIdPago(String idPago) {
-		this.idPago = idPago;
 	}
 
 	public String getTipoVehiculo() {

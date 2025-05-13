@@ -27,10 +27,10 @@ public class Main {
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de motos del parqueadero: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de camiones del parqueadero: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los automoviles en el siguiente orden: Hora: ")),
-			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")), Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de las motos en el siguiente orden: Hora: ")),
-			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")), Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los camiones en el siguiente orden: Hora: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
@@ -65,7 +65,7 @@ public class Main {
 			menuIngresarVehiculo();
 			break;
 		case 2:
-			///FALTA EL MENU DE RETIRAR VEHICULO
+			menuRetirarVehiculo();
 			break;
 		case 3:
 			menuGestionarClientes();
@@ -94,11 +94,21 @@ public class Main {
 				+"(5) Ingreso membresía moto:\n"
 				+"(6) Ingreso membresía camión:\n"
 				+"(7) Volver al menú principal:\n";
-		int opcion;
-		do {
-			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
-			validarMenuIngresarVehiculo(opcion);
-		}while (opcion !=7);
+		int opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+		switch (opcion) {
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+				validarMenuIngresarVehiculo(opcion);
+			case 7:
+				menuPrincipal();
+			default:
+				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
+				validarMenuIngresarVehiculo(opcion);
+		}
 	}
 	
 	public static void validarMenuIngresarVehiculo(int opcion) {
@@ -135,9 +145,9 @@ public class Main {
         String correo = JOptionPane.showInputDialog("Correo: ");
         Cliente clienteCreado = parqueadero.getClientesController().crearCliente(nombre, id, telefono, correo);
         if(clienteCreado != null) {
-        	mostrarMensaje("No fue posible registrar el cliente");
+        	mostrarMensaje("Cliente creado exitosamente");
         }else {
-        	mostrarMensaje("Cliente registrado");
+        	mostrarMensaje("No fue posible registrar el cliente");
         }
         return clienteCreado;
 	}
@@ -150,10 +160,11 @@ public class Main {
 		cliente.agregarVehiculoCliente(vehiculoRegistrado); //Le agrego el vehiculo al cliente
 		Categoria categoriaMembresia = membresia.getCategoria();
 		String idPago = JOptionPane.showInputDialog(null, "Ingrese el Id del Pago de la Membresia");
-		String tipoVehiculo = vehiculoRegistrado.getClass().getName();
+		String tipoVehiculo = vehiculoRegistrado.getClass().getSimpleName(); //getName() me atrae tambien el nombre del paquete donde se cuarda la clase, getSimpleName() solo llama el nombre de la clase
 		int pagoMembresia = parqueadero.getPagosController().verificarValorPagoMembresia(vehiculoRegistrado, categoriaMembresia);
-		parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, membresia.getFechaInicio(), membresia.getFechaFin(), pagoMembresia);
-		parqueadero.getPagosController().generarFactura(idPago); //Genero la factura
+		Boolean canPago = parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, membresia.getFechaInicio(), membresia.getFechaFin(), pagoMembresia);
+		mostrarMensaje(canPago?"Pago registrado exitosamente":"No se pudo registrar el pago");
+		mostrarMensaje(parqueadero.getPagosController().generarFactura(idPago)); //Genero la factura
 	}
 	
 	public static Membresia crearMembresia() {
@@ -191,8 +202,8 @@ public class Main {
                 membresia = Categoria.MENSUAL;  
                 break;
             default:
-                JOptionPane.showMessageDialog(null, "Opción inválida.");
-                break;
+                JOptionPane.showMessageDialog(null, "Opción inválida, intente crear nuevamente la membresia");
+                menuCategoriaMembresia();
         }
         return membresia;
 	}
@@ -215,11 +226,17 @@ public class Main {
 		String menu="(1) Retiro vehiculo temporal:\n"
 					+"(2) Retiro vehiculo con membresia:\n"
 					+"(3) Volver al menú principal:\n";
-		int opcion;
-		do {
-			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
-			validarMenuRetirarVehiculo(opcion);
-		}while (opcion !=3);
+		int opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+		switch (opcion) {
+			case 1:
+			case 2:
+				validarMenuRetirarVehiculo(opcion);
+			case 3:
+				menuPrincipal();
+			default:
+				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
+				validarMenuRetirarVehiculo(opcion);
+		}
 	}
 	
 	public static void validarMenuRetirarVehiculo(int opcion) {
@@ -229,11 +246,12 @@ public class Main {
 				Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculo(placa);
 				if (vehiculoHallado != null) {
 					String idPago = JOptionPane.showInputDialog("Ingrese el Id del pago: ");
-					String tipoVehiculo = vehiculoHallado.getClass().getName();
+					String tipoVehiculo = vehiculoHallado.getClass().getSimpleName();
 					vehiculoHallado.setHoraSalida(LocalDateTime.now()); //Modifico la hora de salida para luego llamarla
 					int valorPago = vehiculoHallado.calcularPagoVehiculo();
-					parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, vehiculoHallado.getHoraEntrada(), vehiculoHallado.getHoraSalida(), valorPago);
-					parqueadero.getPagosController().generarFactura(idPago); //Genero la factura
+					Boolean canPago = parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, vehiculoHallado.getHoraEntrada(), vehiculoHallado.getHoraSalida(), valorPago);
+					mostrarMensaje(canPago?"Pago registrado exitosamente":"No se pudo registrar el pago");
+					mostrarMensaje(parqueadero.getPagosController().generarFactura(idPago)); //Genero la factura
 					parqueadero.liberarCupos(vehiculoHallado); //Libero el cupo según la instancia
 				}
 				break;
@@ -247,6 +265,7 @@ public class Main {
 				break;
 			default:
 				mostrarMensaje("No ingresó ninguna opción válida");
+				menuRetirarVehiculo();
 				break;
 		}
 	}
@@ -258,12 +277,22 @@ public class Main {
                      + "(3) Ver Vehículos de Cliente\n"
                      + "(4) Ver Clientes con Membresía Activa\n"
                      + "(5) Volver al Menú Principal";
-        int opcion;
-        do {
-            opcion = Integer.parseInt(capturarDato(menu));
-            validarMenuGestionarClientes(opcion);
-        }while (opcion!=5);
+     
+        int opcion = Integer.parseInt(capturarDato(menu));
+        switch (opcion) {
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				validarMenuGestionarClientes(opcion);
+			case 5:
+				menuPrincipal();
+			default:
+				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
+				validarMenuGestionarClientes(opcion);
+        }
 	}
+
 	
 	public static void validarMenuGestionarClientes(int opcion) {
 		switch (opcion) {
@@ -312,12 +341,22 @@ public class Main {
 				+"(4) Eliminar Vehiculo con Membresia: \n"
 				+"(5) Ver Vehiculos del Parqueadero: \n"
 				+"(6) Volver al menu principal: \n";
-		int opcion;
-		do {
-			opcion = Integer.parseInt(capturarDato(menu));
-			validarMenuGestionarParqueadero(opcion);
-		}while (opcion !=6);
-	}
+		
+		 int opcion = Integer.parseInt(capturarDato(menu));
+	        switch (opcion) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+					validarMenuGestionarVehiculos(opcion);
+				case 6:
+					menuPrincipal();
+				default:
+					JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
+					validarMenuGestionarVehiculos(opcion);
+	        }
+		}
 	
 	public static void validarMenuGestionarVehiculos(int opcion) {
 		switch (opcion) {
@@ -370,11 +409,22 @@ public class Main {
 				+"(5) Obtener el historial de pago de un vehículo:\n"
 				+"(6) Calcular los ingresos totales del parqueadero:\n"
 				+"(7) Volver al menú principal:\n";
-		int opcion;
-		do {
-			opcion = Integer.parseInt(capturarDato(menu));
-			validarMenuGestionarParqueadero(opcion);
-		}while (opcion !=7);
+		
+		int opcion = Integer.parseInt(capturarDato(menu));
+        switch (opcion) {
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+				validarMenuGestionarParqueadero(opcion);
+			case 7:
+				menuPrincipal();
+			default:
+				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
+				validarMenuGestionarParqueadero(opcion);
+        }
 	}
 	
 	public static void validarMenuGestionarParqueadero(int opcion) {

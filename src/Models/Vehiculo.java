@@ -9,7 +9,6 @@ public abstract class Vehiculo {
 	private LocalDateTime horaEntrada;
 	private LocalDateTime horaSalida;
 	private Membresia membresia;
-	private TarifaService tarifa; //muy probablemente no es así
 	
 	//SOBRECARGA DE MÉTODOS Constructor vehiculo asociado a un cliente (membresia)
 	public Vehiculo(String placa, String color, String modelo, Membresia membresia) {
@@ -79,12 +78,7 @@ public abstract class Vehiculo {
 	public void eliminarMembresia() {
 		this.membresia = null;
 	}
-	
-	public TarifaService getTarifa() {
-		return this.tarifa;
-	}
-	
-	@Override
+
 	public abstract String toString();
 	
 	public abstract String toStringTemporal();

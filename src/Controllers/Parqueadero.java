@@ -145,12 +145,6 @@ public class Parqueadero {
 		setEmail(email);
 		return true;
 	}
-	
-	/**Método para modificar cupos del parqueadero, solicita a cual vehiculo se le quieren modificar los cupos, 
-	 * se debe hacer esta modificación teniendo en cuenta los cupos que se encuentran ocupados en el parqueadero y restarlos en la modificacion
-	 * @param tipoVehiculo - El tipo de vehiculo del que se desea modificar los cupos (Automovil, Moto, 
-	 * @param numeroCupos
-	 */
 
 	public boolean modificarCupos(int tipoVehiculo, int numeroCupos){
 		switch (tipoVehiculo) {
@@ -209,8 +203,12 @@ public class Parqueadero {
 	
 	@Override
 	public String toString() {
-		return "Parqueadero [nombre=" + this.nombre + ", direccion=" + this.direccion + ", representante=" + this.representante
-				+ ", telefono=" + this.telefono + ", email=" + this.email + ", Total Cupos Automovil=" + this.cuposAutomovil + ", Total CuposMoto="
-				+ this.cuposMoto + ", Total Cupos Camion=" + this.cuposCamion + "]";
+		return this.nombre + "\nDireccion=" + this.direccion + "\nRepresentante=" + this.representante + "\nTelefono=" + this.telefono 
+				+ "\nEmail=" + this.email + "\n\n";
+	}
+	
+	public String toStringCupos() {
+		return this.nombre + "\nTotal Cupos Automovil=" + this.cuposAutomovil + "\nTotal Cupos Motos=" + this.cuposMoto + "\n Total Cupos Camion=" 
+				+ this.cuposCamion + "\n\n";
 	}
 }

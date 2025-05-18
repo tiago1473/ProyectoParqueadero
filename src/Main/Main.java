@@ -1,16 +1,11 @@
 package Main;
 
-import Models.Automovil;
-import Models.Camion;
 import Models.Cliente;
 import Models.Membresia;
-import Models.Moto;
 import Models.Pago;
 import Models.TarifaService;
 import Models.Vehiculo;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import Assets.Categoria;
 import Controllers.Parqueadero;
@@ -26,13 +21,13 @@ public class Main {
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de autos del parqueadero: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de motos del parqueadero: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de camiones del parqueadero: ")),
-			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los automoviles en el siguiente orden: Hora: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los automoviles en el siguiente orden: \nHora: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")), Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")),
-			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de las motos en el siguiente orden: Hora: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de las motos en el siguiente orden: \nHora: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")), Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")),
-			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los camiones en el siguiente orden: Hora: ")),
+			Integer.parseInt(JOptionPane.showInputDialog("Ingrese las tarifas de los camiones en el siguiente orden: \nHora: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Anual: ")),Integer.parseInt(JOptionPane.showInputDialog("Trimestral: ")),
 			Integer.parseInt(JOptionPane.showInputDialog("Mensual: ")));		
 	
@@ -270,6 +265,7 @@ public class Main {
 		}
 	}
 	
+	
 	//MENU PARA GESTION DE CLIENTES
 	public static void menuGestionarClientes() {
         String menu = "(1) Eliminar Cliente\n"
@@ -277,20 +273,11 @@ public class Main {
                      + "(3) Ver Vehículos de Cliente\n"
                      + "(4) Ver Clientes con Membresía Activa\n"
                      + "(5) Volver al Menú Principal";
-     
-        int opcion = Integer.parseInt(capturarDato(menu));
-        switch (opcion) {
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-				validarMenuGestionarClientes(opcion);
-			case 5:
-				menuPrincipal();
-			default:
-				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
-				validarMenuGestionarClientes(opcion);
-        }
+        
+        int opcion;
+		do {opcion= Integer.parseInt(capturarDato(menu));
+			validarMenuGestionarClientes(opcion);
+		}while (opcion!=5);
 	}
 
 	
@@ -309,53 +296,35 @@ public class Main {
 			break;
 		case 3:
 			//(3) Ver Vehículos de Cliente
-			mostrarMensaje(parqueadero.getClientesController().verVehiculosCliente("Ingrese la identificación del cliente del que desea ver los vehiculos: "));
+			String mensajeVehiculo=parqueadero.getClientesController().verVehiculosCliente(capturarDato("Ingrese la identificación del cliente del que desea ver los vehiculos: "));
+			mostrarMensaje(mensajeVehiculo);
 			break;
 		case 4:
-			String mensaje = "Los clientes con vehiculos de membresia activa son: ";
-			for(Cliente c : parqueadero.getClientesController().getClientes()) {
-				mensaje += c;
-				for(Vehiculo vehiculo : c.getVehiculosCliente()) {
-					if (vehiculo.getMembresia().getIsActiva()) {
-						mensaje += vehiculo;
-						mensaje += "\n";
-					}
-				}
-			}
-			mostrarMensaje(mensaje);
+			//(4) Ver Clientes con Membresia activa
+			mostrarMensaje(parqueadero.getClientesController().verClientesMembresiaActiva());
 			break;
 		case 5:
 			//(5) Volver al menú principal
 			menuPrincipal();
-			break;
 		default:
 			break;
 		}
 	}
 	
+	
 	//MENU PARA GESTION DE VEHICULOS
 	public static void menuGestionarVehiculos() {
 		String menu="(1) Actualizar Datos de Vehiculo con Membresia: \n"
-				+"(2) Actualizar Membresía de un Vehiculo"
+				+"(2) Actualizar Membresía de un Vehiculo\n"
 				+"(3) Eliminar Vehiculo Temporal: \n"
 				+"(4) Eliminar Vehiculo con Membresia: \n"
 				+"(5) Ver Vehiculos del Parqueadero: \n"
 				+"(6) Volver al menu principal: \n";
 		
-		 int opcion = Integer.parseInt(capturarDato(menu));
-	        switch (opcion) {
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-				case 5:
-					validarMenuGestionarVehiculos(opcion);
-				case 6:
-					menuPrincipal();
-				default:
-					JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
-					validarMenuGestionarVehiculos(opcion);
-	        }
+		int opcion;
+		do {opcion= Integer.parseInt(capturarDato(menu));
+			validarMenuGestionarVehiculos(opcion);
+		}while (opcion!=6);
 		}
 	
 	public static void validarMenuGestionarVehiculos(int opcion) {
@@ -393,12 +362,12 @@ public class Main {
 		case 6:
 			//(6) Volver al menú principal
 			menuPrincipal();
-			break;
 		default:
 			mostrarMensaje("No ingreso ninguna opción válida");
 			break;
 		}
 	}
+	
 	
 	//MENU PARA GESTION DE PARQUEADERO
 	public static void menuGestionarParqueadero() {
@@ -410,27 +379,17 @@ public class Main {
 				+"(6) Calcular los ingresos totales del parqueadero:\n"
 				+"(7) Volver al menú principal:\n";
 		
-		int opcion = Integer.parseInt(capturarDato(menu));
-        switch (opcion) {
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-				validarMenuGestionarParqueadero(opcion);
-			case 7:
-				menuPrincipal();
-			default:
-				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
-				validarMenuGestionarParqueadero(opcion);
-        }
-	}
+		int opcion;
+		do {opcion= Integer.parseInt(capturarDato(menu));
+			validarMenuGestionarParqueadero(opcion);
+		}while (opcion!=7);	      	
+    }
 	
 	public static void validarMenuGestionarParqueadero(int opcion) {
 		switch (opcion) {
 		case 1:
 			//(1) Actualizar Datos del Parqueadero
+			mostrarMensaje("Los datos acuales del parqueadero son: " + parqueadero.toString());
 			boolean canModificarP=parqueadero.modificarDatosParqueadero(capturarDato("Ingrese el nombre del Parqueadero: "),capturarDato("Ingrese la dirección"
 					+ " del Parqueadero: "),capturarDato("Ingrese el representante del Parqueadero: "),capturarDato("Ingrese el teléfono del Parqueadero: "),
 					capturarDato("Ingrese el email del Parqueadero: "));
@@ -438,13 +397,15 @@ public class Main {
 			break;
 		case 2:
 			//(2) Actualizar los cupos del Parqueadero
+			mostrarMensaje("Los cupos actuales de los cupos del Parqueadero son:" + parqueadero.toStringCupos());
 			boolean canModificar=parqueadero.modificarCupos(Integer.parseInt(capturarDato("Ingrese el tipo de vehiculo al que desea modificarle "
 					+ "los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n")), Integer.parseInt(capturarDato("Ingrese el nuevo cupo: ")));
 			mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualizar");
-			parqueadero.toString();
+			parqueadero.toStringCupos();
 			break;
 		case 3:
 			//(3) Actualizar Tarifas del Parqueadero
+			mostrarMensaje("Los datos acuales de las tarifas son: " + TarifaService.mostrarTarifas());
 			boolean canActualizar=parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(capturarDato("Ingrese la el vehiculo al que "
 					+ "desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n")),Integer.parseInt(capturarDato( "Ingrese la tarifa que desea "
 					+ "cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n")),Integer.parseInt(capturarDato("Ingrese el nuevo valor de la tarifa")));
@@ -464,12 +425,15 @@ public class Main {
 			break;
 		case 6:
 			//(6) Calcular los ingresos totales del parqueadero
-			mostrarMensaje("A la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+parqueadero.getPagosController().calcularIngresosTotales());
+			String mensajePagos = "Los pagos registrados son los siguientes: ";
+			for (Pago p:parqueadero.getPagosController().getPagos()) {
+				mensajePagos+=p.toString();
+			}
+			mostrarMensaje(mensajePagos+"\n\nA la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+parqueadero.getPagosController().calcularIngresosTotales());
 			break;
 		case 7:
 			//(7) Volver al menú principal
 			menuPrincipal();
-			break;
 		default:
 			mostrarMensaje("No ingreso ninguna opción válida");
 			break;

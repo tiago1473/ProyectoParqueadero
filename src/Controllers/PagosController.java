@@ -37,13 +37,6 @@ public class PagosController {
 		return null;
 	}
 	
-	/**Metodo para actualizar las tarifas
-	 * @param tipoVehiculo - tarifa que se quiere actualizar (Automovil, Moto, Camion)
-	 * @param tipoTarifa - tipo de tarifa que se quiere actualizar (hora, anual, trimestral, mensual)
-	 * @param nuevaTarifa - tarifa nueva
-	 * @return true/false
-	 */
-	
 	public boolean actualizarTarifas(int tipoVehiculo, int tipoTarifa, int nuevaTarifa) {
 		switch (tipoVehiculo) {
 		case 1:
@@ -60,15 +53,6 @@ public class PagosController {
 		}
 	}
 	
-	/**Método para registrar el pago de un vehiculo y añadir a la lista de pagos
-	 * @param idPago - Consecutivo a discreción del usuario
-	 * @param tipoVehiculo - Si el vehiculo es automovil, moto o camion
-	 * @param placa
-	 * @param fechaInicio - fecha de entrada o fecha de inicio de membresia
-	 * @param fechaFin - fecha de salida o fecha de fin de membresia
-	 * @param ingreso - Valor del pago por estadia temporal o membresia
-	 * @return true/false
-	 */
 	public boolean registrarPago(String idPago, String tipoVehiculo, String placa, LocalDateTime fechaInicio, 
 			LocalDateTime fechaFin, int ingreso) {
 		Pago pagoEncontrado = buscarPago(idPago);
@@ -80,11 +64,6 @@ public class PagosController {
 		return false;
 	}
 	
-	/**Método para generar la factura nuevamente conociendo el id del pago
-	 * @param idPago - Consecutivo a discreción del usuario definido cuando crea la factura por primera vez
-	 * @return String - datos específicos de la factura
-	 */
-	
 	public String generarFactura(String idPago) { 
 		Pago pagoEncontrado = buscarPago(idPago);
 		if (pagoEncontrado != null) {
@@ -93,25 +72,16 @@ public class PagosController {
 		return "No hay factura generada para ese vehiculo";
 	}
 	
-	/**Método para obtener el historial de pagos de un vehiculo específico
-	 * @param placa - del vehiculo al que se le quiere conocer el historial de pagos
-	 * @return String - pagos asociados a una placa 
-	 */
-	
 	public String obtenerHistorialPagoVehiculo(String placa) {
-		String mensaje = null;
+		String mensaje = "El historial de pagos del vehiculo es el siguiente: \n";
 		for(Pago pago: this.pagos) {
 			if (pago.getPlaca().equals(placa)) {
-				mensaje += pago.toString();
+				mensaje += pago.toString()+"\n";
 			}
 		}
 		return mensaje;
 	}
-	
-	/**Método para obtener los ingresos totales obtenidos por el parqueadero recorriendo la lista de pagos 
-	 * @return int - Sumatoria del valor de los ingresos generados en el momento en que se corra el método
-	 */
-	
+		
 	public int calcularIngresosTotales() {
 		int ingresoTotal = 0;
 		for (Pago pago:this.pagos) {
@@ -121,8 +91,6 @@ public class PagosController {
 	}
 	
 	
-	
-		//OJO REVISAR LA CLASE TARIFA SERVICE QUE CAMBIO ENTONCES ESTE MÉTODO CAMBIA
 	public int verificarValorPagoMembresia(Vehiculo vehiculo, Categoria categoria) {
 		int valorPagoMembresia = 0;
 		if(vehiculo instanceof Automovil) {

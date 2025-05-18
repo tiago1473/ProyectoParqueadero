@@ -51,10 +51,26 @@ public class ClientesController {
 	
 	public String verVehiculosCliente(String id) {
 		Cliente clienteHallado = buscarCliente(id);
+		String mensaje="No hay cliente registrado con ese Id";
 		if(clienteHallado != null) {
-			return clienteHallado.getVehiculosCliente().toString(); //Aplicar el toString a una lista Java entiende que la recorre y aplica toString según la instancia de la clase
+			mensaje="Los vehiculos del Cliente "+ clienteHallado.getNombre() + "son: \n";
+			for (Vehiculo v : clienteHallado.getVehiculosCliente()) {
+				mensaje += v.toString()+"n";
+			}
 		}
-		return "El cliente no existe";
+		return mensaje;
+	}
+	
+	public String verClientesMembresiaActiva() {
+		String mensaje = "Los clientes con vehiculos de membresia activa son: ";
+		for(Cliente c : this.clientes) {
+			for(Vehiculo vehiculo : c.getVehiculosCliente()) {
+				if (vehiculo.getMembresia().getIsActiva()) {
+					mensaje += c.getNombre() +" Id: "+ c.getId() + "Vehiculo: " + vehiculo.toString()+"\n";
+				}
+			}
+		}
+		return mensaje;
 	}
 
 	public ArrayList<Cliente> getClientes() {

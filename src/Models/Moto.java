@@ -14,6 +14,7 @@ public class Moto extends Vehiculo {
 	}
 	
 	//Pago Moto Temporal
+	@Override
 	public int calcularPagoVehiculo() {
 		setHoraSalida(LocalDateTime.now()); //Modifico la hora de salida justo en el momento en que se llama al método (hora de salida actual)
         Duration duracion = Duration.between(getHoraEntrada(), getHoraSalida()); //Diferencia entre la hora de entrada y salida
@@ -23,13 +24,15 @@ public class Moto extends Vehiculo {
         return valorPago;
 	}
 	
+	@Override
 	public String toString() {
-		return "[MOTO] Placa: " + getPlaca() + "\n" + "Color: " + getColor() + "\n" + "Modelo: " + getModelo()
-				+ "\n" + "Hora Entrada: " + getHoraEntrada() + "\n" +  "Hora Salida: " + getHoraSalida();
+		return "[MOTO] Placa: " + getPlaca() + " Color: " + getColor() + " Modelo: " + getModelo() + " Hora Entrada: " + getHoraEntrada() 
+		+  " Hora Salida: " + getHoraSalida();
 	}
 	
+	@Override
 	public String toStringTemporal() {
-		return "[MOTO] Placa: " + getPlaca() + "\n" + "Hora Entrada: " + getHoraEntrada() + "\n" +  "Hora Salida: " + getHoraSalida();
+		return "[MOTO] Placa: " + getPlaca() + " Hora Entrada: " + getHoraEntrada()  +  " Hora Salida: " + getHoraSalida();
 	}
 
 }

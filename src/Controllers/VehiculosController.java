@@ -19,12 +19,6 @@ public class VehiculosController {
 		this.vehiculosMembresia = new ArrayList<>();		
 	}
 	
-	/**Método para registrar vehiculo temporal - sobrecarga de métodos
-	 * @param opcion - tipo de vehiculo (automovil, moto, camión)
-	 * @param placa del vehiculo
-	 * @return true/false
-	 */
-	
 	public boolean registrarVehiculo(int opcion, String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
@@ -46,14 +40,6 @@ public class VehiculosController {
 		return false;
 	}
 	
-	/**Método para registrar vehiculo con membresía - sobrecarga de métodos
-	 * @param opcion - tipo de vehiculo (automovil, moto, camión)
-	 * @param placa del vehiculo
-	 * @param color del vehiculo
-	 * @param modelo del vehiculo
-	 * @param membresia del vehiculo
-	 * @return vehiculo
-	 */
 	public Vehiculo registrarVehiculo(int opcion, String placa, String color, String modelo, Membresia membresia) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if (vehiculoHallado == null) {
@@ -124,11 +110,6 @@ public class VehiculosController {
 		return false;
 	}
 	
-	///PENDIENTE ESTE METODO PORQUE NO SE BIEN COMO SACAR LAS FECHAS ACTUALIZADAS
-	public boolean actualizarMembresia() {
-		return true;
-	}
-	
 	public boolean eliminarVehiculoTemporal(String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculo(placa);
 		if(vehiculoHallado != null) {
@@ -154,7 +135,7 @@ public class VehiculosController {
 		}
 		mensaje+="\nLos vehiculos registrados por hora son los siguientes: \n";
 		for (Vehiculo v:this.vehiculosHora) {
-			mensaje+=v.toStringTemporal();
+			mensaje+=v.toStringTemporal()+"\n";
 		}
 		return mensaje;
 	}

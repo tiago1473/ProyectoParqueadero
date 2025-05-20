@@ -89,56 +89,71 @@ public class Main {
 				+"(5) Ingreso membresía moto:\n"
 				+"(6) Ingreso membresía camión:\n"
 				+"(7) Volver al menú principal:\n";
-		int opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+		int opcion;
+		do {
+			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+			validarMenuIngresarVehiculo(opcion);
+		}while (opcion !=7);
+	}
+		
+	public static void validarMenuIngresarVehiculo(int opcion) {
 		switch (opcion) {
 			case 1:
 			case 2:
-			case 3:
+			case 3: {
+				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
+				if (parqueadero.verificarCupos(opcion)) { //Valido que sea temporal y resto el cupo
+					IngresarVehiculoTemporal(opcion, placa);
+				}
+				break;
+			}
 			case 4:
 			case 5:
-			case 6:
-				validarMenuIngresarVehiculo(opcion);
+			case 6: {
+				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
+				Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa); 
+				if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva()){
+					JOptionPane.showMessageDialog(null, "Ingresa vehiculo con membresía activa");
+				}
+				if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva() == false){ //No resto el cupo del vehiculo porque va a pagar la membresia
+					String idCliente = JOptionPane.showInputDialog(null, "Ingrese el Id del cliente");
+					Cliente clienteHallado = parqueadero.getClientesController().buscarCliente(idCliente);
+					parqueadero.getVehiculosController().eliminarVehiculoMembresia(placa); //Elimino el vehiculo del dentro de la lista de vehiculos de vehiculosController
+		            clienteHallado.eliminarVehiculoCliente(placa);                         //Elimino el vehiculo del dentro de la lista de vehiculos del cliente
+		            registrarVehiculoConMembresia(opcion, placa, clienteHallado);
+		        }
+				if (vehiculoHallado == null && parqueadero.verificarCupos(opcion)) { //Aquí ya le resté y validé el cupo
+					String idCliente = JOptionPane.showInputDialog(null, "Ingrese el Id del cliente"); //Busco el cliente si existe y solo le añado el vehiculo, sino, debo crear el cliente
+					Cliente clienteHallado = parqueadero.getClientesController().buscarCliente(idCliente);
+					if (clienteHallado != null) {   
+						registrarVehiculoConMembresia(opcion, placa, clienteHallado);
+					}else {
+						Cliente nuevoCliente = crearCliente(idCliente); // Crea y Agrega el cliente a la lista de clientes
+						registrarVehiculoConMembresia(opcion, placa, nuevoCliente);
+					}
+				}else {
+	                JOptionPane.showMessageDialog(null, "No hay cupos disponibles para este tipo de vehículo.");		
+				}
+				break;
+			}
 			case 7:
-				menuPrincipal();
+				break;
 			default:
-				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
-				validarMenuIngresarVehiculo(opcion);
-		}
-	}
-	
-	public static void validarMenuIngresarVehiculo(int opcion) {
-		String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
-		if (opcion == 1 || opcion == 2 || opcion == 3 && parqueadero.verificarCupos(opcion)) { //Valido que sea temporal y resto el cupo
-			IngresarVehiculoTemporal(opcion, placa);
-		}else if(opcion == 4|| opcion == 5|| opcion == 6) {
-			Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa); 
-			if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva()){
-				JOptionPane.showMessageDialog(null, "Ingresa vehiculo con membresía activa");
-			}else if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva() == false){ //No resto el cupo del vehiculo porque va a pagar la membresia
-				String idCliente = JOptionPane.showInputDialog(null, "Ingrese el Id del cliente");
-				parqueadero.getVehiculosController().eliminarVehiculoMembresia(placa); //Elimino el vehiculo del dentro de la lista de vehiculos de vehiculosController
-				parqueadero.getClientesController().buscarCliente(idCliente).eliminarVehiculoCliente(placa); //Elimino el vehiculo del dentro de la lista de vehiculos del cliente
-				Cliente clienteHallado = parqueadero.getClientesController().buscarCliente(idCliente);
-				registrarVehiculoConMembresia(opcion, placa, clienteHallado);
-			}
-			else if(vehiculoHallado == null && parqueadero.verificarCupos(opcion)) { //Aquí ya le resté y validé el cupo
-				Cliente nuevoCliente = crearCliente(); //Agregar el cliente a la lista de clientes
-				registrarVehiculoConMembresia(opcion, placa, nuevoCliente);
-			}
+	            JOptionPane.showMessageDialog(null, "Opción inválida");
+	            break;
 		}
 	}
 	
 	public static void IngresarVehiculoTemporal(int opcion, String placaTemp) {
 		boolean canCrear = parqueadero.getVehiculosController().registrarVehiculo(opcion, placaTemp);
-		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro");
+		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro, ya existe");
 	}
 	
-	public static Cliente crearCliente() {
+	public static Cliente crearCliente(String idCliente) {
         String nombre = JOptionPane.showInputDialog("Nombre: ");
-        String id = JOptionPane.showInputDialog("Id: ");
         String telefono = JOptionPane.showInputDialog("Teléfono: ");
         String correo = JOptionPane.showInputDialog("Correo: ");
-        Cliente clienteCreado = parqueadero.getClientesController().crearCliente(nombre, id, telefono, correo);
+        Cliente clienteCreado = parqueadero.getClientesController().crearCliente(nombre, idCliente, telefono, correo);
         if(clienteCreado != null) {
         	mostrarMensaje("Cliente creado exitosamente");
         }else {
@@ -221,19 +236,13 @@ public class Main {
 		String menu="(1) Retiro vehiculo temporal:\n"
 					+"(2) Retiro vehiculo con membresia:\n"
 					+"(3) Volver al menú principal:\n";
-		int opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
-		switch (opcion) {
-			case 1:
-			case 2:
-				validarMenuRetirarVehiculo(opcion);
-			case 3:
-				menuPrincipal();
-			default:
-				JOptionPane.showMessageDialog(null, "No ingresó una opción válida");	
-				validarMenuRetirarVehiculo(opcion);
-		}
+		int opcion;
+		do {
+			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+			validarMenuRetirarVehiculo(opcion);
+		}while(opcion !=2);
 	}
-	
+		
 	public static void validarMenuRetirarVehiculo(int opcion) {
 		String placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo: ");
 		switch (opcion) {
@@ -245,9 +254,10 @@ public class Main {
 					vehiculoHallado.setHoraSalida(LocalDateTime.now()); //Modifico la hora de salida para luego llamarla
 					int valorPago = vehiculoHallado.calcularPagoVehiculo();
 					Boolean canPago = parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, vehiculoHallado.getHoraEntrada(), vehiculoHallado.getHoraSalida(), valorPago);
-					mostrarMensaje(canPago?"Pago registrado exitosamente":"No se pudo registrar el pago");
+					mostrarMensaje(canPago?"Pago registrado exitosamente": "No se pudo registrar el pago, ya existe uno con el mismo id");
 					mostrarMensaje(parqueadero.getPagosController().generarFactura(idPago)); //Genero la factura
 					parqueadero.liberarCupos(vehiculoHallado); //Libero el cupo según la instancia
+					parqueadero.getVehiculosController().eliminarVehiculoTemporal(placa);
 				}
 				break;
 			case 2:	
@@ -258,9 +268,10 @@ public class Main {
 					JOptionPane.showMessageDialog(null, "El vehiculo no tiene membresia");
 				}
 				break;
+			case 3:
+				break;
 			default:
-				mostrarMensaje("No ingresó ninguna opción válida");
-				menuRetirarVehiculo();
+				mostrarMensaje("Opción invalida");
 				break;
 		}
 	}
@@ -305,8 +316,9 @@ public class Main {
 			break;
 		case 5:
 			//(5) Volver al menú principal
-			menuPrincipal();
+			break;
 		default:
+			mostrarMensaje("Opción invalida");
 			break;
 		}
 	}
@@ -361,9 +373,9 @@ public class Main {
 			mostrarMensaje(parqueadero.getVehiculosController().verVehiculos());
 		case 6:
 			//(6) Volver al menú principal
-			menuPrincipal();
+			break;
 		default:
-			mostrarMensaje("No ingreso ninguna opción válida");
+			mostrarMensaje("No ingresó ninguna opción válida");
 			break;
 		}
 	}
@@ -433,9 +445,9 @@ public class Main {
 			break;
 		case 7:
 			//(7) Volver al menú principal
-			menuPrincipal();
+			break;
 		default:
-			mostrarMensaje("No ingreso ninguna opción válida");
+			mostrarMensaje("No ingresó ninguna opción válida");
 			break;
 		}
 	}

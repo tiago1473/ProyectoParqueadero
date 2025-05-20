@@ -53,7 +53,7 @@ public class ClientesController {
 		Cliente clienteHallado = buscarCliente(id);
 		String mensaje="No hay cliente registrado con ese Id";
 		if(clienteHallado != null) {
-			mensaje="Los vehiculos del Cliente "+ clienteHallado.getNombre() + "son: \n";
+			mensaje="Los vehiculos del Cliente "+ clienteHallado.getNombre() + " son: \n";
 			for (Vehiculo v : clienteHallado.getVehiculosCliente()) {
 				mensaje += v.toString()+"n";
 			}

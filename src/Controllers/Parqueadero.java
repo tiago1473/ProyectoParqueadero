@@ -184,21 +184,23 @@ public class Parqueadero {
 					this.cuposAutomovil -= 1;
 					return true;
 				}
+				break;
 			case 2: //Moto
 			case 5:
 				if(getCuposMoto()>=1) {				
 					this.cuposMoto -= 1;
 					return true;
 				}
+				break;
 			case 3: //Camion
 			case 6:
 				if(getCuposCamion()>=1) {
 					this.cuposCamion -= 1;
 					return true;
 				}
-			default:
-				return false;
+				break;
 			}
+		return false;
 	}
 	
 	@Override

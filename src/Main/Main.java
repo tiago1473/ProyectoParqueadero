@@ -246,9 +246,10 @@ public class Main {
 	}
 		
 	public static void validarMenuRetirarVehiculo(int opcion) {
-		String placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo: ");
+		String placa;
 		switch (opcion) {
 			case 1:
+				placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo: ");
 				Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculo(placa);
 				if (vehiculoHallado != null) {
 					String idPago = JOptionPane.showInputDialog("Ingrese el Id del pago: ");
@@ -263,6 +264,7 @@ public class Main {
 				}
 				break;
 			case 2:	
+				placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo: ");
 				Vehiculo vehiculoHalladoMembresia = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa);
 				if (vehiculoHalladoMembresia != null) {
 					JOptionPane.showMessageDialog(null, "Sale vehiculo con membresia");

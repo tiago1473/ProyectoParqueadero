@@ -104,6 +104,8 @@ public class Main {
 				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
 				if (parqueadero.verificarCupos(opcion)) { //Valido que sea temporal y resto el cupo
 					IngresarVehiculoTemporal(opcion, placa);
+				}else {
+					JOptionPane.showInternalMessageDialog(null, "No hay cupos para el vehiculo");
 				}
 				break;
 			}
@@ -240,7 +242,7 @@ public class Main {
 		do {
 			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
 			validarMenuRetirarVehiculo(opcion);
-		}while(opcion !=2);
+		}while(opcion !=3);
 	}
 		
 	public static void validarMenuRetirarVehiculo(int opcion) {

@@ -3,7 +3,9 @@ package Models;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class Automovil extends Vehiculo {
+import Interface.CalculadoraPago;
+
+public class Automovil extends Vehiculo implements CalculadoraPago{
 	
 	public Automovil(String placa, String color, String modelo, Membresia membresia) {
 		super(placa, color, modelo, membresia);

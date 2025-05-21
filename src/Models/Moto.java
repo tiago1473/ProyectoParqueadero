@@ -3,7 +3,9 @@ package Models;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class Moto extends Vehiculo {
+import Interface.CalculadoraPago;
+
+public class Moto extends Vehiculo implements CalculadoraPago{
 
 	public Moto(String placa, String color, String modelo, Membresia membresia) {
 		super(placa, color, modelo, membresia);
@@ -34,5 +36,5 @@ public class Moto extends Vehiculo {
 	public String toStringTemporal() {
 		return "[MOTO] Placa: " + getPlaca() + " Hora Entrada: " + getHoraEntrada()  +  " Hora Salida: " + getHoraSalida();
 	}
-
+	
 }

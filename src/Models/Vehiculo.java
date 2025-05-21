@@ -79,9 +79,11 @@ public abstract class Vehiculo {
 		this.membresia = null;
 	}
 
+	@Override
 	public abstract String toString();
 	
 	public abstract String toStringTemporal();
-	
+
 	public abstract int calcularPagoVehiculo();
+	
 }

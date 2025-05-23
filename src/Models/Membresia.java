@@ -35,8 +35,11 @@ public class Membresia {
     public boolean getIsActiva() {  //Compara con la fecha en la que llamo la membresía y modifica
         if (LocalDateTime.now().isAfter(this.fechaFin)) {  //Osea, que si la fecha actual está "DESÚES" de la fecha fin, es porque la membresía ya venció
             this.isActiva = false;
-        }
-        return isActiva;
+            return this.isActiva;
+        }else {
+        	this.isActiva = true;
+        	return this.isActiva;
+        } 
     }
 
 	public void setActiva(boolean isActiva) {

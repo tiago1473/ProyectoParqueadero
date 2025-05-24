@@ -35,18 +35,18 @@ public class Parqueadero {
 		this.vehiculosController= new VehiculosController(this);
 		this.pagosController= new PagosController(this);
 		this.clientesController= new ClientesController(this);
-		TarifaService.setTarifaAutomovil(0, tarifaA1);
-		TarifaService.setTarifaAutomovil(1, tarifaA2);
-		TarifaService.setTarifaAutomovil(2, tarifaA3);
-		TarifaService.setTarifaAutomovil(3, tarifaA4);
-		TarifaService.setTarifaMoto(0, tarifaM1);
-		TarifaService.setTarifaMoto(1, tarifaM2);
-		TarifaService.setTarifaMoto(2, tarifaM3);
-		TarifaService.setTarifaMoto(3, tarifaM4);
-		TarifaService.setTarifaCamion(0, tarifaC1);
-		TarifaService.setTarifaCamion(1, tarifaC2);
-		TarifaService.setTarifaCamion(2, tarifaC3);
-		TarifaService.setTarifaCamion(3, tarifaC4);
+		TarifaService.setTarifaAutomovil(1, tarifaA1);
+		TarifaService.setTarifaAutomovil(2, tarifaA2);
+		TarifaService.setTarifaAutomovil(3, tarifaA3);
+		TarifaService.setTarifaAutomovil(4, tarifaA4);
+		TarifaService.setTarifaMoto(1, tarifaM1);
+		TarifaService.setTarifaMoto(2, tarifaM2);
+		TarifaService.setTarifaMoto(3, tarifaM3);
+		TarifaService.setTarifaMoto(4, tarifaM4);
+		TarifaService.setTarifaCamion(1, tarifaC1);
+		TarifaService.setTarifaCamion(2, tarifaC2);
+		TarifaService.setTarifaCamion(3, tarifaC3);
+		TarifaService.setTarifaCamion(4, tarifaC4);
 	}
 		
 	public String getNombre() {

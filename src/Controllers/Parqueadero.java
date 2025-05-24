@@ -210,7 +210,7 @@ public class Parqueadero {
 	}
 	
 	public String toStringCupos() {
-		return this.nombre + "\nTotal Cupos Automovil=" + this.cuposAutomovil + "\nTotal Cupos Motos=" + this.cuposMoto + "\n Total Cupos Camion=" 
+		return "\nTotal Cupos Automovil =" + this.cuposAutomovil + "\nTotal Cupos Motos =" + this.cuposMoto + "\n Total Cupos Camión =" 
 				+ this.cuposCamion + "\n\n";
 	}
 }

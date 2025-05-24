@@ -21,16 +21,16 @@ public class TarifaService {
 
 	public static void setTarifaAutomovil(int posicion,int tarifaA) {
 		switch (posicion) {
-		case 0:
+		case 1:
 			tarifaAutomovil[0]=tarifaA;
 			break;
-		case 1:
+		case 2:
 			tarifaAutomovil[1]=tarifaA;
 			break;
-		case 2:
+		case 3:
 			tarifaAutomovil[2]=tarifaA;
 			break;
-		case 3:
+		case 4:
 			tarifaAutomovil[3]=tarifaA;
 			break;
 		default:
@@ -44,16 +44,16 @@ public class TarifaService {
 	
 	public static void setTarifaMoto(int posicion,int tarifaM) {
 		switch (posicion) {
-		case 0:
+		case 1:
 			tarifaMoto[0]=tarifaM;
 			break;
-		case 1:
+		case 2:
 			tarifaMoto[1]=tarifaM;
 			break;
-		case 2:
+		case 3:
 			tarifaMoto[2]=tarifaM;
 			break;
-		case 3:
+		case 4:
 			tarifaMoto[3]=tarifaM;
 			break;
 		default:
@@ -67,16 +67,16 @@ public class TarifaService {
 	
 	public static void setTarifaCamion(int posicion,int tarifaC) {
 		switch (posicion) {
-		case 0:
+		case 1:
 			tarifaCamion[0]=tarifaC;
 			break;
-		case 1:
+		case 2:
 			tarifaCamion[1]=tarifaC;
 			break;
-		case 2:
+		case 3:
 			tarifaCamion[2]=tarifaC;
 			break;
-		case 3:
+		case 4:
 			tarifaCamion[3]=tarifaC;
 			break;
 		default:

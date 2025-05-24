@@ -38,6 +38,9 @@ public class PagosController {
 		return null;
 	}
 	
+	/*Método para actualizar tarifas, el tipo de tarifa se le pide al usuario por pantalla, si desea cambiar la tarifa por 
+	 * hora, anual, trimestral o mensual y que tambien mande el valor de la nueva tarifa
+	 */
 	public boolean actualizarTarifas(int tipoVehiculo, int tipoTarifa, int nuevaTarifa) {
 		switch (tipoVehiculo) {
 		case 1:

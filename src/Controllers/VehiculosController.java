@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -61,7 +62,7 @@ public class VehiculosController {
 				return null;
 			}
 		}
-		 JOptionPane.showInternalMessageDialog(null, "No fue posible registrar el vehículo: ya existe");
+		 JOptionPane.showInternalMessageDialog(null, "No fue posible registrar el vehículo, ya existe");
 		    return null;
 	}
 	
@@ -139,4 +140,5 @@ public class VehiculosController {
 		}
 		return mensaje;
 	}
+	
 }

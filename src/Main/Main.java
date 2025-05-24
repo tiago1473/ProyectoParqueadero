@@ -256,6 +256,11 @@ public class Main {
 			case 1:
 				placa = JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
 				Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculo(placa);
+				Vehiculo vehiculoHallado2 = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa);
+				if (vehiculoHallado2 != null) {
+					JOptionPane.showMessageDialog(null, "El vehiculo que intenta retirar es un vehiculo con membresía y no temporal, ingrese la opción correcta");
+					return;
+				}
 				if (vehiculoHallado != null) {
 					String tipoVehiculo = vehiculoHallado.getClass().getSimpleName();
 					vehiculoHallado.setHoraSalida(LocalDateTime.now()); //Modifico la hora de salida para luego llamarla
@@ -311,9 +316,14 @@ public class Main {
 			break;
 		case 2:
 			//(2) Actualizar Cliente
-			boolean canActualizar=parqueadero.getClientesController().actualizarCliente(capturarDato("Ingrese la identificación del cliente que desea actualizar: "),
-					capturarDato("Ingrese el teléfono actualizado: "), capturarDato("Ingrese el correo actualizado: "));
-			mostrarMensaje(canActualizar?"Se actualizaron los datos del cliente exitosamente":"No se pudo realizar la actualización");
+			String id = JOptionPane.showInputDialog("\"Ingrese la identificación del cliente que desea actualizar: ");
+			if (parqueadero.getClientesController().buscarCliente(id) != null) {
+				boolean canActualizar=parqueadero.getClientesController().actualizarCliente(id,
+						capturarDato("Ingrese el teléfono actualizado: "), capturarDato("Ingrese el correo actualizado: "));
+				mostrarMensaje(canActualizar?"Se actualizaron los datos del cliente exitosamente":"No se pudo realizar la actualización");
+			}else {
+				JOptionPane.showMessageDialog(null, "El cliente no existe");
+			}
 			break;
 		case 3:
 			//(3) Ver Vehículos de Cliente

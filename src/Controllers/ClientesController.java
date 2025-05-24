@@ -12,7 +12,7 @@ public class ClientesController {
 	}
 
 	public Cliente crearCliente(String nombre, String id, String telefono, String correo) {
-		Cliente clienteHallado = buscarCliente(id);
+		Cliente clienteHallado = buscarCliente(id.toUpperCase());
 		if (clienteHallado == null) {
 			Cliente nuevoCliente = new Cliente(nombre, id, telefono, correo);
 			this.clientes.add(nuevoCliente);
@@ -22,7 +22,7 @@ public class ClientesController {
 	}
 	
 	public boolean eliminarCliente(String id) {
-		Cliente clienteHallado = buscarCliente(id);
+		Cliente clienteHallado = buscarCliente(id.toUpperCase());
 		if(clienteHallado != null) {
 			this.clientes.remove(clienteHallado);
 			return true;
@@ -40,7 +40,7 @@ public class ClientesController {
 	}
 	
 	public boolean actualizarCliente(String id, String telefono, String correo) {
-		Cliente clienteHallado = buscarCliente(id);
+		Cliente clienteHallado = buscarCliente(id.toUpperCase());
 		if(clienteHallado != null) {
 			clienteHallado.setTelefono(telefono);
 			clienteHallado.setCorreo(correo);
@@ -50,7 +50,7 @@ public class ClientesController {
 	}
 	
 	public String verVehiculosCliente(String id) {
-		Cliente clienteHallado = buscarCliente(id);
+		Cliente clienteHallado = buscarCliente(id.toUpperCase());
 		String mensaje="No hay cliente registrado con ese Id";
 		if(clienteHallado != null) {
 			mensaje="Los vehiculos del cliente "+ clienteHallado.getNombre().toUpperCase() + " son: \n";
@@ -62,7 +62,7 @@ public class ClientesController {
 	}
 	
 	public String verClientesMembresiaActiva() {
-		String mensaje = "Los clientes con vehiculos de membresia activa son: ";
+		String mensaje = "Los clientes con vehiculos de membresia activa son: \n";
 		for(Cliente c : this.clientes) {
 			for(Vehiculo vehiculo : c.getVehiculosCliente()) {
 				if (vehiculo.getMembresia().getIsActiva()) {

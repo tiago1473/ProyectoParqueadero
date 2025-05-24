@@ -445,7 +445,9 @@ public class Main {
 			for (Pago p:parqueadero.getPagosController().getPagos()) {
 				mensajePagos+=p.toString();
 			}
-			mostrarMensaje(mensajePagos+"\n\nA la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+parqueadero.getPagosController().calcularIngresosTotales());
+			mostrarMensaje(mensajePagos+"\n\nA la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+TarifaService.cambiarFormato(parqueadero.getPagosController().calcularIngresosTotales()))
+			
+			;
 			break;
 		case 7:
 			//(7) Volver al menú principal

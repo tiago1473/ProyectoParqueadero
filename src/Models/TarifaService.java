@@ -1,9 +1,12 @@
 package Models;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class TarifaService {
 	private static int[] tarifaAutomovil = new int[4];
 	private static int[] tarifaMoto = new int[4];
 	private static int[] tarifaCamion = new int[4];
+	public static Locale colombia=new Locale("es","CO");
 	
 	/**Para las tarifas se hacen arreglos de 4 numeros enteros, la primera posicion (0) es la tarifa por hora
 	 * la segunda posición (1) es la tarifa de la membresia anual, la tercera posición (2) es la membresia
@@ -81,10 +84,17 @@ public class TarifaService {
 		}
 	}
 	
+	public static String cambiarFormato(int valor) {
+		NumberFormat formatoMoneda=NumberFormat.getCurrencyInstance(colombia);
+		return formatoMoneda.format(valor);
+	}
+	
 	public static String mostrarTarifas() {
 		return "Las tarifas actuales son las siguientes:\n"
-				+"AUTOMOVIL: Hora:"+tarifaAutomovil[0]+", Anual:"+tarifaAutomovil[1]+", Trimestral:"+tarifaAutomovil[2]+", Mensual:"+tarifaAutomovil[3]+"\n"
-				+"MOTO: Hora:"+tarifaMoto[0]+", Anual:"+tarifaMoto[1]+", Trimestral:"+tarifaMoto[2]+", Mensual:"+tarifaMoto[3]+"\n"
-				+"CAMIÓN: Hora:"+tarifaCamion[0]+", Anual:"+tarifaCamion[1]+", Trimestral:"+tarifaCamion[2]+", Mensual:"+tarifaCamion[3];
+				+"AUTOMOVIL: Hora:"+cambiarFormato(tarifaAutomovil[0])+", Anual:"+cambiarFormato(tarifaAutomovil[1])+", Trimestral:"
+				+cambiarFormato(tarifaAutomovil[2])+", Mensual:"+cambiarFormato(tarifaAutomovil[3])+"\n"+"MOTO: Hora:"+cambiarFormato(tarifaMoto[0])
+				+", Anual:"+cambiarFormato(tarifaMoto[1])+", Trimestral:"+cambiarFormato(tarifaMoto[2])+", Mensual:"+cambiarFormato(tarifaMoto[3])+"\n"
+				+"CAMIÓN: Hora:"+cambiarFormato(tarifaCamion[0])+", Anual:"+cambiarFormato(tarifaCamion[1])+", Trimestral:"+cambiarFormato(tarifaCamion[2])
+				+", Mensual:"+cambiarFormato(tarifaCamion[3]);
 	}
 }

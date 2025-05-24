@@ -76,6 +76,6 @@ public class Pago {
 			   "Placa: " + this.placa + "\n" +
 			   "Fecha Inicio: " + fechaInicioFormatted + "\n" +
 			   "Fecha Fin: " + fechaFinFormatted + "\n" +
-			   "Valor del Pago: " + this.valorPago + "\n";
+			   "Valor del Pago: " + TarifaService.cambiarFormato(this.valorPago) + "\n";
 	}
 }

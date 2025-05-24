@@ -20,7 +20,7 @@ public class VehiculosController {
 	}
 	
 	public boolean registrarVehiculo(int opcion, String placa) {
-		Vehiculo vehiculoHallado = buscarVehiculo(placa);
+		Vehiculo vehiculoHallado = buscarVehiculo(placa.toUpperCase());
 		if (vehiculoHallado == null) {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case 1:
@@ -41,7 +41,7 @@ public class VehiculosController {
 	}
 	
 	public Vehiculo registrarVehiculo(int opcion, String placa, String color, String modelo, Membresia membresia) {
-		Vehiculo vehiculoHallado = buscarVehiculo(placa);
+		Vehiculo vehiculoHallado = buscarVehiculo(placa.toUpperCase());
 		if (vehiculoHallado == null) {
 			switch (opcion) { //El Default ya lo trae por defecto en el método de registrarVehiculo de Parqueadero
 			case 4:
@@ -100,7 +100,7 @@ public class VehiculosController {
 	}
 	
 	public boolean actualizarVehiculo(String placa, String placaNueva, String color, String modelo) {
-		Vehiculo vehiculoHallado = buscarVehiculoMembresia(placa);
+		Vehiculo vehiculoHallado = buscarVehiculoMembresia(placa.toUpperCase());
 		if(vehiculoHallado != null) {
 			vehiculoHallado.setPlaca(placaNueva);
 			vehiculoHallado.setColor(color);
@@ -111,7 +111,7 @@ public class VehiculosController {
 	}
 	
 	public boolean eliminarVehiculoTemporal(String placa) {
-		Vehiculo vehiculoHallado = buscarVehiculo(placa);
+		Vehiculo vehiculoHallado = buscarVehiculo(placa.toUpperCase());
 		if(vehiculoHallado != null) {
 			this.vehiculosHora.remove(vehiculoHallado);
 			return true;
@@ -120,7 +120,7 @@ public class VehiculosController {
 	}
 	
 	public boolean eliminarVehiculoMembresia(String placa) {
-		Vehiculo vehiculoHallado = buscarVehiculoMembresia(placa);
+		Vehiculo vehiculoHallado = buscarVehiculoMembresia(placa.toUpperCase());
 		if(vehiculoHallado != null) {
 			this.vehiculosMembresia.remove(vehiculoHallado);
 			return true;

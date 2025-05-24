@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import Assets.Categoria;
 
+
 public class PagosController {	
 	private ArrayList<Pago> pagos;
 	
@@ -61,7 +62,7 @@ public class PagosController {
 	}
 	
 	public String generarFactura(String idPago) { 
-		Pago pagoEncontrado = buscarPago(idPago);
+		Pago pagoEncontrado = buscarPago(idPago.toUpperCase());
 		if (pagoEncontrado != null) {
 			return pagoEncontrado.toString();
 		}

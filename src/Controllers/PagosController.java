@@ -53,15 +53,11 @@ public class PagosController {
 		}
 	}
 	
-	public boolean registrarPago(String idPago, String tipoVehiculo, String placa, LocalDateTime fechaInicio, 
+	public Pago registrarPago(String tipoVehiculo, String placa, LocalDateTime fechaInicio, 
 			LocalDateTime fechaFin, int ingreso) {
-		Pago pagoEncontrado = buscarPago(idPago);
-		if (pagoEncontrado == null) {
-			Pago pago = new Pago(idPago,tipoVehiculo,placa,fechaInicio,fechaFin,ingreso);
+			Pago pago = new Pago(tipoVehiculo,placa,fechaInicio,fechaFin,ingreso);
 			this.pagos.add(pago);
-			return true;
-		}
-		return false;
+			return pago;
 	}
 	
 	public String generarFactura(String idPago) { 

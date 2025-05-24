@@ -1,6 +1,8 @@
 package Models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import Assets.Categoria;
 
 public class Membresia {
@@ -33,7 +35,7 @@ public class Membresia {
 	}
 
     public boolean getIsActiva() {  //Compara con la fecha en la que llamo la membresía y modifica
-        if (LocalDateTime.now().isAfter(this.fechaFin)) {  //Osea, que si la fecha actual está "DESÚES" de la fecha fin, es porque la membresía ya venció
+        if (LocalDateTime.now().isAfter(this.fechaFin)) {  //Osea, que si la fecha actual está "DESPÚES" de la fecha fin, es porque la membresía ya venció
             this.isActiva = false;
             return this.isActiva;
         }else {
@@ -56,7 +58,10 @@ public class Membresia {
 
 	@Override
 	public String toString() {
-		return "MEMBRESIA" +"\n" + "Fecha Inicio: " + this.fechaInicio + "\n" + "Fecha Fin: " + this.fechaFin + "IsActiva: " + this.isActiva + "\n" +
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Me permite darle formato especificado a las fechas
+		String fechaInicioFormatted = this.fechaInicio.format(formatter);
+		String fechaFinFormatted = this.fechaFin.format(formatter);
+		return "MEMBRESIA" +"\n" + "Fecha Inicio: " + fechaInicioFormatted + "\n" + "Fecha Fin: " + fechaFinFormatted + "\n" + "IsActiva: " + this.isActiva + "\n" +
 				"Categoria: " + this.categoria;
 	}
 }

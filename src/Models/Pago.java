@@ -1,6 +1,6 @@
 package Models;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Pago {
 	private String idPago;
@@ -9,9 +9,11 @@ public class Pago {
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
 	private int valorPago;
+	public static int valorId = 1;  //Propia de la clase
 	
-	public Pago(String idPago, String tipoVehiculo, String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin, int valorPago) {
-		this.idPago = idPago;
+	public Pago(String tipoVehiculo, String placa, LocalDateTime fechaInicio, LocalDateTime fechaFin, int valorPago) {
+		this.idPago = "FDV" + valorId ;
+		valorId += 1;
 		this.tipoVehiculo = tipoVehiculo;
 		this.placa = placa;
 		this.fechaInicio = fechaInicio;
@@ -65,8 +67,15 @@ public class Pago {
 
 	@Override
 	public String toString() {
-		return "Id Pago: " + this.idPago + "\n" + "Tipo Vehiculo: " + this.tipoVehiculo.toUpperCase() + "\n"+
-				"Fecha Inicio: " + this.fechaInicio + "\n" + "Fecha Fin: " + this.fechaFin + "\n" + 
-				 "Valor del Pago: " + this.valorPago;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Me permite darle formato especificado a las fechas
+		String fechaInicioFormatted = this.fechaInicio.format(formatter);
+		String fechaFinFormatted = this.fechaFin.format(formatter);
+
+		return "\n"+ "Id Pago: " + this.idPago + "\n" +
+			   "Tipo Vehiculo: " + this.tipoVehiculo.toUpperCase() + "\n" +
+			   "Placa: " + this.placa + "\n" +
+			   "Fecha Inicio: " + fechaInicioFormatted + "\n" +
+			   "Fecha Fin: " + fechaFinFormatted + "\n" +
+			   "Valor del Pago: " + this.valorPago + "\n";
 	}
 }

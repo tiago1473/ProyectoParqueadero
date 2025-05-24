@@ -53,9 +53,9 @@ public class ClientesController {
 		Cliente clienteHallado = buscarCliente(id);
 		String mensaje="No hay cliente registrado con ese Id";
 		if(clienteHallado != null) {
-			mensaje="Los vehiculos del Cliente "+ clienteHallado.getNombre() + " son: \n";
+			mensaje="Los vehiculos del cliente "+ clienteHallado.getNombre().toUpperCase() + " son: \n";
 			for (Vehiculo v : clienteHallado.getVehiculosCliente()) {
-				mensaje += v.toString()+"n";
+				mensaje += v.toString()+ "\n";
 			}
 		}
 		return mensaje;
@@ -66,7 +66,7 @@ public class ClientesController {
 		for(Cliente c : this.clientes) {
 			for(Vehiculo vehiculo : c.getVehiculosCliente()) {
 				if (vehiculo.getMembresia().getIsActiva()) {
-					mensaje += c.getNombre() +" Id: "+ c.getId() + "Vehiculo: " + vehiculo.toString()+"\n";
+					mensaje += c.getNombre() + ", Id: "+ c.getId() + ", Vehiculo: " + vehiculo.toString()+ "\n";
 				}
 			}
 		}

@@ -83,8 +83,8 @@ public class TarifaService {
 	
 	public static String mostrarTarifas() {
 		return "Las tarifas actuales son las siguientes:\n"
-				+"AUTOMOVIL: Hora:"+tarifaAutomovil[0]+" Anual:"+tarifaAutomovil[1]+" Trimestral:"+tarifaAutomovil[2]+" Mensual:"+tarifaAutomovil[3]+"\n"
-				+"MOTO: Hora:"+tarifaMoto[0]+" Anual:"+tarifaMoto[1]+" Trimestral:"+tarifaMoto[2]+" Mensual:"+tarifaMoto[3]+"\n"
-				+"CAMION: Hora:"+tarifaCamion[0]+" Anual:"+tarifaCamion[1]+" Trimestral:"+tarifaCamion[2]+" Mensual:"+tarifaCamion[3];
+				+"AUTOMOVIL: Hora:"+tarifaAutomovil[0]+", Anual:"+tarifaAutomovil[1]+", Trimestral:"+tarifaAutomovil[2]+", Mensual:"+tarifaAutomovil[3]+"\n"
+				+"MOTO: Hora:"+tarifaMoto[0]+", Anual:"+tarifaMoto[1]+", Trimestral:"+tarifaMoto[2]+", Mensual:"+tarifaMoto[3]+"\n"
+				+"CAMIÓN: Hora:"+tarifaCamion[0]+", Anual:"+tarifaCamion[1]+", Trimestral:"+tarifaCamion[2]+", Mensual:"+tarifaCamion[3];
 	}
 }

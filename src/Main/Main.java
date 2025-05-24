@@ -41,10 +41,10 @@ public class Main {
 	//MENU PRINCIPAL DEL USUARIO
 	
 	public static void menuPrincipal() {
-		String menu="(1) Ingresar Vehiculo:\n"
-				+"(2) Dar Salida a Vehiculo:\n"
+		String menu="(1) Ingresar Vehículo:\n"
+				+"(2) Dar Salida a Vehículo:\n"
 				+"(3) Gestionar Clientes:\n"
-				+"(4) Gestionar Vehiculos:\n"
+				+"(4) Gestionar Vehículos:\n"
 				+"(5) Gestionar Parqueadero:\n"
 				+"(6) Salir:\n";
 		int opcion;
@@ -82,13 +82,13 @@ public class Main {
 		
 	//MENU INGRESAR VEHICULO
 	public static void menuIngresarVehiculo() {
-		String menu="(1) Ingreso automovil temporal:\n"
-				+"(2) Ingreso moto temporal:\n"
-				+"(3) Ingreso camión temporal:\n"
-				+"(4) Ingreso membresía automovil:\n"
-				+"(5) Ingreso membresía moto:\n"
-				+"(6) Ingreso membresía camión:\n"
-				+"(7) Volver al menú principal:\n";
+		String menu="(1) Ingreso Automovil Temporal:\n"
+				+"(2) Ingreso Moto Temporal:\n"
+				+"(3) Ingreso Camión Temporal:\n"
+				+"(4) Ingreso Membresía Automovil:\n"
+				+"(5) Ingreso Membresía Moto:\n"
+				+"(6) Ingreso Membresía Camión:\n"
+				+"(7) Volver al Menú Principal:\n";
 		int opcion;
 		do {
 			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
@@ -105,7 +105,7 @@ public class Main {
 				if (parqueadero.verificarCupos(opcion)) { //Valido que sea temporal y resto el cupo
 					IngresarVehiculoTemporal(opcion, placa);
 				}else {
-					JOptionPane.showInternalMessageDialog(null, "No hay cupos para el vehiculo");
+					JOptionPane.showInternalMessageDialog(null, "No hay cupos para el vehículo");
 				}
 				break;
 			}
@@ -115,7 +115,7 @@ public class Main {
 				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
 				Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa); 
 				if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva()){
-					JOptionPane.showMessageDialog(null, "Ingresa vehiculo con membresía activa");
+					JOptionPane.showMessageDialog(null, "Ingresa vehículo con membresía activa");
 				}
 				if (vehiculoHallado != null && vehiculoHallado.getMembresia().getIsActiva() == false){ //No resto el cupo del vehiculo porque va a pagar la membresia
 					String idCliente = JOptionPane.showInputDialog(null, "Ingrese el Id del cliente");
@@ -148,7 +148,7 @@ public class Main {
 	
 	public static void IngresarVehiculoTemporal(int opcion, String placaTemp) {
 		boolean canCrear = parqueadero.getVehiculosController().registrarVehiculo(opcion, placaTemp);
-		mostrarMensaje(canCrear? "Registro existoso":"No se pudo hacer el registro, ya existe");
+		mostrarMensaje(canCrear? "Registro exitoso":"No se pudo hacer el registro, ya existe el vehículo");
 	}
 	
 	public static Cliente crearCliente(String idCliente) {
@@ -165,18 +165,17 @@ public class Main {
 	}
 	
 	private static void registrarVehiculoConMembresia(int opcion, String placa, Cliente cliente) {
-		String color = JOptionPane.showInputDialog("Ingrese el color del vehiculo: ");
-		String modelo = JOptionPane.showInputDialog("Ingrese el modelo del vehiculo: ");
+		String color = JOptionPane.showInputDialog("Ingrese el color del vehículo: ");
+		String modelo = JOptionPane.showInputDialog("Ingrese el modelo del vehículo: ");
 		Membresia membresia = crearMembresia();
 		Vehiculo vehiculoRegistrado = crearVehiculoMembresia(opcion, placa, color, modelo, membresia); //Añade el vehiculo a la lista de vehiculosMembresia
 		cliente.agregarVehiculoCliente(vehiculoRegistrado); //Le agrego el vehiculo al cliente
 		Categoria categoriaMembresia = membresia.getCategoria();
-		String idPago = JOptionPane.showInputDialog(null, "Ingrese el Id del Pago de la Membresia");
 		String tipoVehiculo = vehiculoRegistrado.getClass().getSimpleName(); //getName() me atrae tambien el nombre del paquete donde se cuarda la clase, getSimpleName() solo llama el nombre de la clase
 		int pagoMembresia = parqueadero.getPagosController().verificarValorPagoMembresia(vehiculoRegistrado, categoriaMembresia);
-		Boolean canPago = parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, membresia.getFechaInicio(), membresia.getFechaFin(), pagoMembresia);
-		mostrarMensaje(canPago?"Pago registrado exitosamente":"No se pudo registrar el pago");
-		mostrarMensaje(parqueadero.getPagosController().generarFactura(idPago)); //Genero la factura
+		Pago pago = parqueadero.getPagosController().registrarPago(tipoVehiculo, placa, membresia.getFechaInicio(), membresia.getFechaFin(), pagoMembresia);
+		JOptionPane.showMessageDialog(null, "Pago registrado exitosamente");
+		mostrarMensaje(parqueadero.getPagosController().generarFactura(pago.getIdPago())); //Genero la factura
 	}
 	
 	public static Membresia crearMembresia() {
@@ -214,7 +213,7 @@ public class Main {
                 membresia = Categoria.MENSUAL;  
                 break;
             default:
-                JOptionPane.showMessageDialog(null, "Opción inválida, intente crear nuevamente la membresia");
+                JOptionPane.showMessageDialog(null, "Opción inválida, intente crear nuevamente la membresía");
                 menuCategoriaMembresia();
         }
         return membresia;
@@ -235,9 +234,9 @@ public class Main {
 	
 	//MENU RETIRO VEHICULO
 	public static void menuRetirarVehiculo() {
-		String menu="(1) Retiro vehiculo temporal:\n"
-					+"(2) Retiro vehiculo con membresia:\n"
-					+"(3) Volver al menú principal:\n";
+		String menu="(1) Retiro Vehículo Temporal:\n"
+					+"(2) Retiro Vehículo con Membresía:\n"
+					+"(3) Volver al Menú Principal:\n";
 		int opcion;
 		do {
 			opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
@@ -249,27 +248,26 @@ public class Main {
 		String placa;
 		switch (opcion) {
 			case 1:
-				placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo: ");
+				placa = JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
 				Vehiculo vehiculoHallado = parqueadero.getVehiculosController().buscarVehiculo(placa);
 				if (vehiculoHallado != null) {
-					String idPago = JOptionPane.showInputDialog("Ingrese el Id del pago: ");
 					String tipoVehiculo = vehiculoHallado.getClass().getSimpleName();
 					vehiculoHallado.setHoraSalida(LocalDateTime.now()); //Modifico la hora de salida para luego llamarla
 					int valorPago = vehiculoHallado.calcularPagoVehiculo();
-					Boolean canPago = parqueadero.getPagosController().registrarPago(idPago, tipoVehiculo, placa, vehiculoHallado.getHoraEntrada(), vehiculoHallado.getHoraSalida(), valorPago);
-					mostrarMensaje(canPago?"Pago registrado exitosamente": "No se pudo registrar el pago, ya existe uno con el mismo id");
-					mostrarMensaje(parqueadero.getPagosController().generarFactura(idPago)); //Genero la factura
+					Pago pago = parqueadero.getPagosController().registrarPago(tipoVehiculo, placa, vehiculoHallado.getHoraEntrada(), vehiculoHallado.getHoraSalida(), valorPago);
+					JOptionPane.showMessageDialog(null, "Pago registrado exitosamente");
+					mostrarMensaje(parqueadero.getPagosController().generarFactura(pago.getIdPago())); //Genero la factura
 					parqueadero.liberarCupos(vehiculoHallado); //Libero el cupo según la instancia
 					parqueadero.getVehiculosController().eliminarVehiculoTemporal(placa);
 				}
 				break;
 			case 2:	
-				placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo: ");
+				placa = JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
 				Vehiculo vehiculoHalladoMembresia = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa);
 				if (vehiculoHalladoMembresia != null) {
-					JOptionPane.showMessageDialog(null, "Sale vehiculo con membresia");
+					JOptionPane.showMessageDialog(null, "Sale vehículo con membresía");
 				}else {
-					JOptionPane.showMessageDialog(null, "El vehiculo no tiene membresia");
+					JOptionPane.showMessageDialog(null, "El vehículo no tiene membresia");
 				}
 				break;
 			case 3:
@@ -330,12 +328,12 @@ public class Main {
 	
 	//MENU PARA GESTION DE VEHICULOS
 	public static void menuGestionarVehiculos() {
-		String menu="(1) Actualizar Datos de Vehiculo con Membresia: \n"
-				+"(2) Actualizar Membresía de un Vehiculo\n"
+		String menu="(1) Actualizar Datos de Vehiculo con Membresía: \n"
+				+"(2) Ver Estado Membresía de un Vehículo\n"
 				+"(3) Eliminar Vehiculo Temporal: \n"
-				+"(4) Eliminar Vehiculo con Membresia: \n"
+				+"(4) Eliminar Vehiculo con Membresía: \n"
 				+"(5) Ver Vehiculos del Parqueadero: \n"
-				+"(6) Volver al menu principal: \n";
+				+"(6) Volver al Menú Principal: \n";
 		
 		int opcion;
 		do {opcion= Integer.parseInt(capturarDato(menu));
@@ -354,23 +352,25 @@ public class Main {
 			break;
 		case 2:
 			//(2) Actualizar Membresía de un Vehiculo
-			String placa = JOptionPane.showInputDialog("Ingrese la placa del vehiculo a actualizar membresía");
+			String placa = JOptionPane.showInputDialog("Ingrese la placa del vehículo a actualizar membresía: ");
 			Vehiculo vehiculoHalladoMembresia = parqueadero.getVehiculosController().buscarVehiculoMembresia(placa);
 			if(vehiculoHalladoMembresia != null) {
 				vehiculoHalladoMembresia.getMembresia().getIsActiva(); //Actualiza la membresía
-				JOptionPane.showConfirmDialog(null, vehiculoHalladoMembresia.getMembresia());
+				JOptionPane.showMessageDialog(null, vehiculoHalladoMembresia.getMembresia());
+			}else {
+				JOptionPane.showMessageDialog(null, "Vehículo no encontrado, verifique la placa ingresada");
 			}
 			break;
 		case 3:
 			//(3) Eliminar Vehiculo Temporal
 			boolean canEliminar=parqueadero.getVehiculosController().eliminarVehiculoTemporal(capturarDato("Ingrese la placa del vehículo temporal que desea eliminar"));
-			mostrarMensaje(canEliminar?"Se eliminó el vehículo":"No se pudo eliminar el vehiculo");
+			mostrarMensaje(canEliminar?"Se eliminó el vehículo":"No se pudo eliminar el vehículo");
 			break;
 		case 4:
 			//(4) Eliminar Vehiculo con Membresia
 			boolean canEliminar2=parqueadero.getVehiculosController().eliminarVehiculoMembresia(capturarDato("Ingrese la placa del vehículo con "
 					+ "membresia que desea eliminar"));
-			mostrarMensaje(canEliminar2?"Se eliminó el vehículo":"No se pudo eliminar el vehiculo");
+			mostrarMensaje(canEliminar2?"Se eliminó el vehículo":"No se pudo eliminar el vehículo");
 			break;
 		case 5:
 			//(5) Ver Vehiculos del Parqueadero
@@ -388,12 +388,12 @@ public class Main {
 	//MENU PARA GESTION DE PARQUEADERO
 	public static void menuGestionarParqueadero() {
 		String menu="(1) Actualizar Datos del Parqueadero:\n"
-				+"(2) Actualizar los cupos del Parqueadero: \n"
+				+"(2) Actualizar los Cupos del Parqueadero: \n"
 				+"(3) Actualizar Tarifas del Parqueadero:\n"
-				+"(4) Generar Facturas con el ID del pago:\n"
-				+"(5) Obtener el historial de pago de un vehículo:\n"
-				+"(6) Calcular los ingresos totales del parqueadero:\n"
-				+"(7) Volver al menú principal:\n";
+				+"(4) Generar Facturas con el ID del Pago:\n"
+				+"(5) Obtener el Historial de Pago de un Vehículo:\n"
+				+"(6) Calcular los Ingresos Totales del Parqueadero:\n"
+				+"(7) Volver al Menú Principal:\n";
 		
 		int opcion;
 		do {opcion= Integer.parseInt(capturarDato(menu));
@@ -409,7 +409,7 @@ public class Main {
 			boolean canModificarP=parqueadero.modificarDatosParqueadero(capturarDato("Ingrese el nombre del Parqueadero: "),capturarDato("Ingrese la dirección"
 					+ " del Parqueadero: "),capturarDato("Ingrese el representante del Parqueadero: "),capturarDato("Ingrese el teléfono del Parqueadero: "),
 					capturarDato("Ingrese el email del Parqueadero: "));
-			mostrarMensaje(canModificarP?"Se Actualizaron los datos del Parqueadero":"No se pudieron actualizar los datos");
+			mostrarMensaje(canModificarP?"Se actualizaron los datos del parqueadero":"No se pudieron actualizar los datos");
 			break;
 		case 2:
 			//(2) Actualizar los cupos del Parqueadero
@@ -422,7 +422,7 @@ public class Main {
 		case 3:
 			//(3) Actualizar Tarifas del Parqueadero
 			mostrarMensaje("Los datos acuales de las tarifas son: " + TarifaService.mostrarTarifas());
-			boolean canActualizar=parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(capturarDato("Ingrese la el vehiculo al que "
+			boolean canActualizar=parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(capturarDato("Ingrese el vehiculo al que "
 					+ "desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n")),Integer.parseInt(capturarDato( "Ingrese la tarifa que desea "
 					+ "cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n")),Integer.parseInt(capturarDato("Ingrese el nuevo valor de la tarifa")));
 			mostrarMensaje(canActualizar? "Actualización existosa":"No se pudo hacer la actualización");

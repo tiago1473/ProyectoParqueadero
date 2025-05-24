@@ -2,6 +2,7 @@ package Models;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import Interface.CalculadoraPago;
 
@@ -28,12 +29,16 @@ public class Automovil extends Vehiculo implements CalculadoraPago{
 	
 	@Override
 	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Me permite darle formato especificado a las fechas
+		String fechaInicioFormatted = getHoraEntrada().format(formatter);
 		return "[AUTOMOVIL] Placa: " + getPlaca() + " Color: " + getColor() + " Modelo: " + getModelo()
-				+" Hora Entrada: " + getHoraEntrada() +  " Hora Salida: " + getHoraSalida();
+				+" Hora Entrada: " + fechaInicioFormatted +  " Hora Salida: " + getHoraSalida();
 	}
 	
 	@Override
 	public String toStringTemporal() {
-		return "[AUTOMOVIL] Placa: " + getPlaca() + " Hora Entrada: " + getHoraEntrada() + " Hora Salida: " + getHoraSalida();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Me permite darle formato especificado a las fechas
+		String fechaInicioFormatted = getHoraEntrada().format(formatter);
+		return "[AUTOMOVIL] Placa: " + getPlaca() + " Hora Entrada: " + fechaInicioFormatted + " Hora Salida: " + getHoraSalida();
 	}
 }

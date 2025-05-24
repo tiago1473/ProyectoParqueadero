@@ -413,7 +413,7 @@ public class Main {
 			break;
 		case 2:
 			//(2) Actualizar los cupos del Parqueadero
-			mostrarMensaje("Los cupos actuales de los cupos del Parqueadero son:" + parqueadero.toStringCupos());
+			mostrarMensaje("Los cupos actuales del parqueadero " + parqueadero.getNombre() + " son: " + parqueadero.toStringCupos());
 			boolean canModificar=parqueadero.modificarCupos(Integer.parseInt(capturarDato("Ingrese el tipo de vehiculo al que desea modificarle "
 					+ "los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n")), Integer.parseInt(capturarDato("Ingrese el nuevo cupo: ")));
 			mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualizar");

@@ -196,6 +196,15 @@ public class Parqueadero {
 		}	
 	}
 	
+	public boolean hayCuposDisponibles(int opcion) {
+	    switch (opcion) {
+	        case 1: return this.cuposDisponiblesAutomovil > 0;
+	        case 2: return this.cuposDisponiblesMoto > 0;
+	        case 3: return this.cuposDisponiblesCamion > 0;
+	        default: return false;
+	    }
+	}
+	
 	
 	public boolean verificarCupos(int tipoVehiculo) {
 		switch (tipoVehiculo){

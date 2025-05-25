@@ -100,10 +100,16 @@ public class Main {
 			case 2:
 			case 3: {
 				String placa= JOptionPane.showInputDialog("Ingrese la placa del vehículo: ");
-				if (parqueadero.verificarCupos(opcion)) { //Valido que sea temporal y resto el cupo
-					IngresarVehiculoTemporal(opcion, placa);
+				if (parqueadero.hayCuposDisponibles(opcion)) { //validamos si hay cupo
+					boolean registrado = parqueadero.getVehiculosController().registrarVehiculo(opcion, placa);
+					 if (registrado) {
+						 parqueadero.verificarCupos(opcion);
+					     mostrarMensaje("Registro exitoso");
+					 }else {
+					     mostrarMensaje("No se pudo hacer el registro, ya existe el vehículo");
+					 }
 				}else {
-					JOptionPane.showInternalMessageDialog(null, "No hay cupos para el vehículo");
+					JOptionPane.showMessageDialog(null, "No hay cupos para el vehículo");
 				}
 				break;
 			}
@@ -289,7 +295,6 @@ public class Main {
 		}
 	}
 	
-	
 	//MENU PARA GESTION DE CLIENTES
 	public static void menuGestionarClientes() {
         String menu = "(1) Eliminar Cliente\n"
@@ -340,7 +345,6 @@ public class Main {
 			break;
 		}
 	}
-	
 	
 	//MENU PARA GESTION DE VEHICULOS
 	public static void menuGestionarVehiculos() {

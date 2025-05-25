@@ -33,8 +33,6 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(null, parqueadero.toString());
-		JOptionPane.showMessageDialog(null, TarifaService.mostrarTarifas());
 		menuPrincipal();
 	}
 	
@@ -405,68 +403,90 @@ public class Main {
 	
 	//MENU PARA GESTION DE PARQUEADERO
 	public static void menuGestionarParqueadero() {
-		String menu="(1) Actualizar Datos del Parqueadero:\n"
-				+"(2) Actualizar los Cupos del Parqueadero: \n"
-				+"(3) Actualizar Tarifas del Parqueadero:\n"
-				+"(4) Generar Facturas con el ID del Pago:\n"
-				+"(5) Obtener el Historial de Pago de un Vehículo:\n"
-				+"(6) Calcular los Ingresos Totales del Parqueadero:\n"
-				+"(7) Volver al Menú Principal:\n";
+		String menu="(1) Ver Datos, Cupos y Tarifas Actuales: \n"
+				+ "(2) Actualizar Datos del Parqueadero:\n"
+				+"(3) Actualizar los Cupos del Parqueadero: \n"
+				+"(4) Actualizar Tarifas del Parqueadero:\n"
+				+"(5) Generar Facturas con el ID del Pago:\n"
+				+"(6) Obtener el Historial de Pago de un Vehículo:\n"
+				+"(7) Calcular los Ingresos Totales del Parqueadero:\n"
+				+"(8) Volver al Menú Principal:\n";
 		
 		int opcion;
 		do {opcion= Integer.parseInt(capturarDato(menu));
 			validarMenuGestionarParqueadero(opcion);
-		}while (opcion!=7);	      	
+		}while (opcion!=8);	      	
     }
 	
 	public static void validarMenuGestionarParqueadero(int opcion) {
 		switch (opcion) {
 		case 1:
 			//(1) Actualizar Datos del Parqueadero
+			JOptionPane.showMessageDialog(null, parqueadero.toString()+parqueadero.toStringCupos()+TarifaService.mostrarTarifas());
+			break;
+		case 2:
+			//(2) Actualizar Datos del Parqueadero
 			mostrarMensaje("Los datos acuales del parqueadero son: " + parqueadero.toString());
 			boolean canModificarP=parqueadero.modificarDatosParqueadero(capturarDato("Ingrese el nombre del Parqueadero: "),capturarDato("Ingrese la dirección"
 					+ " del Parqueadero: "),capturarDato("Ingrese el representante del Parqueadero: "),capturarDato("Ingrese el teléfono del Parqueadero: "),
 					capturarDato("Ingrese el email del Parqueadero: "));
 			mostrarMensaje(canModificarP?"Se actualizaron los datos del parqueadero":"No se pudieron actualizar los datos");
 			break;
-		case 2:
-			//(2) Actualizar los cupos del Parqueadero
-			mostrarMensaje("Los cupos actuales del parqueadero " + parqueadero.getNombre() + " son: " + parqueadero.toStringCupos());
-			boolean canModificar=parqueadero.modificarCupos(Integer.parseInt(capturarDato("Ingrese el tipo de vehiculo al que desea modificarle "
-					+ "los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n")), Integer.parseInt(capturarDato("Ingrese el nuevo cupo: ")));
-			mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualizar");
-			parqueadero.toStringCupos();
-			break;
 		case 3:
-			//(3) Actualizar Tarifas del Parqueadero
-			mostrarMensaje("Los datos acuales de las tarifas son: " + TarifaService.mostrarTarifas());
-			boolean canActualizar=parqueadero.getPagosController().actualizarTarifas(Integer.parseInt(capturarDato("Ingrese el vehiculo al que "
-					+ "desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n")),Integer.parseInt(capturarDato( "Ingrese la tarifa que desea "
-					+ "cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n")),Integer.parseInt(capturarDato("Ingrese el nuevo valor de la tarifa")));
-			mostrarMensaje(canActualizar? "Actualización existosa":"No se pudo hacer la actualización");
-			TarifaService.mostrarTarifas();
+			//(3) Actualizar los cupos del Parqueadero
+			mostrarMensaje("Los cupos actuales del parqueadero " + parqueadero.getNombre() + " son: " + parqueadero.toStringCupos());
+			int tipoVehiculo=Integer.parseInt(capturarDato("Ingrese el tipo de vehiculo al que desea modificarle los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n"));
+			if (tipoVehiculo==1||tipoVehiculo==2||tipoVehiculo==3) {
+				boolean canModificar=parqueadero.modificarCupos(tipoVehiculo, Integer.parseInt(capturarDato("Ingrese el nuevo cupo: ")));
+				mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualizar");
+				parqueadero.toStringCupos();
+			}else {
+				mostrarMensaje("No ingreso una opción válida");
+			}
 			break;
 		case 4:
-			//(4) Generar Facturas con el ID del pago
-			String mensaje=parqueadero.getPagosController().generarFactura(capturarDato("Ingrese el ID del Pago: "));
-			mostrarMensaje(parqueadero.toString()+"\n"+mensaje);
+			//(4) Actualizar Tarifas del Parqueadero
+			mostrarMensaje("Los datos acuales de las tarifas son: " + TarifaService.mostrarTarifas());
+			int tipoV=Integer.parseInt(capturarDato("Ingrese el vehiculo al que desea cambiarle la tarifa\n(1) Automovil\n(2) Moto\n(3) Camion\n"));
+			int tipoTarifa=Integer.parseInt(capturarDato( "Ingrese la tarifa que desea cambiar\n(1) Hora\n(2) Anual\n(3) Trimestral\n(4) Mensual\n"));
+			if ((tipoV==1||tipoV==2||tipoV==3)&&(tipoTarifa==1||tipoTarifa==2||tipoTarifa==3||tipoTarifa==4)) {
+				boolean canActualizar=parqueadero.getPagosController().actualizarTarifas(tipoV,tipoTarifa,Integer.parseInt(capturarDato("Ingrese el nuevo valor de la tarifa")));
+				mostrarMensaje(canActualizar? "Actualización existosa":"No se pudo hacer la actualización");
+				TarifaService.mostrarTarifas();
+			}else {
+				mostrarMensaje("No ingreso una opción válida");
+			}
 			break;
 		case 5:
-			//(5) Obtener el historial de pago de un vehículo
-			String mensaje2=parqueadero.getPagosController().obtenerHistorialPagoVehiculo(capturarDato("Ingrese la placa de la que desea obtener"
-					+ "el historial de pagos"));
-			mostrarMensaje(mensaje2);
+			//(5) Generar Facturas con el ID del pago
+			String idPago=capturarDato("Ingrese el ID del Pago: ");
+			if (parqueadero.getPagosController().buscarPago(idPago)!=null) {
+				String mensaje=parqueadero.getPagosController().generarFactura(idPago);
+				mostrarMensaje(parqueadero.toString()+"\n"+mensaje);
+			}else {
+				mostrarMensaje("No existe factura generada para ese ID de Pago");
+			}
+			
 			break;
 		case 6:
-			//(6) Calcular los ingresos totales del parqueadero
+			//(6) Obtener el historial de pago de un vehículo
+			String placa =capturarDato("Ingrese la placa del vehiculo que desea obtener el historial de pagos: ");
+			if (parqueadero.getVehiculosController().buscarVehiculo(placa)!=null||parqueadero.getVehiculosController().buscarVehiculoMembresia(placa)!=null) {
+				mostrarMensaje(parqueadero.getPagosController().obtenerHistorialPagoVehiculo(placa));
+			}else {
+				mostrarMensaje("No existe historial de pagos registrado para ese vehiculo");
+			}
+			break;
+		case 7:
+			//(7) Calcular los ingresos totales del parqueadero
 			String mensajePagos = "Los pagos registrados son los siguientes: ";
 			for (Pago p:parqueadero.getPagosController().getPagos()) {
 				mensajePagos+=p.toString();
 			}
 			mostrarMensaje(mensajePagos+"\n\nA la fecha el parqueadero a generado los siguientes ingresos en pesos colombianos:\n"+TarifaService.cambiarFormato(parqueadero.getPagosController().calcularIngresosTotales()));
 			break;
-		case 7:
-			//(7) Volver al menú principal
+		case 8:
+			//(8) Volver al menú principal
 			break;
 		default:
 			mostrarMensaje("No ingresó ninguna opción válida");

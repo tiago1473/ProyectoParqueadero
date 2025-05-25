@@ -69,7 +69,7 @@ public class PagosController {
 		if (pagoEncontrado != null) {
 			return pagoEncontrado.toString();
 		}
-		return "No hay factura generada para ese vehiculo";
+		return "No hay factura generada con ese ID de pago";
 	}
 	
 	public String obtenerHistorialPagoVehiculo(String placa) {

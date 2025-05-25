@@ -156,26 +156,26 @@ public class Parqueadero {
 		switch (tipoVehiculo) {
 		case 1:
 			if (nuevoTotal < (this.cuposAutomovil - this.cuposDisponiblesAutomovil)) { //Osea, el nuevo que le mando no puede ser menor a lo que ya tengo demandado, es decir, si tengo 10 cupos totales (por ahora) y tengo 6 disponibles, ese nuevo total no puede ser menor a 4 porque son 4 que ya estan parqueados
-				JOptionPane.showMessageDialog(null, "No puede establecer un cupo menor al número de vehículos ya parqueados.");
+				JOptionPane.showMessageDialog(null, "No puede establecer un cupo menor al número de vehículos ya parqueados");
 				return false;
 			}
-			this.cuposDisponiblesAutomovil += (nuevoTotal - this.cuposAutomovil); //Porqur son los nuevos que estoy agregando
+			this.cuposDisponiblesAutomovil += (nuevoTotal - this.cuposAutomovil); //Porque son los nuevos que estoy agregando
 			this.cuposAutomovil = nuevoTotal;
 			return true;
 		case 2:
 			if (nuevoTotal < (this.cuposMoto - this.cuposDisponiblesMoto)) { //Osea, el nuevo que le mando no puede ser menor a lo que ya tengo demandado, es decir, si tengo 10 cupos totales (por ahora) y tengo 6 disponibles, ese nuevo total no puede ser menor a 4 porque son 4 que ya estan parqueados
-				JOptionPane.showMessageDialog(null, "No puede establecer un cupo menor al número de vehículos ya parqueados.");
+				JOptionPane.showMessageDialog(null, "No puede establecer un cupo menor al número de vehículos ya parqueados");
 				return false;
 			}
-			this.cuposDisponiblesMoto += (nuevoTotal - this.cuposAutomovil); //Porqur son los nuevos que estoy agregando
+			this.cuposDisponiblesMoto += (nuevoTotal - this.cuposMoto); //Porque son los nuevos que estoy agregando
 			this.cuposMoto = nuevoTotal;
 			return true;
 		case 3:
 			if (nuevoTotal < (this.cuposCamion - this.cuposDisponiblesCamion)) { //Osea, el nuevo que le mando no puede ser menor a lo que ya tengo demandado, es decir, si tengo 10 cupos totales (por ahora) y tengo 6 disponibles, ese nuevo total no puede ser menor a 4 porque son 4 que ya estan parqueados
-				JOptionPane.showMessageDialog(null, "No puede establecer un cupo menor al número de vehículos ya parqueados.");
+				JOptionPane.showMessageDialog(null, "No puede establecer un cupo menor al número de vehículos ya parqueados");
 				return false;
 			}
-			this.cuposDisponiblesCamion += (nuevoTotal - this.cuposAutomovil); //Porqur son los nuevos que estoy agregando
+			this.cuposDisponiblesCamion += (nuevoTotal - this.cuposCamion); //Porque son los nuevos que estoy agregando
 			this.cuposCamion = nuevoTotal;
 			return true;
 		default:
@@ -257,7 +257,7 @@ public class Parqueadero {
 	public String toStringCupos() {
 		return "\nTotal Cupos Automovil =" + this.cuposAutomovil + "\nTotal Cupos Motos =" + this.cuposMoto + "\n Total Cupos Camión =" 
 				+ this.cuposCamion + "\n\n"
-				+"\nTotal Cupos Disponibles Automovil =" + this.cuposDisponiblesAutomovil + "\nTotal Cupos Motos =" + this.cuposDisponiblesMoto + "\n Total Cupos Camión =" 
+				+"\nTotal Cupos Disponibles Automovil =" + this.cuposDisponiblesAutomovil + "\nTotal Disponibles Cupos Motos =" + this.cuposDisponiblesMoto + "\n Total Disponibles Cupos Camión =" 
 				+ this.cuposDisponiblesCamion + "\n\n";
 	}
 }

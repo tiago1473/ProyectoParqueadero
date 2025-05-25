@@ -57,7 +57,7 @@ public class Cliente {
 		this.vehiculosCliente.add(vehiculo);
 	}
 	
-	public Boolean eliminarVehiculoCliente(String placa) {
+	public boolean eliminarVehiculoCliente(String placa) {
 		Vehiculo vehiculoHallado = buscarVehiculoCliente(placa);
 		if(vehiculoHallado != null) {
 			this.vehiculosCliente.remove(vehiculoHallado);

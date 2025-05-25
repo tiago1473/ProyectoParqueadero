@@ -438,10 +438,10 @@ public class Main {
 			int tipoVehiculo=Integer.parseInt(capturarDato("Ingrese el tipo de vehiculo al que desea modificarle los cupos\n(1) Automovil\n(2) Moto\n(3) Camion\n"));
 			if (tipoVehiculo==1||tipoVehiculo==2||tipoVehiculo==3) {
 				boolean canModificar=parqueadero.modificarCupos(tipoVehiculo, Integer.parseInt(capturarDato("Ingrese el nuevo cupo: ")));
-				mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualizar");
+				mostrarMensaje(canModificar?"Se han actualizado exitosamente los cupos del Parqueadero":"No se pudo hacer la actualización");
 				parqueadero.toStringCupos();
 			}else {
-				mostrarMensaje("No ingreso una opción válida");
+				mostrarMensaje("No ingresÓ una opción válida");
 			}
 			break;
 		case 4:

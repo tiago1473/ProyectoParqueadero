@@ -31,7 +31,7 @@ public class PagosController {
 	
 	public Pago buscarPago(String idPago) {
 		for(Pago pago : this.pagos) {
-			if(pago.getIdPago().equals(idPago)) {
+			if(pago.getIdPago().equals(idPago.toUpperCase())) {
 				return pago;
 			}
 		}
